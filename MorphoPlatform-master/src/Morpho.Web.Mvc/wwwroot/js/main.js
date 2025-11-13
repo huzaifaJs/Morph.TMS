@@ -1,0 +1,163 @@
+﻿(function ($) {
+    // Notification handler
+    abp.event.on('abp.notifications.received', function (userNotification) {
+        try {
+            abp.notifications.showUiNotifyForUserNotification(userNotification);
+
+            // Desktop notification
+            if (typeof Push !== 'undefined') {
+                var message = 'New notification';
+                if (userNotification.notification && 
+                    userNotification.notification.data && 
+                    userNotification.notification.data.message) {
+                    message = userNotification.notification.data.message;
+                }
+                
+                Push.create("Morpho", {
+                    body: message,
+                    icon: abp.appPath + 'img/logo.png',
+                    timeout: 6000,
+                    onClick: function () {
+                        window.focus();
+                        this.close();
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error handling notification:', error);
+        }
+    });
+
+    // serializeFormToObject plugin for jQuery
+    $.fn.serializeFormToObject = function (camelCased) {
+        camelCased = camelCased || false;
+        // serialize to array
+        var data = $(this).serializeArray();
+
+        // add also disabled items
+        $(':disabled[name]', this).each(function () {
+            data.push({ name: this.name, value: $(this).val() });
+        });
+
+        // map to object
+        var obj = {};
+        data.forEach(function (item) { 
+            obj[item.name] = item.value; 
+        });
+
+        if (camelCased === true) {
+            return convertToCamelCasedObject(obj);
+        }
+
+        return obj;
+    };
+
+    // Configure blockUI
+    if (typeof $.blockUI !== 'undefined') {
+        $.blockUI.defaults.baseZ = 2000;
+    }
+
+    // Configure validator
+    if (typeof $.validator !== 'undefined') {
+        $.validator.setDefaults({
+            highlight: (el) => {
+                $(el).addClass('is-invalid');
+            },
+            unhighlight: (el) => {
+                $(el).removeClass('is-invalid');
+            },
+            errorElement: 'p',
+            errorClass: 'text-danger',
+            errorPlacement: (error, element) => {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    }
+
+    function convertToCamelCasedObject(obj) {
+        var newObj, origKey, newKey, value;
+        if (obj instanceof Array) {
+            return obj.map(value => {
+                if (typeof value === 'object') {
+                    value = convertToCamelCasedObject(value);
+                }
+                return value;
+            });
+        } else {
+            newObj = {};
+            for (origKey in obj) {
+                if (obj.hasOwnProperty(origKey)) {
+                    newKey = (
+                        origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey
+                    ).toString();
+                    value = obj[origKey];
+                    if (
+                        value instanceof Array ||
+                        (value !== null && value.constructor === Object)
+                    ) {
+                        value = convertToCamelCasedObject(value);
+                    }
+                    newObj[newKey] = value;
+                }
+            }
+        }
+        return newObj;
+    }
+
+    function initAdvSearch() {
+        $('.abp-advanced-search').each((i, obj) => {
+            var $advSearch = $(obj);
+            setAdvSearchDropdownMenuWidth($advSearch);
+            setAdvSearchStopingPropagations($advSearch);
+        });
+    }
+
+    initAdvSearch();
+
+    $(window).resize(() => {
+        clearTimeout(window.resizingFinished);
+        window.resizingFinished = setTimeout(() => {
+            initAdvSearch();
+        }, 500);
+    });
+
+    function setAdvSearchDropdownMenuWidth($advSearch) {
+        var advSearchWidth = 0;
+        $advSearch.each((i, obj) => {
+            advSearchWidth += parseInt($(obj).width(), 10);
+        });
+        $advSearch.find('.dropdown-menu').width(advSearchWidth)
+    }
+
+    function setAdvSearchStopingPropagations($advSearch) {
+        $advSearch.find('.dd-menu, .btn-search, .txt-search')
+            .on('click', (e) => {
+                e.stopPropagation();
+            });
+    }
+
+    $.fn.clearForm = function () {
+        var $this = $(this);
+        $this.validate().resetForm();
+        $('[name]', $this).each((i, obj) => {
+            $(obj).removeClass('is-invalid');
+        });
+        $this[0].reset();
+    };
+
+    //Collect checked values from checkboxes with specified name
+    $.fn.collectCheckedValues = function (checkboxName) {
+        var values = [];
+        var checkedBoxes = this[0].querySelectorAll(`input[name='${checkboxName}']:checked`);
+        
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            values.push($(checkedBoxes[i]).val());
+        }
+        
+        return values;
+    };
+})(jQuery);

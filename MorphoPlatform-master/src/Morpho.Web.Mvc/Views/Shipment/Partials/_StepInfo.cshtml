@@ -1,0 +1,20 @@
+﻿@using Morpho.Web.Models.Shipment
+@model CreateShipmentViewModel
+<div id="step-info" class="step-section">
+    <h3>Shipment Information</h3>
+    <div class="form-group">
+        <label>Shipment Reference</label>
+        <input asp-for="ShipmentReference" class="form-control" />
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Origin</label>
+            <input asp-for="Origin" class="form-control" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Destination</label>
+            <input asp-for="Destination" class="form-control" />
+        </div>
+    </div>
+</div>

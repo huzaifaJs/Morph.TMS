@@ -1,0 +1,181 @@
+name: Build, Test, Migrate, and Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Set to true to run deploy job manually"
+        required: false
+        default: "false"
+
+concurrency:
+  group: morpho-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  POSTGRES_DB: MorphoDb
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: 6954
+  CONNECTION_STRING: "Host=localhost;Database=MorphoDb;Username=postgres;Password=6954"
+  REGISTRY: ghcr.io
+  IMAGE_HOST_NAME: morpho-web-host
+  IMAGE_MVC_NAME: morpho-web-mvc
+  DOCKER_BUILDKIT: '1'
+
+jobs:
+  build_test_migrate:
+    name: Restore, Build, Test, Migrate
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+            POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+            POSTGRES_USER: ${{ env.POSTGRES_USER }}
+            POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          cache: true
+
+      - name: Display dotnet info
+        run: dotnet --info
+
+      - name: Initial restore (allow failure to patch NuGet.Config if MyGet unreachable)
+        id: restore1
+        run: |
+          set -e
+          echo "Attempting restore with existing NuGet.Config"
+          if dotnet restore; then
+            echo "restore_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "restore_status=failed" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Patch NuGet.Config to nuget.org only (retry)
+        if: steps.restore1.outputs.restore_status == 'failed'
+        run: |
+          echo 'Backup original NuGet.Config and write minimal one'
+          cp NuGet.Config NuGet.Config.backup || true
+          cat > NuGet.Config <<'XML'
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+            </packageSources>
+          </configuration>
+          XML
+          dotnet restore
+
+      - name: Build (Release)
+        run: dotnet build --no-restore -c Release
+
+      - name: Run tests (Release)
+        run: dotnet test -c Release --no-build --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: | 
+            **/TestResults/*.trx
+          if-no-files-found: ignore
+
+      - name: Wait for PostgreSQL readiness
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432 -U $POSTGRES_USER; then
+              echo "PostgreSQL is ready"; break
+            fi
+            echo "Waiting for PostgreSQL ($i)"; sleep 2
+          done
+          pg_isready -h localhost -p 5432 -U $POSTGRES_USER
+        env:
+          PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
+
+      - name: Run DB Migrator (non-interactive)
+        working-directory: src/Morpho.Migrator
+        run: |
+          echo Y | dotnet run --configuration Release
+
+      - name: Publish Artifacts (Web.Host)
+        run: dotnet publish src/Morpho.Web.Host/Morpho.Web.Host.csproj -c Release -o publish/host
+
+      - name: Publish Artifacts (Web.Mvc)
+        run: dotnet publish src/Morpho.Web.Mvc/Morpho.Web.Mvc.csproj -c Release -o publish/mvc
+
+      - name: Upload publish artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-binaries
+          path: |
+            publish/host
+            publish/mvc
+
+  docker_build_deploy:
+    name: Build & Push Docker Images
+    needs: build_test_migrate
+    runs-on: ubuntu-latest
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') || 
+      (github.event_name == 'workflow_dispatch' && inputs.deploy == 'true')
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        if: env.REGISTRY == 'ghcr.io'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set image tags
+        id: vars
+        run: |
+          SHA_TAG=${GITHUB_SHA::12}
+          DATE_TAG=$(date +%Y%m%d%H%M%S)
+          echo "host_image=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_HOST_NAME }}:${SHA_TAG}" >> $GITHUB_OUTPUT
+          echo "mvc_image=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_MVC_NAME }}:${SHA_TAG}" >> $GITHUB_OUTPUT
+          echo "host_image_latest=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_HOST_NAME }}:latest" >> $GITHUB_OUTPUT
+          echo "mvc_image_latest=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_MVC_NAME }}:latest" >> $GITHUB_OUTPUT
+
+      - name: Build Web.Host image (root context)
+        run: |
+          docker build -f src/Morpho.Web.Host/Dockerfile -t ${{ steps.vars.outputs.host_image }} -t ${{ steps.vars.outputs.host_image_latest }} .
+
+      - name: Build Web.Mvc image (root context)
+        run: |
+          docker build -f src/Morpho.Web.Mvc/Dockerfile -t ${{ steps.vars.outputs.mvc_image }} -t ${{ steps.vars.outputs.mvc_image_latest }} .
+
+      - name: Push images
+        run: |
+          docker push ${{ steps.vars.outputs.host_image }}
+          docker push ${{ steps.vars.outputs.host_image_latest }}
+          docker push ${{ steps.vars.outputs.mvc_image }}
+          docker push ${{ steps.vars.outputs.mvc_image_latest }}
+
+      - name: Summary
+        run: |
+          echo "Web.Host Image: ${{ steps.vars.outputs.host_image }}" >> $GITHUB_STEP_SUMMARY
+          echo "Web.Mvc  Image: ${{ steps.vars.outputs.mvc_image }}" >> $GITHUB_STEP_SUMMARY

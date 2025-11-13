@@ -1,0 +1,142 @@
+﻿@using Morpho.Web.Models.Shipment
+@model CreateShipmentViewModel
+
+@{
+    ViewData["Title"] = L("CreateShipmentRequest"); // localization key
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#shipmentSteps .nav-link").on("click", function () {
+                var step = $(this).data("step");
+
+                // Active tab UI
+                $("#shipmentSteps .nav-link").removeClass("active");
+                $(this).addClass("active");
+
+                // Hide/Show sections
+                $(".step-section").hide();
+
+                if (step === "info") {
+                    $("#step-info").show();
+                }
+                else if (step === "containers") {
+                    $("#step-containers").show();
+                }
+                else if (step === "devices") {
+                    $("#step-devices").show();
+                }
+            });
+
+        });
+    </script>
+}
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("CreateShipmentRequest")</h1>
+            </div>
+            <div class="col-sm-6">
+                <a href="javascript:;" class="btn btn-default float-sm-right">
+                    <i class="fa fa-pause"></i>
+                </a>&nbsp;&nbsp;&nbsp;
+                <a href="javascript:;" class="btn btn-default float-sm-right">                   
+                    Save as Draft
+                </a>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="shipment-steps mb-4">
+                            <ul class="nav nav-tabs" id="shipmentSteps">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-step="info">Step 1: Info</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-step="containers">Step 2: Containers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-step="devices">Step 3: Devices</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="stepContainerArea">
+                            @await Html.PartialAsync("Partials/_StepInfo", Model)
+                            @await Html.PartialAsync("Partials/_StepContainers")
+                            @await Html.PartialAsync("Partials/_StepDevices")
+                        </div>
+                        @*  <form asp-action="Create" method="post" id="createShipmentForm">
+                            <div class="form-group">
+                                <label>@L("ShipmentReference")</label>
+                                <input asp-for="ShipmentReference" class="form-control" />
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>@L("Origin")</label>
+                                    <input asp-for="Origin" class="form-control" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>@L("Destination")</label>
+                                    <input asp-for="Destination" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">@L("Save")</button>
+                                <a class="btn btn-default" asp-controller="Home" asp-action="Index">@L("Cancel")</a>
+                            </div>
+                        </form> *@
+                    </div>
+                </div>
+
+                <!-- placeholder for device cards -->
+                <div id="deviceList"></div>
+            </div>
+        
+            <div class="col-md-3">
+                <div class="shipment-right-tabs card p-3">
+
+                    <ul class="nav flex-column small font-weight-bold">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-1" href="#section-info">Shipment Info</a>
+                        </li>
+
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-1" href="#section-containers">Containers</a>
+                        </li>
+
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-1" href="#section-devices">Devices</a>
+                        </li>
+
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-1" href="#section-policies">Policies</a>
+                        </li>
+
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-1" href="#section-notes">Notes & Attachments</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</section>
+

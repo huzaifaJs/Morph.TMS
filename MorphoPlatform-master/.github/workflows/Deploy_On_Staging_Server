@@ -1,0 +1,181 @@
+name: CI-CD deply on Stage Server Backend (Windows IIS)
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  DOTNET_VERSION: '8.0.x'   # set to 9.0.x if you target .NET 9
+  WEB_PROJECT: 'src/Morpho.Web.Host/Morpho.Web.Host.csproj'  # update to your actual .csproj
+  MIGRATOR_PROJECT: 'src/Morpho.Migrator/Morpho.Migrator.csproj'  # leave as-is if you don't have one
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      - name: Test
+        run: dotnet test -c Release --no-build
+
+      - name: Publish Web
+        run: dotnet publish $WEB_PROJECT -c Release -o ./out/web
+
+      - name: Publish Migrator (optional)
+        run: |
+          if [ -f "$MIGRATOR_PROJECT" ]; then
+            dotnet publish $MIGRATOR_PROJECT -c Release -o ./out/migrator
+          fi
+
+      - name: Package artifacts
+        run: |
+          sudo apt-get update && sudo apt-get install -y zip
+          (cd out/web && zip -r ../web.zip .)
+          if [ -d "out/migrator" ]; then (cd out/migrator && zip -r ../migrator.zip .); fi
+
+      - name: Upload artifact (web)
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: out/web.zip
+
+      - name: Upload artifact (migrator)
+        if: ${{ hashFiles('out/migrator/*') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: migrator
+          path: out/migrator.zip
+
+  deploy:
+    needs: build
+    runs-on: self-hosted   # your Windows VM runner
+    steps:
+      - name: Download backend
+        uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: C:\Actions\morpho\artifacts
+
+      - name: Download migrator
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: migrator
+          path: C:\Actions\morpho\artifacts
+
+      - name: Ensure 7zip
+        shell: powershell
+        run: |
+          if (-not (Get-Command 7z -ErrorAction SilentlyContinue)) {
+            Set-ExecutionPolicy Bypass -Scope Process -Force
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            iwr https://www.7-zip.org/a/7z2408-x64.exe -OutFile $env:TEMP\7z.exe
+            Start-Process $env:TEMP\7z.exe /S -Wait
+            $env:Path += ";C:\Program Files\7-Zip"
+          }
+
+      - name: Set machine env vars
+        shell: powershell
+        run: |
+          [Environment]::SetEnvironmentVariable("ConnectionStrings__Default","${{ secrets.PROD_CONNECTION_STRING }}","Machine")
+          [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT","Production","Machine")
+
+      - name: Stop site gracefully
+        shell: powershell
+        run: |
+          $root = "C:\inetpub\wwwroot\backend"
+          if (-not (Test-Path $root)) { New-Item -ItemType Directory -Path $root | Out-Null }
+          New-Item -ItemType File -Path "$root\app_offline.htm" -Force | Out-Null
+
+      - name: Deploy backend to IIS folder
+        shell: powershell
+        run: |
+          $zip = "C:\Actions\morpho\artifacts\web.zip"
+          $root = "C:\inetpub\wwwroot\backend"
+          Get-ChildItem $root -Force | Where-Object { $_.Name -notin @('app_offline.htm','web.config') } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+          & 7z x $zip "-o$root" -y | Out-Null
+
+      - name: Ensure web.config binds env vars
+        shell: powershell
+        run: |
+          $webConfig = "C:\inetpub\wwwroot\backend\web.config"
+          if (-not (Test-Path $webConfig)) {
+            @"
+              <?xml version="1.0" encoding="utf-8"?>
+              <configuration>
+                <system.webServer>
+                    <handlers>
+                        <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified"/>
+                    </handlers>
+                  <aspNetCore processPath="dotnet" arguments="Morpho.Web.Host.dll" stdoutLogEnabled="false" hostingModel="InProcess">
+                    <environmentVariables>
+                        <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Production" />
+                        <environmentVariable name="ConnectionStrings__Default" value="" />
+                    </environmentVariables>
+                  </aspNetCore>
+                </system.webServer>
+            </configuration>
+            "@ |
+          Out-File -Encoding utf8 $webConfig    
+          } else {
+          [xml]$xml = Get-Content $webConfig
+            $asp = $xml.configuration.'system.webServer'.aspNetCore
+            if (-not $asp) {
+              $asp = $xml.CreateElement("aspNetCore")
+              $xml.configuration.'system.webServer'.AppendChild($asp) | Out-Null
+              $asp.SetAttribute("processPath","dotnet")
+              $asp.SetAttribute("arguments","Morpho.Web.Host.csproj.dll")
+            }
+            $envNode = $asp.environmentVariables
+            if (-not $envNode) {
+              $envNode = $xml.CreateElement("environmentVariables")
+              $asp.AppendChild($envNode) | Out-Null
+            }
+            function AddOrSet([xml]$x,[xml.xmlElement]$parent,$name,$value) {
+              $n = $parent.SelectSingleNode("environmentVariable[@name='$name']")
+              if (-not $n) { $n = $x.CreateElement("environmentVariable"); $n.SetAttribute("name",$name); $parent.AppendChild($n) | Out-Null }
+              $n.SetAttribute("value",$value)
+            }
+            AddOrSet $xml $envNode "ASPNETCORE_ENVIRONMENT" "Production"
+            AddOrSet $xml $envNode "ConnectionStrings__Default" "${{ secrets.PROD_CONNECTION_STRING }}"
+            $xml.Save($webConfig)
+          }
+
+      - name: Remove app_offline.htm
+        shell: powershell
+        run: |
+          $root = "C:\inetpub\wwwroot\backend"
+          if (Test-Path "$root\app_offline.htm") { Remove-Item "$root\app_offline.htm" -Force }
+
+      - name: Run DB migrations (if Migrator exists)
+        shell: powershell
+        continue-on-error: true
+        run: |
+          $migZip = "C:\Actions\morpho\artifacts\migrator.zip"
+          if (Test-Path $migZip) {
+            $migDir = "C:\inetpub\wwwroot\_migrator"
+            if (Test-Path $migDir) { Remove-Item $migDir -Recurse -Force }
+            New-Item -ItemType Directory -Path $migDir | Out-Null
+            & 7z x $migZip "-o$migDir" -y | Out-Null
+            $env:ConnectionStrings__Default = "${{ secrets.PROD_CONNECTION_STRING }}"
+            $dll = Get-ChildItem $migDir -Recurse -Filter *Migrator*.dll | Select-Object -First 1
+            if ($dll) { & dotnet $dll.FullName }
+          }
+
+      - name: Warmup (optional)
+        shell: powershell
+        continue-on-error: true
+        run: |
+          try { Invoke-WebRequest "http://localhost:80/health" -UseBasicParsing -TimeoutSec 10 | Out-Null } catch {}
