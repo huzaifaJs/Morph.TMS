@@ -18,6 +18,7 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Industry> Industries { get; set; }
+        public DbSet<VehicleTypes> VehicleTypes { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)

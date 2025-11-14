@@ -1923,6 +1923,68 @@ namespace Morpho.Migrations
                     b.ToTable("TenantProfiles", "TenantManagement");
                 });
 
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleTypes", b =>
+                {
+                    b.Property<long>("VehicleTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("VehicleTypeId"));
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("remark")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("character varying(600)");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("vehicle_type_id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("vehicle_type_name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("VehicleTypeId");
+
+                    b.ToTable("vehicle_types");
+                });
+
             modelBuilder.Entity("Morpho.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
