@@ -4,8 +4,6 @@ using Morpho.Authorization.Roles;
 using Morpho.Authorization.Users;
 using Morpho.MultiTenancy;
 using Morpho.Domain.Entities;
-using Morpho.Domain.Entities.Telemetry;
-using Morpho.Domain.Entities.Policies;
 
 namespace Morpho.EntityFrameworkCore
 {
@@ -20,8 +18,6 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Industry> Industries { get; set; }
-        public DbSet<TelemetryRecord> TelemetryRecords { get; set; }
-        public DbSet<Violation> Violations { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)
@@ -32,7 +28,6 @@ namespace Morpho.EntityFrameworkCore
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MorphoDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }
