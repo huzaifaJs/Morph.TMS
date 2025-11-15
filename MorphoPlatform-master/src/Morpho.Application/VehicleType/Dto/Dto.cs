@@ -17,22 +17,22 @@ namespace Morpho.VehicleType.Dto
     {
         [Required]
         [MaxLength(250)]
-        public string VehicleTypeName { get; set; }
+        public string vehicle_type_name { get; set; }
 
         [Required]
         [MaxLength(600)]
-        public string  Remark { get; set; }
+        public string  remark { get; set; }
     }
 
     [AutoMapTo(typeof(VehicleTypes))]
     public class UpdateVehicleTypeDto
     {
         [Required]
-        public long VehicleTypeId { get; set; }   
+        public long Id { get; set; }   
 
         [Required]
         [MaxLength(250)]
-        public string VehicleTypeName { get; set; }
+        public string vehicle_type_name { get; set; }
 
         [Required]
         [MaxLength(600)]
@@ -42,19 +42,18 @@ namespace Morpho.VehicleType.Dto
     public class UpdateStatusVehicleTypeDto
     {
         [Required]
-        public long VehicleTypeId { get; set; }   
+        public long VehicleTypeId { get; set; }
     }
+
     [AutoMapFrom(typeof(VehicleTypes))]
     public class VehicleTypeDto : EntityDto<long>
     {
 
-        public Guid VehicleTypeGuid { get; set; }
-
-        public string VehicleTypeName { get; set; }
+        public string vehicle_type_name { get; set; }
 
         public string Remark { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool is_active { get; set; }
 
         public DateTime Created_At { get; set; }
 

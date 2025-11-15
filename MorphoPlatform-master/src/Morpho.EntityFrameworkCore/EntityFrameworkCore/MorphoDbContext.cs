@@ -20,6 +20,7 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<Industry> Industries { get; set; }
         public DbSet<VehicleTypes> VehicleTypes { get; set; }
 
+
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)
         {

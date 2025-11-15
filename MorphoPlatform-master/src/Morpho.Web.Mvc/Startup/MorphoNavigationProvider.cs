@@ -103,6 +103,15 @@ namespace Morpho.Web.Startup
                             permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_RegisterPOD)
                         )
                     )
+                      .AddItem(
+                        new MenuItemDefinition(
+                            "VehicleType",
+                            L("VehicleTypes"),
+                            url: "/Vehicle/VehicleTypeIndex",
+                            order: 6,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_VehicleType)
+                        )
+                    )
                 );
 
             // =====================

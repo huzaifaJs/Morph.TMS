@@ -15,6 +15,7 @@ namespace Morpho.Authorization
         public const string Pages_Shipment_RegisterPOD = "Pages.Shipment.RegisterPOD";
         public const string Pages_Shipment_AssignRoute = "Pages.Shipment.AssignRoute";
         public const string Pages_Shipment_ConfirmDispatch = "Pages.Shipment.ConfirmDispatch";
+        public const string Pages_Shipment_VehicleType = "Pages.Shipment.VehicleType";
     }
 }
 

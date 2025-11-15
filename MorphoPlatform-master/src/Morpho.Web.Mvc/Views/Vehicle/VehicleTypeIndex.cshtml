@@ -1,9 +1,10 @@
 ﻿@using Morpho.Web.Models.Vehichle
 @model VehicleTypeViewModel
+@using Morpho.Web.Startup
 
 @{
     ViewBag.Title = L("VehicleTypes");
-    ViewBag.CurrentPageName = "VehicleTypes";
+    ViewBag.CurrentPageName = PageNames.VehicleType;
 }
 
 @section scripts
@@ -19,7 +20,7 @@
             </div>
 
             <div class="col-sm-6">
-                <a href="javascript:;" data-toggle="modal" data-target="#CreateModal"
+                <a href="javascript:;" data-toggle="modal" data-target="#CreateVehicleTypeModal"
                    class="btn bg-blue float-sm-right">
                     <i class="fa fa-plus-square"></i>
                     @L("Create")
@@ -39,9 +40,9 @@
                         <thead>
                             <tr>
                                 <th>@L("VehicleTypeName")</th>
-                                <th>@L("Remark")</th>
-                                <th>@L("IsActive")</th>
-                                <th>@L("Actions")</th>
+                                <th>@L("VehicleTypesRemark")</th>
+                                <th>@L("VehicleTypesIsActive")</th>
+                                <th>@L("VehicleTypesActions")</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -53,5 +54,11 @@
     </div>
 </section>
 
-@await Html.PartialAsync("~/Views/VehicleType/_CreateModal.cshtml")
-@await Html.PartialAsync("~/Views/VehicleType/_EditModal.cshtml")
+@await Html.PartialAsync("~/Views/Vehicle/_CreateModal.cshtml")
+<div id="EditVehicleTypeModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+

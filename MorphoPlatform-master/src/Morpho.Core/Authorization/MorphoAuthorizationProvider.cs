@@ -40,7 +40,10 @@ namespace Morpho.Authorization
                 PermissionNames.Pages_Shipment_RegisterPOD,
                 L("RegisterPOD")
             );
-
+            shipment.CreateChildPermission(
+                PermissionNames.Pages_Shipment_VehicleType,
+                L("VehicleTypes")
+            );
         }
 
         private static ILocalizableString L(string name)

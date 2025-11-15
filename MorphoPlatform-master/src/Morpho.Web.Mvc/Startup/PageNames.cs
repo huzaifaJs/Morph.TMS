@@ -8,5 +8,6 @@
         public const string Users = "Users";
         public const string Roles = "Roles";
         public const string ShipmentManagement = "Shipment Management";
+        public const string VehicleType = "Vehicle Type";
     }
 }

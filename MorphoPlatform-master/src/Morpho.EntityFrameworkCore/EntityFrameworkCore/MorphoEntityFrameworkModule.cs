@@ -21,7 +21,7 @@ namespace Morpho.EntityFrameworkCore
             if (!SkipDbContextRegistration)
             {
                 Configuration.Modules.AbpEfCore().AddDbContext<MorphoDbContext>(options =>
-                {
+               {
                     if (options.ExistingConnection != null)
                     {
                         MorphoDbContextConfigurer.Configure(options.DbContextOptions, options.ExistingConnection);
