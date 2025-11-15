@@ -22,30 +22,30 @@ namespace Morpho.Telemetry
         {
             // Convert Unix timestamp → UTC DateTime
             var timestamp = DateTimeOffset
-                .FromUnixTimeSeconds(input.Timestamp)
+                .FromUnixTimeSeconds(input.timestamp)
                 .UtcDateTime;
 
             // GPS Value Object (all doubles → GpsLocation expects double)
             var gps = new GpsLocation(
-                input.Latitude,
-                input.Longitude,
-                input.Altitude,
-                input.Accuracy
+                input.latitude,
+                input.longitude,
+                input.altitude,
+                input.accuracy
             );
 
             // DeviceId is already a GUID → pass directly
-            Guid deviceId = input.DeviceId;
+            Guid deviceId = input.device_id.Value;
 
             // Convert all telemetry doubles → decimals
-            var battery = (decimal)input.BatteryLevel;
-            var temp = (decimal)input.Temperature;
-            var hum = (decimal)input.Humidity;
-            var light = (decimal)input.Light;
-            var vib = (decimal)input.MeanVibration;
+            var battery = (decimal)input.battery_level;
+            var temp = (decimal)input.temperature;
+            var hum = (decimal)input.humidity;
+            var light = (decimal)input.light;
+            var vib = (decimal)input.mean_vibration;
 
             // Save into domain service
             var records = await _telemetryDomainService.RecordMultiSensorAsync(
-                input.TenantId,
+                input.tenant_id,
                 deviceId,
                 timestamp,
                 gps,
