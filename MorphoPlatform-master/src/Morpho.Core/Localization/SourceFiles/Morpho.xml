@@ -142,6 +142,26 @@
 
 	<text name="ExceptionHandling" value="Exception Handling" />
 	<text name="ExceptionManagement" value="Exception Management" />
+	  <!-- Shipment Permission Group -->
+	  <text name="Shipment" value="Shipment" />
+
+	  <!-- Child permission keys -->
+
+	  <text name="VehicleTypes" value="Vehicle Types" />
+	  <text name="VehicleTypeName" value="Vehicle Type Name" />
+	  <text name="VehicleTypesRemark" value="Remark" />
+	  <text name="VehicleTypesIsActive" value="Is Active" />
+	  <text name="VehicleTypesActions" value="Actions" />
+	  <text name="VehicleTypesCreateVehicleType" value="Create Vehicle Type" />
+	  <text name="VehicleTypesEditVehicleType" value="Edit Vehicle Type" />
+	  <text name="VehicleTypesDeleteVehicleType" value="Delete Vehicle Type" />
+	  <text name="VehicleTypesSave" value="Save" />
+	  <text name="VehicleTypesCancel" value="Cancel" />
+	  <text name="VehicleTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle type?" />
+
+
+	  <text name="Pages" value="Pages" />
+
 
 
   </texts>

@@ -1,0 +1,52 @@
+﻿@using Morpho.Web.Models.Common.Modals
+@model Morpho.Web.Models.Vehichle.VehicleTypeViewModel
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="CreateVehicleTypeModal" tabindex="-1" role="dialog" aria-labelledby="CreateVehicleTypeModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml",
+            new ModalHeaderViewModel(L("VehicleTypesCreateVehicleType")))
+
+            <form name="CreateVehicleType" method="post" role="form" class="form-horizontal">
+
+                <div class="modal-body">
+
+                    <!-- VEHICLE TYPE NAME -->
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("VehicleTypeName")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle_type_name"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("VehicleTypeName")" />
+                        </div>
+                    </div>
+                    
+
+                    <!-- REMARK -->
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("VehicleTypesRemark")</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control"
+                                      name="remark"
+                                      required
+                                      maxlength="600"
+                                      placeholder="@L("VehicleTypesRemark")"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+            </form>
+
+        </div>
+    </div>
+</div>

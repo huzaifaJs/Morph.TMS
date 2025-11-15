@@ -1923,6 +1923,58 @@ namespace Morpho.Migrations
                     b.ToTable("TenantProfiles", "TenantManagement");
                 });
 
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleTypes", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("remark")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("vehicle_type_name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VehicleTypes");
+                });
+
             modelBuilder.Entity("Morpho.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")

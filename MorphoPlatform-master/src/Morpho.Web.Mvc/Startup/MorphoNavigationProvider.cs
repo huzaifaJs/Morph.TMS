@@ -11,6 +11,7 @@ namespace Morpho.Web.Startup
     /// </summary>
     public class MorphoNavigationProvider : NavigationProvider
     {
+
         public override void SetNavigation(INavigationProviderContext context)
         {
             context.Manager.MainMenu
@@ -63,14 +64,16 @@ namespace Morpho.Web.Startup
                     new MenuItemDefinition(
                         "ShipmentManagement",
                         L("ShipmentManagement"),
-                        icon: "fas fa-boxes"
+                        icon: "fas fa-boxes",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment)
                     )
                     .AddItem(
                         new MenuItemDefinition(
                             "CreateShipmentRequest",
                             L("CreateShipmentRequest"),
                             url: "/Shipment/Create",
-                            order: 1
+                            order: 1,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_Create)
                         )
                     )
                     .AddItem(
@@ -78,7 +81,8 @@ namespace Morpho.Web.Startup
                             "AssignRouteCarrier",
                             L("AssignRouteCarrier"),
                             url: "/Shipment/AssignRoute",
-                            order: 2
+                            order: 2,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_AssignRoute)
                         )
                     )
                     .AddItem(
@@ -86,7 +90,8 @@ namespace Morpho.Web.Startup
                             "ConfirmLoadingDispatch",
                             L("ConfirmLoadingDispatch"),
                             url: "/Shipment/ConfirmDispatch",
-                            order: 3
+                            order: 3,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_ConfirmDispatch)
                         )
                     )
                     .AddItem(
@@ -94,7 +99,17 @@ namespace Morpho.Web.Startup
                             "RegisterPOD",
                             L("RegisterPOD"),
                             url: "/Shipment/RegisterPOD",
-                            order: 4
+                            order: 4,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_RegisterPOD)
+                        )
+                    )
+                      .AddItem(
+                        new MenuItemDefinition(
+                            "VehicleType",
+                            L("VehicleTypes"),
+                            url: "/Vehicle/VehicleTypeIndex",
+                            order: 6,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_VehicleType)
                         )
                     )
                 );
