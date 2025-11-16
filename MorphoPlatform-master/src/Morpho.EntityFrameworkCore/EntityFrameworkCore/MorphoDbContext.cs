@@ -6,6 +6,7 @@ using Morpho.MultiTenancy;
 using Morpho.Domain.Entities;
 using Morpho.Domain.Entities.Telemetry;
 using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.IoT;
 
 namespace Morpho.EntityFrameworkCore
 {
@@ -21,9 +22,11 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<VehicleTypes> VehicleTypes { get; set; }
-
         public DbSet<TelemetryRecord> TelemetryRecords { get; set; }
         public DbSet<Violation> Violations { get; set; }
+        public DbSet<IoTDevice> IoTDevices { get; set; }
+        public DbSet<Policy> Policies { get; set; }
+        public DbSet<PolicyRule> PolicyRules { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)
