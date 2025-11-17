@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Abp.Zero.EntityFrameworkCore;
+﻿using Abp.Zero.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Morpho.Authorization.Roles;
 using Morpho.Authorization.Users;
-using Morpho.MultiTenancy;
 using Morpho.Domain.Entities;
-using Morpho.Domain.Entities.Telemetry;
-using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.Devices;
+using Morpho.Domain.Entities.FuelType;
 using Morpho.Domain.Entities.IoT;
+using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.Telemetry;
+using Morpho.Domain.Entities.Vehicles;
+using Morpho.MultiTenancy;
 
 namespace Morpho.EntityFrameworkCore
 {
@@ -27,6 +30,10 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<IoTDevice> IoTDevices { get; set; }
         public DbSet<Policy> Policies { get; set; }
         public DbSet<PolicyRule> PolicyRules { get; set; }
+        public DbSet<DeviceType> DeviceType { get; set; }
+        public DbSet<TrackingDevices> TrackingDevices { get; set; }
+        public DbSet<FuelType> FuelType { get; set; }
+        public DbSet<Vehicles> Vehicles { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)

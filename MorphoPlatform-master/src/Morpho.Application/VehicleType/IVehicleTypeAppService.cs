@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Morpho.VehicleType
 {
-    public interface IVehicleTypeAppService: IApplicationService
+    public interface IVehicleTypeAppService : IApplicationService
     {
         Task<List<VehicleTypeDto>> GetVehicleTypesListAsync();
         Task<CreateVehicleTypeDto> AddVehicleTypeAsync(CreateVehicleTypeDto input);
         Task<UpdateVehicleTypeDto> UpdateVehicleTypeAsync(UpdateVehicleTypeDto input);
+        Task<UpdateStatusVehicleTypeDto> DeleteVehicleTypeAsync(UpdateStatusVehicleTypeDto input);
         Task<UpdateStatusVehicleTypeDto> UpdateVehicleTypeStatusAsync(UpdateStatusVehicleTypeDto input);
         Task<VehicleTypeDto> GetVehicleTypeDetailsAsync(long vehicleTypeId);
     }
