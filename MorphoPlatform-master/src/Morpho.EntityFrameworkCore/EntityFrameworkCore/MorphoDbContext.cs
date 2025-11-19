@@ -7,7 +7,12 @@ using Morpho.Domain.Entities.Devices;
 using Morpho.Domain.Entities.FuelType;
 using Morpho.Domain.Entities.IoT;
 using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.ShipmentManagement;
+using Morpho.Domain.Entities.ShipmentPackage;
 using Morpho.Domain.Entities.Telemetry;
+using Morpho.Domain.Entities.VehicleContainer;
+using Morpho.Domain.Entities.VehicleDocument;
+using Morpho.Domain.Entities.VehicleDocumentType;
 using Morpho.Domain.Entities.Vehicles;
 using Morpho.MultiTenancy;
 
@@ -34,6 +39,15 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<TrackingDevices> TrackingDevices { get; set; }
         public DbSet<FuelType> FuelType { get; set; }
         public DbSet<Vehicles> Vehicles { get; set; }
+        public DbSet<VehicleDocumentType> VehicleDocumentType { get; set; }
+        public DbSet<VehicleDocument> VehicleDocument { get; set; }
+        public DbSet<VehicleContainerType> VehicleContainerType { get; set; }
+        public DbSet<VehicleContainer> VehicleContainer { get; set; }
+        public DbSet<PackageType> PackageType { get; set; }
+        public DbSet<ShipmentPackage> ShipmentPackage { get; set; }
+        public DbSet<TMSShipment> TMSShipment { get; set; }
+        public DbSet<TMSShipmentStatusLog> TMSShipmentStatusLog { get; set; }
+        public DbSet<TMSShipmentContainerAssignment> TMSShipmentContainerAssignment { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)

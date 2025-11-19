@@ -5,7 +5,10 @@ using Abp.Runtime.Session;
 using Abp.Specifications;
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
+using Morpho.Device.TrackingDevice;
 using Morpho.Domain.Entities;
+using Morpho.Domain.Entities.Devices;
+using Morpho.EntityFrameworkCore;
 using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType.Dto;
 using System;
@@ -20,10 +23,13 @@ namespace Morpho.VehicleType
     public class VehicleAppService : ApplicationService, IVehicleAppService
     {
         private readonly IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> _vehicleRepository;
+        private readonly MorphoDbContext _context;
 
-        public VehicleAppService(IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> vehicleRepository)
+
+        public VehicleAppService(IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> vehicleRepository, MorphoDbContext context)
         {
             vehicleRepository = _vehicleRepository;
+            _context = context;
         }
 
         public async Task<CreateVehicleDto> AddVehicleAsync(CreateVehicleDto input)
@@ -33,8 +39,6 @@ namespace Morpho.VehicleType
             {
                 throw new UserFriendlyException("Tenant not selected!");
             }
-
-            // Check duplicate
             var exists = await _vehicleRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
                 x.vehicle_number.ToLower() == input.vehicle_number.ToLower() &&
@@ -45,12 +49,12 @@ namespace Morpho.VehicleType
             {
                 throw new UserFriendlyException("Vehicle already exists.");
             }
-
             var entity = ObjectMapper.Map<Morpho.Domain.Entities.Vehicles.Vehicles>(input);
+            entity.vehicle_unqiue_id = await SequentialDeviceIdGenerator.GenerateDeviceIdSequentialAsync(_context, AbpSession.TenantId.Value);
             entity.TenantId = AbpSession.TenantId.Value;
             entity.created_by = AbpSession.UserId;
             entity.created_at = DateTime.UtcNow;
-            entity.isblock = true;
+            entity.isblock = false;
             entity.IsDeleted = false;
 
             await _vehicleRepository.InsertAsync(entity);
@@ -128,6 +132,46 @@ namespace Morpho.VehicleType
                 throw new UserFriendlyException("Vehicle not found");
             }
             return ObjectMapper.Map<VehicleDto>(entity);
+        }
+        public static class SequentialVehicleGenerator
+        {
+            private static readonly Random _random = new();
+
+            public static async Task<string> GenerateVehicleIdSequentialAsync(
+                MorphoDbContext db,
+                int tenantId,
+                string prefix = "VCL",
+                int digits = 5)
+            {
+                string suffix = GenerateRandomSuffix(4);
+
+                var lastId = await db.Vehicles
+                    .Where(d => d.TenantId == tenantId)
+                    .OrderByDescending(d => d.created_at)
+                    .Select(d => d.vehicle_unqiue_id)
+                    .FirstOrDefaultAsync();
+
+                int next = 1;
+
+                if (!string.IsNullOrEmpty(lastId))
+                {
+                    var parts = lastId.Split('-');
+                    if (parts.Length >= 2 && int.TryParse(parts[1], out int n))
+                        next = n + 1;
+                }
+
+                string serial = next.ToString().PadLeft(digits, '0');
+                return $"{prefix}-{serial}-{suffix}";
+            }
+
+            private static string GenerateRandomSuffix(int length)
+            {
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                var sb = new StringBuilder();
+                for (int i = 0; i < length; i++)
+                    sb.Append(chars[_random.Next(chars.Length)]);
+                return sb.ToString();
+            }
         }
     }
 

@@ -31,6 +31,7 @@ namespace Morpho.Domain.Entities.Devices
         public long? updated_by { get; set; }
         public long? deleted_by { get; set; }
         public long? block_by { get; set; }
+        public string status { get; set; } = "Pending";
         public DateTime created_at { get; set; } = DateTime.UtcNow;
         public DateTime? Updated_at { get; set; }
         public DateTime? deleted_at { get; set; }

@@ -107,42 +107,30 @@ namespace Morpho.Vehicles.VehicleDto
     [AutoMapFrom(typeof(Morpho.Domain.Entities.Vehicles.Vehicles))]
     public class VehicleDto : EntityDto<long>
     {
-        [Required]
-        [MaxLength(250)]
         public string vehicle_type_name { get; set; }
-
-        [MaxLength(600)]
         public string remark { get; set; }
-        [Required]
-        [MaxLength(250)]
+
         public string vehicle_unqiue_id { get; set; }
-        [Required]
+       
         public long vehicle_types_id { get; set; }
-        [Required]
+  
         public long fuel_types_id { get; set; }
-        [Required]
-        [MaxLength(250)]
+      
         public string vehicle_number { get; set; }
-        [Required]
-        [MaxLength(250)]
+
         public string vehicle_name { get; set; }
-        [Required]
-        [MaxLength(250)]
+    
         public string model_name { get; set; }
-        [Required]
-        [MaxLength(250)]
+
         public string manufacturer { get; set; }
-        [Required]
-        [MaxLength(250)]
+     
         public string model { get; set; }
         public int manufacturing_year { get; set; }
         public string fuel_type { get; set; }
         public string vehicle_type { get; set; }
-        [Required]
-        [MaxLength(250)]
+   
         public string chassis_number { get; set; }
-        [Required]
-        [MaxLength(250)]
+  
         public string engine_number { get; set; }
         public bool isblock { get; set; }
 

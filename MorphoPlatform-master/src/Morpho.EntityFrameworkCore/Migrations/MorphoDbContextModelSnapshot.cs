@@ -1835,6 +1835,9 @@ namespace Morpho.Migrations
                     b.Property<string>("serial_number")
                         .HasColumnType("text");
 
+                    b.Property<string>("status")
+                        .HasColumnType("text");
+
                     b.Property<long?>("updated_by")
                         .HasColumnType("bigint");
 
@@ -2120,6 +2123,304 @@ namespace Morpho.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("violations", (string)null);
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("remarks")
+                        .HasColumnType("text");
+
+                    b.Property<string>("shipment_status")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("shipment_status_updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("shipment_status_updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("shipment_unique_number")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tms_shipment");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipmentContainerAssignment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("AssignedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("assigned_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("container_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("remarks")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("shipment_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tms_shipment_container_assignment");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipmentStatusLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("remarks")
+                        .HasColumnType("text");
+
+                    b.Property<long>("shipment_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("shipment_status")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tms_shipment_status_log");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentPackage.PackageType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("package_type_name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("remark")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("package_type");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentPackage.ShipmentPackage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("dimension")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("package_number")
+                        .HasColumnType("text");
+
+                    b.Property<string>("package_type")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("package_type_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("package_unique_id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("remarks")
+                        .HasColumnType("text");
+
+                    b.Property<string>("status")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("volume_cbm")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("volume_cbm");
+
+                    b.Property<decimal?>("weight_kg")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("weight_kg");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("shipment_package");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.Telemetry.TelemetryRecord", b =>
@@ -2415,6 +2716,247 @@ namespace Morpho.Migrations
                     b.ToTable("TenantProfiles", "TenantManagement");
                 });
 
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleContainer.VehicleContainer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("block_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("block_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("container_number")
+                        .HasColumnType("text");
+
+                    b.Property<long>("container_type_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("container_unqiue_id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("isblock")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("load_status")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ownership")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("weight_capacity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehicle_containers");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleContainer.VehicleContainerType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("container_type")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("remark")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehicle_containers_type");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleDocument.VehicleDocument", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("document_docs_url")
+                        .HasColumnType("text");
+
+                    b.Property<string>("document_number")
+                        .HasColumnType("text");
+
+                    b.Property<string>("document_type")
+                        .HasColumnType("text");
+
+                    b.Property<long>("document_type_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("expiry_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("issue_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("statu_updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("status_updated__at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("vehicle_id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehicle_documents");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleDocumentType.VehicleDocumentType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("active_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("active_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("created_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("deleted_by")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("document_type_name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("updated_by")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehicle_document_types");
+                });
+
             modelBuilder.Entity("Morpho.Domain.Entities.VehicleTypes", b =>
                 {
                     b.Property<long>("Id")
@@ -2487,7 +3029,7 @@ namespace Morpho.Migrations
                     b.Property<DateTime?>("block_at")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("block_by")
+                    b.Property<long?>("block_by")
                         .HasColumnType("bigint");
 
                     b.Property<string>("chassis_number")
@@ -2496,13 +3038,13 @@ namespace Morpho.Migrations
                     b.Property<DateTime>("created_at")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("created_by")
+                    b.Property<long?>("created_by")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("deleted_at")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("deleted_by")
+                    b.Property<long?>("deleted_by")
                         .HasColumnType("bigint");
 
                     b.Property<string>("engine_number")
@@ -2533,7 +3075,7 @@ namespace Morpho.Migrations
                     b.Property<string>("remark")
                         .HasColumnType("text");
 
-                    b.Property<long>("updated_by")
+                    b.Property<long?>("updated_by")
                         .HasColumnType("bigint");
 
                     b.Property<string>("vehicle_name")
