@@ -11,6 +11,9 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Morpho.Application\Morpho.Application.csproj" />
+    <ProjectReference Include="..\..\src\Morpho.Core\Morpho.Core.csproj" />
+    <ProjectReference Include="..\..\src\Morpho.Web.Host\Morpho.Web.Host.csproj" />
     <ProjectReference Include="..\..\src\Morpho.Web.Mvc\Morpho.Web.Mvc.csproj" />
     <ProjectReference Include="..\Morpho.Tests\Morpho.Tests.csproj" />
   </ItemGroup>

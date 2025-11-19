@@ -1,12 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Abp.Zero.EntityFrameworkCore;
+﻿using Abp.Zero.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Morpho.Authorization.Roles;
 using Morpho.Authorization.Users;
-using Morpho.MultiTenancy;
 using Morpho.Domain.Entities;
-using Morpho.Domain.Entities.Telemetry;
-using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.GeoFencing;
 using Morpho.Domain.Entities.IoT;
+using Morpho.Domain.Entities.Logs;
+using Morpho.Domain.Entities.Policies;
+using Morpho.Domain.Entities.Telemetry;
+using Morpho.EntityFrameworkCore.Configurations;
+using Morpho.EntityFrameworkCore.EntityFrameworkCore.Configurations;
+using Morpho.MultiTenancy;
 
 namespace Morpho.EntityFrameworkCore
 {
@@ -27,6 +31,12 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<IoTDevice> IoTDevices { get; set; }
         public DbSet<Policy> Policies { get; set; }
         public DbSet<PolicyRule> PolicyRules { get; set; }
+        public DbSet<DeviceLog> DeviceLogs { get; set; }
+
+        public virtual DbSet<Domain.Entities.DeviceConfig> DeviceConfigs { get; set; }
+      //  public virtual DbSet<DeviceLog> DeviceLogs { get; set; }
+
+        public virtual DbSet<GeoFenceZone> GeoFenceZones { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)
@@ -38,6 +48,22 @@ namespace Morpho.EntityFrameworkCore
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MorphoDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new IoTDeviceConfiguration());
+            modelBuilder.ApplyConfiguration(new DeviceConfigConfiguration());
+           // modelBuilder.ApplyConfiguration(new DeviceLogConfiguration());
+            modelBuilder.ApplyConfiguration(new TelemetryRecordConfiguration());
+            // modelBuilder.ApplyConfiguration(new GeoFenceAreaConfiguration());
+            modelBuilder.Entity<DeviceLog>(b =>
+            {
+                b.ToTable("device_logs");
+
+                b.Property(x => x.Severity).HasMaxLength(50).IsRequired();
+                b.Property(x => x.Message).HasMaxLength(2000).IsRequired();
+                b.Property(x => x.TimestampUtc).IsRequired();
+
+                b.HasIndex(x => x.DeviceId);
+            });
+            modelBuilder.ApplyConfiguration(new DeviceLogConfiguration());
         }
     }
 }
