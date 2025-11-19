@@ -1,18 +1,19 @@
 ﻿using Abp.Domain.Values;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Morpho.Domain.ValueObjects
 {
+    // EF Core: This is a Value Object, not an Entity.
+    // MUST have a protected parameterless constructor.
     public class GpsLocation : ValueObject
     {
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
         public double? Altitude { get; private set; }
         public double? Accuracy { get; private set; }
+
+        // Required by EF Core for owned types
+        protected GpsLocation() { }
 
         public GpsLocation(double latitude, double longitude, double? altitude = null, double? accuracy = null)
         {

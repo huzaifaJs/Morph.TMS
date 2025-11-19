@@ -64,6 +64,16 @@ namespace Morpho.EntityFrameworkCore
                 b.HasIndex(x => x.DeviceId);
             });
             modelBuilder.ApplyConfiguration(new DeviceLogConfiguration());
+            modelBuilder.Entity<IoTDevice>(b =>
+            {
+                b.OwnsOne(x => x.LastKnownLocation, gps =>
+                {
+                    gps.Property(p => p.Latitude).HasColumnName("LastKnown_Latitude");
+                    gps.Property(p => p.Longitude).HasColumnName("LastKnown_Longitude");
+                    gps.Property(p => p.Altitude).HasColumnName("LastKnown_Altitude");
+                    gps.Property(p => p.Accuracy).HasColumnName("LastKnown_Accuracy");
+                });
+            });
         }
     }
 }
