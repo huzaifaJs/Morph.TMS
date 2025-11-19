@@ -15,24 +15,18 @@ namespace Morpho.Domain.Entities
     public class VehicleTypes : Entity<long>, IMustHaveTenant, ISoftDelete
     {
         public int TenantId { get; set; }
-
         public string vehicle_type_name { get; set; }
-
         public string remark { get; set; }
-
         public long? created_by { get; set; }
         public long? updated_by { get; set; }
         public long? deleted_by { get; set; }
         public long? active_by { get; set; }
-
         public bool is_active { get; set; } = true;
-
         public DateTime created_at { get; set; } = DateTime.UtcNow;
         public DateTime? Updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public DateTime? active_at { get; set; }
-
-        public bool IsDeleted { get; set; } = false; // ABP Soft Delete
+        public bool IsDeleted { get; set; } = false; 
     }
 
 
