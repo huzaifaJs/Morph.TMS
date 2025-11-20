@@ -15,7 +15,7 @@ namespace Morpho.Web.Host.Controllers
 {
     [ApiController]
     [Route("api/device")]
-    public class DeviceController : AbpController
+    public class DeviceController : Morpho.Controllers.MorphoControllerBase //AbpController
     {
         private readonly IRepository<IoTDevice, Guid> _deviceRepository;
         private readonly IMorphoApiClient _morphoApiClient;
@@ -57,9 +57,9 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/status
         [HttpGet("status")]
-        public async Task<DeviceStatusResponseDto> GetStatus([FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceStatusResponseDto> GetStatus(int device_id)
         {
-            var device = await FindDeviceAsync(deviceId);
+            var device = await FindDeviceAsync(device_id);
 
             var status = await _morphoApiClient.GetDeviceStatusAsync(device.ExternalDeviceId);
             await _telemetryService.RecordStatusFromMorphoAsync(device, status);

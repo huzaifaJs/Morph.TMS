@@ -1,10 +1,11 @@
-﻿using Morpho.Integration.MorphoApi.Dto;
+﻿using Abp.Application.Services;
+using Morpho.Integration.MorphoApi.Dto;
 using System.Threading.Tasks;
 
 
 namespace Morpho.Application.Integration.MorphoApi
 {
-    public interface IMorphoApiClient
+    public interface IMorphoApiClient: IApplicationService
     {
         // Authentication
         Task<string> GetAccessTokenAsync();

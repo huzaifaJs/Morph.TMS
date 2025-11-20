@@ -18,18 +18,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Morpho.VehicleType
+namespace Morpho.Vehicle
 {
     public class VehicleAppService : ApplicationService, IVehicleAppService
     {
         private readonly IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> _vehicleRepository;
-        private readonly MorphoDbContext _context;
+      //  private readonly MorphoDbContext _context;
 
 
-        public VehicleAppService(IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> vehicleRepository, MorphoDbContext context)
+       // public VehicleAppService(IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> vehicleRepository, MorphoDbContext context)
+             public VehicleAppService(IRepository<Morpho.Domain.Entities.Vehicles.Vehicles, long> vehicleRepository)
         {
             vehicleRepository = _vehicleRepository;
-            _context = context;
+           // _context = context;
         }
 
         public async Task<CreateVehicleDto> AddVehicleAsync(CreateVehicleDto input)
@@ -39,18 +40,18 @@ namespace Morpho.VehicleType
             {
                 throw new UserFriendlyException("Tenant not selected!");
             }
-            var exists = await _vehicleRepository.FirstOrDefaultAsync(x =>
-                x.TenantId == AbpSession.TenantId.Value &&
-                x.vehicle_number.ToLower() == input.vehicle_number.ToLower() &&
-                !x.IsDeleted
-            );
+            //var exists = await _vehicleRepository.FirstOrDefaultAsync(x =>
+            //    x.TenantId == AbpSession.TenantId.Value &&
+            //    x.vehicle_number.ToLower() == input.vehicle_number.ToLower() &&
+            //    !x.IsDeleted
+            //);
 
-            if (exists != null)
-            {
-                throw new UserFriendlyException("Vehicle already exists.");
-            }
+            //if (exists != null)
+            //{
+            //    throw new UserFriendlyException("Vehicle already exists.");
+            //}
             var entity = ObjectMapper.Map<Morpho.Domain.Entities.Vehicles.Vehicles>(input);
-            entity.vehicle_unqiue_id = await SequentialDeviceIdGenerator.GenerateDeviceIdSequentialAsync(_context, AbpSession.TenantId.Value);
+            entity.vehicle_unqiue_id = input.vehicle_unqiue_id; //await SequentialDeviceIdGenerator.GenerateDeviceIdSequentialAsync(_context, AbpSession.TenantId.Value);
             entity.TenantId = AbpSession.TenantId.Value;
             entity.created_by = AbpSession.UserId;
             entity.created_at = DateTime.UtcNow;
