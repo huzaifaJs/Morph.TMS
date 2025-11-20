@@ -18,8 +18,13 @@ namespace Morpho.Domain.Entities.ShipmentManagement
         public long? shipment_id { get; set; }
         [ForeignKey("vehicle_containers")]
         public long? container_id { get; set; }
+        [ForeignKey("vehicle")]
+        public long? vehicle_id { get; set; }
+
+        //[ForeignKey("vehicle")]
+        //public long? package_id { get; set; }
         public long? assigned_by { get; set; }
-        public DateTime AssignedOn { get; set; } = DateTime.UtcNow;
+        public DateTime assignedOn { get; set; } = DateTime.UtcNow;
         public bool is_active { get; set; } = true;
         public string remarks { get; set; }
         public long? created_by { get; set; }

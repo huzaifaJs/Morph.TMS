@@ -48,6 +48,9 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<TMSShipment> TMSShipment { get; set; }
         public DbSet<TMSShipmentStatusLog> TMSShipmentStatusLog { get; set; }
         public DbSet<TMSShipmentContainerAssignment> TMSShipmentContainerAssignment { get; set; }
+        public DbSet<TMSShipmentpackageAssignment> TMSShipmentpackageAssignment { get; set; }
+        public DbSet<TMSIoTPolicyAssignment> TMSIoTPolicyAssignment { get; set; }
+        public DbSet<TMSShipmentRouteAssignment> TMSShipmentRouteAssignment { get; set; }
 
         public MorphoDbContext(DbContextOptions<MorphoDbContext> options)
             : base(options)

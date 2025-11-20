@@ -19,4 +19,7 @@
     <PackageReference Include="Abp.FluentValidation" Version="9.4.2" />
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ShipmentManagement\Shipments\ShipmentDto\" />
+  </ItemGroup>
 </Project>
