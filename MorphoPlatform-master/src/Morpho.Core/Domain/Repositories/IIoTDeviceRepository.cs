@@ -11,13 +11,13 @@ namespace Morpho.Domain.Repositories
         /// <summary>
         /// Find a device by its Morpho Device ID (string like "7777")
         /// </summary>
-        Task<IoTDevice> GetByMorphoDeviceIdAsync(string morphoDeviceId);
+        Task<IoTDevice> GetByMorphoDeviceIdAsync(int morphoDeviceId);
 
         /// <summary>
         /// Returns null if not found
         /// </summary>
-        Task<IoTDevice> FirstOrDefaultByMorphoDeviceIdAsync(string morphoDeviceId);
+        Task<IoTDevice> FirstOrDefaultByMorphoDeviceIdAsync(int morphoDeviceId);
 
-        Task<IoTDevice> GetByExternalIdAsync(string externalDeviceId, int tenantId);
+        Task<IoTDevice> GetByExternalIdAsync(int externalDeviceId, int tenantId);
     }
 }

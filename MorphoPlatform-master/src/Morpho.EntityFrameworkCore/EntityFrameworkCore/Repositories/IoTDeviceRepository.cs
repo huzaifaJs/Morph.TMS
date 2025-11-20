@@ -18,10 +18,10 @@ namespace Morpho.EntityFrameworkCore.Repositories
         /// <summary>
         /// Returns the device or throws exception if not found.
         /// </summary>
-        public async Task<IoTDevice> GetByMorphoDeviceIdAsync(string morphoDeviceId)
+        public async Task<IoTDevice> GetByMorphoDeviceIdAsync(int morphoDeviceId)
         {
             var device = await GetAll()
-                .FirstOrDefaultAsync(d => d.ExternalDeviceId == morphoDeviceId);
+                .FirstOrDefaultAsync(d => d.MorphoDeviceId == morphoDeviceId);
 
             if (device == null)
             {
@@ -34,20 +34,20 @@ namespace Morpho.EntityFrameworkCore.Repositories
         /// <summary>
         /// Returns null if not found.
         /// </summary>
-        public async Task<IoTDevice> FirstOrDefaultByMorphoDeviceIdAsync(string morphoDeviceId)
+        public async Task<IoTDevice> FirstOrDefaultByMorphoDeviceIdAsync(int morphoDeviceId)
         {
             return await GetAll()
-                .FirstOrDefaultAsync(d => d.ExternalDeviceId == morphoDeviceId);
+                .FirstOrDefaultAsync(d => d.MorphoDeviceId == morphoDeviceId);
         }
 
         /// <summary>
         /// Unique composite lookup: ExternalDeviceId + TenantId.
         /// </summary>
-        public async Task<IoTDevice> GetByExternalIdAsync(string externalDeviceId, int tenantId)
+        public async Task<IoTDevice> GetByExternalIdAsync(int externalDeviceId, int tenantId)
         {
             return await GetAll()
                 .FirstOrDefaultAsync(d =>
-                    d.ExternalDeviceId == externalDeviceId &&
+                    d.MorphoDeviceId == externalDeviceId &&
                     d.TenantId == tenantId);
         }
     }

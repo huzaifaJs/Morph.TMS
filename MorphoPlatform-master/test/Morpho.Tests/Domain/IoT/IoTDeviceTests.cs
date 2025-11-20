@@ -12,7 +12,7 @@ namespace Morpho.Tests.Domain.IoT
         [Fact]
         public void Should_Update_Last_Known_Location()
         {
-            var device = new IoTDevice(1, "D123", "SN1", "Temp Sensor", "sensor");
+            var device = new IoTDevice(1, 7777, "SN1", "Temp Sensor", "sensor");
 
             device.SetLastKnownLocation(26.23, 92.34);
 
@@ -24,7 +24,7 @@ namespace Morpho.Tests.Domain.IoT
         [Fact]
         public void Should_Update_Status()
         {
-            var device = new IoTDevice(1, "D100", "SN100", "Demo", "type");
+            var device = new IoTDevice(1,7777, "SN100", "Demo", "type");
             device.UpdateStatus(DeviceStatusType.Connected);
 
             device.Status.ShouldBe(DeviceStatusType.Connected);

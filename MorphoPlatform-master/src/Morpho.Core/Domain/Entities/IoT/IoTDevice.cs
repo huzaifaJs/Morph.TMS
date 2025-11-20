@@ -13,8 +13,9 @@ namespace Morpho.Domain.Entities.IoT
     {
         public int TenantId { get; set; }
 
-        // Morpho raw device_id (string from external device)
-        public string ExternalDeviceId { get; protected set; }
+        // NEW — The actual integer device_id coming from Morpho API
+        public int MorphoDeviceId { get; protected set; }
+
         public string SerialNumber { get; protected set; }
         public string Name { get; protected set; }
         public string DeviceType { get; protected set; }
@@ -22,28 +23,28 @@ namespace Morpho.Domain.Entities.IoT
         public DeviceStatusType Status { get; protected set; }
         public bool IsActive { get; protected set; }
 
-        // Owned value object
+        // Owned value object for GPS
         public GpsLocation LastKnownLocation { get; protected set; }
 
-        // Telemetry collection
+        // Navigation collections
         public ICollection<TelemetryRecord> TelemetryRecords { get; protected set; }
             = new List<TelemetryRecord>();
 
-        // REQUIRED by EF ModelBuilder
         public ICollection<Violation> Violations { get; protected set; }
             = new List<Violation>();
 
+        // EF Core requires a protected parameterless constructor
         protected IoTDevice() { }
 
         public IoTDevice(
             int tenantId,
-            string externalDeviceId,
+            int morphoDeviceId,
             string serialNumber,
             string name,
             string deviceType)
         {
             TenantId = tenantId;
-            ExternalDeviceId = externalDeviceId;
+            MorphoDeviceId = morphoDeviceId;
             SerialNumber = serialNumber;
             Name = name;
             DeviceType = deviceType;
@@ -52,18 +53,20 @@ namespace Morpho.Domain.Entities.IoT
             IsActive = true;
         }
 
+        // Domain Behaviors
         public void UpdateStatus(DeviceStatusType status)
         {
             Status = status;
         }
 
-        public void UpdateLastKnownLocation(GpsLocation gps)
-        {
-            LastKnownLocation = gps;
-        }
         public void SetLastKnownLocation(double lat, double lng)
         {
             LastKnownLocation = new GpsLocation(lat, lng);
+        }
+
+        public void UpdateLastKnownLocation(GpsLocation gps)
+        {
+            LastKnownLocation = gps;
         }
 
         public void Deactivate() => IsActive = false;

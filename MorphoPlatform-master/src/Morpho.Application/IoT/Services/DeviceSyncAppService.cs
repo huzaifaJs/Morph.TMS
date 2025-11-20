@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
+using Abp.Extensions;
 using Abp.UI;
 using Morpho.Application.Integration.MorphoApi;
 using Morpho.Domain.Entities.IoT;
@@ -34,10 +35,10 @@ namespace Morpho.Application.IoT.Services
             var device = await _deviceRepository.FirstOrDefaultAsync(id)
                 ?? throw new UserFriendlyException("Device not found.");
 
-            if (string.IsNullOrWhiteSpace(device.ExternalDeviceId))
+            if (device.MorphoDeviceId <= 0)
                 throw new UserFriendlyException("Morpho Device ID missing.");
 
-            var result = await _morphoApiClient.GetDeviceStatusAsync(device.ExternalDeviceId);
+            var result = await _morphoApiClient.GetDeviceStatusAsync(device.MorphoDeviceId);
 
             // Update device status
             if (result != null)
@@ -51,6 +52,7 @@ namespace Morpho.Application.IoT.Services
         }
 
 
+
         // ------------------------------------------------------------
         // 2. SYNC CONFIG
         // ------------------------------------------------------------
@@ -59,10 +61,10 @@ namespace Morpho.Application.IoT.Services
             var device = await _deviceRepository.FirstOrDefaultAsync(id)
                 ?? throw new UserFriendlyException("Device not found.");
 
-            if (string.IsNullOrWhiteSpace(device.ExternalDeviceId))
+            if (device.MorphoDeviceId<0)
                 throw new UserFriendlyException("Morpho Device ID missing.");
 
-            var result = await _morphoApiClient.GetDeviceConfigAsync(device.ExternalDeviceId);
+            var result = await _morphoApiClient.GetDeviceConfigAsync(device.MorphoDeviceId);
 
             return result;
         }
@@ -75,13 +77,14 @@ namespace Morpho.Application.IoT.Services
             var device = await _deviceRepository.FirstOrDefaultAsync(id)
                 ?? throw new UserFriendlyException("Device not found.");
 
-            if (string.IsNullOrWhiteSpace(device.ExternalDeviceId))
-                throw new UserFriendlyException("Morpho Device ID missing.");
+            if (device.MorphoDeviceId <= 0)
+                throw new UserFriendlyException("Morpho Device ID missing or invalid.");
 
-            var result = await _morphoApiClient.GetDeviceLogsAsync(device.ExternalDeviceId);
+            var result = await _morphoApiClient.GetDeviceLogsAsync(device.MorphoDeviceId);
 
             return result;
         }
+
 
         // ------------------------------------------------------------
         // 4. REBOOT DEVICE
@@ -91,15 +94,15 @@ namespace Morpho.Application.IoT.Services
             var device = await _deviceRepository.FirstOrDefaultAsync(id)
                 ?? throw new UserFriendlyException("Device not found.");
 
-            if (string.IsNullOrWhiteSpace(device.ExternalDeviceId))
+            if (device.MorphoDeviceId <= 0)
                 throw new UserFriendlyException("Morpho Device ID missing.");
 
             var dto = new DeviceRebootPushDto
             {
-                morpho_device_id = device.ExternalDeviceId
+                device_id = device.MorphoDeviceId
             };
 
-            await _morphoApiClient.SetDeviceRebootAsync(dto);
+            await _morphoApiClient.PostDeviceRebootAsync(dto);
 
             return true;
         }
@@ -112,15 +115,15 @@ namespace Morpho.Application.IoT.Services
             var device = await _deviceRepository.FirstOrDefaultAsync(id)
                 ?? throw new UserFriendlyException("Device not found.");
 
-            if (string.IsNullOrWhiteSpace(device.ExternalDeviceId))
+            if (device.MorphoDeviceId <= 0)
                 throw new UserFriendlyException("Morpho Device ID missing.");
 
             var dto = new DeviceClearLogsPushDto
             {
-                morpho_device_id = device.ExternalDeviceId
+                device_id = device.MorphoDeviceId
             };
 
-            await _morphoApiClient.ClearDeviceLogsAsync(dto);
+            await _morphoApiClient.PostDeviceClearLogsAsync(dto);
 
             return true;
         }

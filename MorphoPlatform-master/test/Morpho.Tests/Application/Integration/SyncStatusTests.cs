@@ -25,7 +25,7 @@ namespace Morpho.Tests.Application.Integration
         [Fact]
         public async Task SyncStatus_Should_Update_Location_And_Status()
         {
-            var device = new IoTDevice(1, "EXT200", "SN200", "D200", "sensor");
+            var device = new IoTDevice(1, 7777, "SN200", "D200", "sensor");
             await _deviceRepo.InsertAsync(device);
 
             var result = await _syncService.SyncStatusAsync(device.Id);

@@ -17,7 +17,7 @@ namespace Morpho.Tests.Domain.Telemetry
             var service = Resolve<TelemetryDomainService>();
             var repo = Resolve<IIoTDeviceRepository>();
 
-            var device = new IoTDevice(1, "EXT001", "SN1", "Device1", "sensor");
+            var device = new IoTDevice(1, 7777, "SN1", "Device1", "sensor");
             await repo.InsertAsync(device);
 
             var dto = new DeviceStatusResponseDto

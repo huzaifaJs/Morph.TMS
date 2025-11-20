@@ -15,7 +15,7 @@ namespace Morpho.EntityFrameworkCore.Configurations
             builder.Property(x => x.TenantId)
                    .IsRequired();
 
-            builder.Property(x => x.ExternalDeviceId)
+            builder.Property(x => x.MorphoDeviceId)
                    .IsRequired()
                    .HasMaxLength(128);
 
