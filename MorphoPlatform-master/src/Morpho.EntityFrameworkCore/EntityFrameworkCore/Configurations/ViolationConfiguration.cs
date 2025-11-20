@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Morpho.Domain.Entities.Policies;
-using System;
 
 namespace Morpho.EntityFrameworkCore.Configurations
 {
@@ -17,7 +16,19 @@ namespace Morpho.EntityFrameworkCore.Configurations
             builder.Property(v => v.DeviceId).IsRequired();
             builder.Property(v => v.PolicyRuleId).IsRequired();
             builder.Property(v => v.TenantId).IsRequired();
-            builder.Property(v => v.OccurredAtUtc).IsRequired();
+
+            // FIX — property name corrected
+            builder.Property(v => v.OccurredAt).IsRequired();
+
+            builder.Property(v => v.SensorType)
+                  .HasMaxLength(50)
+                  .IsRequired();
+
+            builder.Property(v => v.Value)
+                  .HasPrecision(18, 6);
+
+            builder.Property(v => v.Status)
+                  .HasMaxLength(30);
         }
     }
 }

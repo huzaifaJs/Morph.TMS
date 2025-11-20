@@ -14,43 +14,51 @@ namespace Morpho.Vehicles.VehicleDto
     [AutoMapTo(typeof(Morpho.Domain.Entities.Vehicles.Vehicles))]
     public class CreateVehicleDto
     {
-        [Required]
+        
         [MaxLength(250)]
-        public string vehicle_type_name { get; set; }
+        public string? vehicle_type_name { get; set; }
 
         [MaxLength(600)]
-        public string remark { get; set; }
-        [Required]
+        public string? remark { get; set; }
+        
+       
         [MaxLength(250)]
-        public string vehicle_unqiue_id { get; set; }
+        public string? vehicle_unqiue_id { get; set; }
+        
         [Required]
         public long vehicle_types_id { get; set; }
+        
         [Required]
         public long fuel_types_id { get; set; }
+        
         [Required]
         [MaxLength(250)]
         public string vehicle_number { get; set; }
-        [Required]
+        
+        
         [MaxLength(250)]
-        public string vehicle_name { get; set; }
-        [Required]
+        public string? vehicle_name { get; set; }
+        
+        
         [MaxLength(250)]
-        public string model_name { get; set; }
-        [Required]
+        public string? model_name { get; set; }
+        
+        
         [MaxLength(250)]
-        public string manufacturer { get; set; }
-        [Required]
+        public string? manufacturer { get; set; }
+        
+        
         [MaxLength(250)]
-        public string model { get; set; }
-        public int manufacturing_year { get; set; }
-        public string fuel_type { get; set; }
-        public string vehicle_type { get; set; }
-        [Required]
+        public string? model { get; set; }
+        public int? manufacturing_year { get; set; }
+        public string? fuel_type { get; set; }
+
         [MaxLength(250)]
-        public string chassis_number { get; set; }
-        [Required]
+        public string? chassis_number { get; set; }
+        
+        
         [MaxLength(250)]
-        public string engine_number { get; set; }
+        public string? engine_number { get; set; }
     }
 
     [AutoMapTo(typeof(Morpho.Domain.Entities.Vehicles.Vehicles))]

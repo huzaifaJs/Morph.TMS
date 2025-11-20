@@ -1,21 +1,43 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Morpho.Domain.Entities.IoT
 {
-    public class DeviceConfig : AuditedAggregateRoot<Guid>
+    public class DeviceConfig : FullAuditedEntity<Guid>
     {
-        public Guid DeviceId { get; set; }
-        public string ConfiguredBy { get; set; } = string.Empty;
-        public bool RfidEnabled { get; set; }
-        public bool SdEnabled { get; set; }
-        public bool DebugEnabled { get; set; }
-        public string EndpointUrl { get; set; } = string.Empty;
-        public decimal Frequency { get; set; }
-        public string ThresholdJson { get; set; } = string.Empty; // store as JSON
+        public int TenantId { get; protected set; }
+        public Guid DeviceId { get; protected set; }
+
+        public string ConfiguredBy { get; protected set; }
+        public bool RfidEnabled { get; protected set; }
+        public bool SdEnabled { get; protected set; }
+        public bool DebugEnabled { get; protected set; }
+        public string EndpointUrl { get; protected set; }
+        public decimal Frequency { get; protected set; }
+        public string ThresholdJson { get; protected set; }
+
+        protected DeviceConfig() { }
+
+        public DeviceConfig(
+            int tenantId,
+            Guid deviceId,
+            string configuredBy,
+            bool rfidEnabled,
+            bool sdEnabled,
+            bool debugEnabled,
+            string endpointUrl,
+            decimal frequency,
+            string thresholdJson)
+        {
+            TenantId = tenantId;
+            DeviceId = deviceId;
+            ConfiguredBy = configuredBy;
+            RfidEnabled = rfidEnabled;
+            SdEnabled = sdEnabled;
+            DebugEnabled = debugEnabled;
+            EndpointUrl = endpointUrl;
+            Frequency = frequency;
+            ThresholdJson = thresholdJson;
+        }
     }
 }

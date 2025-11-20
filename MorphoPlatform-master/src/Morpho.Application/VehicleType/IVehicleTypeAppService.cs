@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Morpho.VehicleType
 {
-    public interface IVehicleTypeAppService : IApplicationService
+
+    public interface IVehicleTypeAppService:IApplicationService
     {
         Task<List<VehicleTypeDto>> GetVehicleTypesListAsync();
         Task<CreateVehicleTypeDto> AddVehicleTypeAsync(CreateVehicleTypeDto input);

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Morpho.Device.DeviceType.Dto
+namespace Morpho.Device.DeviceType
 {
     public class DeviceTypeAppService : ApplicationService, IDeviceTypeAppService
     {
@@ -50,14 +50,14 @@ namespace Morpho.Device.DeviceType.Dto
             return input;
         }
 
-        public async Task<List<Morpho.Device.DeviceTypeDto.DeviceTypeDto>> GetDeviceTypesListAsync()
+        public async Task<List<DeviceTypeDto.DeviceTypeDto>> GetDeviceTypesListAsync()
         {
             var list = await _deviceTypeRepository
                 .GetAll()
                 .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)
                 .OrderByDescending(x => x.created_at)
                 .ToListAsync();
-            return ObjectMapper.Map<List<Morpho.Device.DeviceTypeDto.DeviceTypeDto>>(list);
+            return ObjectMapper.Map<List<DeviceTypeDto.DeviceTypeDto>>(list);
         }
 
         public async Task<UpdateDeviceTypeDto> UpdateDeviceTypeAsync(UpdateDeviceTypeDto input)
@@ -94,7 +94,7 @@ namespace Morpho.Device.DeviceType.Dto
             return input;
         }
 
-        public async Task<Morpho.Device.DeviceTypeDto.DeviceTypeDto> GetDeviceTypeDetailsAsync(long deviceTypeId)
+        public async Task<DeviceTypeDto.DeviceTypeDto> GetDeviceTypeDetailsAsync(long deviceTypeId)
         {
             var entity = await _deviceTypeRepository
                 .FirstOrDefaultAsync(x => x.Id == deviceTypeId);
@@ -102,7 +102,7 @@ namespace Morpho.Device.DeviceType.Dto
             {
                 throw new UserFriendlyException("Device Type not found");
             }
-            return ObjectMapper.Map<Morpho.Device.DeviceTypeDto.DeviceTypeDto>(entity);
+            return ObjectMapper.Map<DeviceTypeDto.DeviceTypeDto>(entity);
         }
 
         public async Task<UpdateStatusDeviceTypeDto> DeleteDeviceTypeAsync(UpdateStatusDeviceTypeDto input)

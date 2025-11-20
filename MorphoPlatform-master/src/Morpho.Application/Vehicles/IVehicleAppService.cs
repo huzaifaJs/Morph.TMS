@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Morpho.VehicleType
+namespace Morpho.Vehicle
 {
     public interface IVehicleAppService : IApplicationService
     {

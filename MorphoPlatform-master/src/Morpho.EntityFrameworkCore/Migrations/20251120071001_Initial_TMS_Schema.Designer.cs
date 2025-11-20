@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Morpho.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Morpho.Migrations
 {
     [DbContext(typeof(MorphoDbContext))]
-    partial class MorphoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251120071001_Initial_TMS_Schema")]
+    partial class Initial_TMS_Schema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2251,79 +2254,6 @@ namespace Morpho.Migrations
                     b.ToTable("violations", (string)null);
                 });
 
-            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSIoTPolicyAssignment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("AssignedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Updated_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("active_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("active_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("assigned_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("created_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("deleted_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("deleted_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("device_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("isactive")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal?>("max_value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("min_value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("remarks")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("shipment_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("updated_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("vehicle_container_id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tms_shipment_iot_policy_assignment");
-                });
-
             modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipment", b =>
                 {
                     b.Property<long>("Id")
@@ -2393,6 +2323,9 @@ namespace Morpho.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("AssignedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -2407,9 +2340,6 @@ namespace Morpho.Migrations
 
                     b.Property<long?>("active_by")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("assignedOn")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long?>("assigned_by")
                         .HasColumnType("bigint");
@@ -2441,85 +2371,9 @@ namespace Morpho.Migrations
                     b.Property<long?>("updated_by")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("vehicle_id")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.ToTable("tms_shipment_container_assignment");
-                });
-
-            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipmentRouteAssignment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("AssignedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Updated_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("active_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("active_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("assigned_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("created_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("deleted_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("deleted_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("isactive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("latitude")
-                        .HasColumnType("text");
-
-                    b.Property<string>("longitude")
-                        .HasColumnType("text");
-
-                    b.Property<string>("remarks")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("shipment_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("updated_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("vehicle_container_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("vehicle_id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tms_shipment_route_assignment");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipmentStatusLog", b =>
@@ -2569,73 +2423,6 @@ namespace Morpho.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tms_shipment_status_log");
-                });
-
-            modelBuilder.Entity("Morpho.Domain.Entities.ShipmentManagement.TMSShipmentpackageAssignment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Updated_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("active_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("active_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("assigned_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("assigned_on")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("created_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("deleted_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("deleted_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("isactive")
-                        .HasColumnType("boolean");
-
-                    b.Property<long?>("package_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("remarks")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("shipment_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("updated_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("vehicle_container_id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tms_shipment_package_assignment");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.ShipmentPackage.PackageType", b =>
