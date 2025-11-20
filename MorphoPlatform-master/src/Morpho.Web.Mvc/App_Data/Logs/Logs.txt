@@ -17630,3 +17630,1247 @@ FROM "AbpBackgroundJobs" AS a
 WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
 ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
 LIMIT @__p_1
+DEBUG 2025-11-20 11:56:10,667 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2025-11-20 11:56:19,039 [1    ] Abp.Modules.AbpModuleManager             - Found 16 ABP modules in total.
+DEBUG 2025-11-20 11:56:19,053 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.Web.Startup.MorphoWebMvcModule, Morpho.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoWebCoreModule, Morpho.Web.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoApplicationModule, Morpho.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoCoreModule, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=9.4.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,055 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.FluentValidation.AbpFluentValidationModule, Abp.FluentValidation, Version=9.4.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,056 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,056 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.EntityFrameworkCore.MorphoEntityFrameworkModule, Morpho.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,056 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,056 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,057 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,057 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.AbpAspNetCoreModule, Abp.AspNetCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,057 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebCommonModule, Abp.Web.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,057 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule, Abp.AspNetCore.SignalR, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:19,059 [1    ] Abp.Modules.AbpModuleManager             - 16 modules loaded.
+DEBUG 2025-11-20 11:56:19,258 [1    ] o.Configuration.LanguageManagementConfig - Converted Abp (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:56:19,258 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpZero (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:56:19,258 [1    ] o.Configuration.LanguageManagementConfig - Converted Morpho (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:56:19,258 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpWeb (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:56:20,037 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: Morpho.EntityFrameworkCore.MorphoDbContext, Morpho.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:56:20,442 [1    ] Abp.Localization.LocalizationManager     - Initializing 4 localization sources.
+DEBUG 2025-11-20 11:56:20,513 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2025-11-20 11:56:20,521 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2025-11-20 11:56:20,526 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Morpho
+DEBUG 2025-11-20 11:56:20,531 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2025-11-20 11:56:20,545 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Abp.BackgroundJobs.BackgroundJobManager
+DEBUG 2025-11-20 11:56:20,560 [1    ] , Culture=neutral, PublicKeyToken=null]] - Start background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[Morpho.MultiTenancy.Tenant, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Morpho.Authorization.Users.User, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2025-11-20 11:56:20,588 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 84 classes define auto mapping attributes
+DEBUG 2025-11-20 11:56:20,588 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.CreateVehicleDto
+DEBUG 2025-11-20 11:56:20,591 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.UpdateVehicleDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.UpdateStatusVehicleDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.VehicleDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.CreateVehicleTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.UpdateVehicleTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.UpdateStatusVehicleTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.VehicleTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.CreateVechicleDocsTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.UpdateVechicleDocsTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.UpdateStatusVechicleDocsTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.VechicleDocsTypeDto
+DEBUG 2025-11-20 11:56:20,592 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.CreateDocsVehicleDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.UpdateDocsVehicleDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.UpdateStatusDocsVehicleDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.DocsVehicleDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Users.Dto.CreateUserDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Users.Dto.UserDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Telemetry.Dto.DeviceStatusInputDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.CreateContainerTypeDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.UpdateContainerTypeDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.UpdateStatusContainerTypeDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.ContainerTypeDto
+DEBUG 2025-11-20 11:56:20,593 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.CreateContainerDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.UpdateContainerDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.UpdateStatusContainerDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.ContainerDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.CreatePackageTypeDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.UpdatePackageTypeDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.UpdateStatusPackageTypeDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.PackageTypeDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.CreatePackageDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.UpdatePackageDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.UpdateStatusPackageDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.PackageDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Sessions.Dto.TenantLoginInfoDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Sessions.Dto.UserLoginInfoDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.CreateTenantDocumentDto
+DEBUG 2025-11-20 11:56:20,594 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.TenantDocumentDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.UpdateTenantDocumentDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.CreateTenantContactDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.TenantContactDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.UpdateTenantContactDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.CreateTenantAddressDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.TenantAddressDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.UpdateTenantAddressDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.CreateIndustryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.IndustryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.UpdateIndustryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.CountryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.CreateCountryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.UpdateCountryDto
+DEBUG 2025-11-20 11:56:20,595 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.CompanyTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.CreateCompanyTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.UpdateCompanyTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Roles.Dto.PermissionDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.CreatePolicyDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.CreatePolicyRuleDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyRuleDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyViolationDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.UpdatePolicyDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.MultiTenancy.Dto.CreateTenantDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.MultiTenancy.Dto.TenantDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.CreateFuelTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.UpdateFuelTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.UpdateStatusFuelTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.FuelTypeDto
+DEBUG 2025-11-20 11:56:20,596 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.CreateDeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.UpdateDeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.UpdateStatusDeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.DeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.CreateDeviceTypeDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.UpdateDeviceTypeDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.UpdateStatusDeviceTypeDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.DeviceTypeDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.CreateDeviceConfigDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.DeviceConfigDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.UpdateDeviceConfigDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.CreateIoTDeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.IoTDeviceDto
+DEBUG 2025-11-20 11:56:20,597 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.UpdateIoTDeviceDto
+DEBUG 2025-11-20 11:56:20,598 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Web.Views.Shared.Components.TenantChange.TenantChangeViewModel
+DEBUG 2025-11-20 11:56:20,598 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Web.Models.Roles.EditRoleModalViewModel
+WARN  2025-11-20 11:56:22,754 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantAddress'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:56:22,756 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantContact'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:56:22,760 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantDocument'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:56:22,900 [1    ] oft.EntityFrameworkCore.Model.Validation - The entity type 'DeviceConfig.Thresholds#ThresholdRange' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+WARN  2025-11-20 11:56:22,916 [1    ] oft.EntityFrameworkCore.Model.Validation - The entity type 'PolicyRule.Threshold#ThresholdRange' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+ERROR 2025-11-20 11:56:27,477 [1    ] .EntityFrameworkCore.Database.Connection - An error occurred using the connection to database 'MorphoDb' on server 'tcp://localhost:5433'.
+DEBUG 2025-11-20 11:57:41,790 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2025-11-20 11:57:41,835 [1    ] Abp.Modules.AbpModuleManager             - Found 16 ABP modules in total.
+DEBUG 2025-11-20 11:57:41,844 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.Web.Startup.MorphoWebMvcModule, Morpho.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,845 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoWebCoreModule, Morpho.Web.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,845 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoApplicationModule, Morpho.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.MorphoCoreModule, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=9.4.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.FluentValidation.AbpFluentValidationModule, Abp.FluentValidation, Version=9.4.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,846 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,847 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Morpho.EntityFrameworkCore.MorphoEntityFrameworkModule, Morpho.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,847 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,847 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,847 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,847 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.AbpAspNetCoreModule, Abp.AspNetCore, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,848 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebCommonModule, Abp.Web.Common, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,848 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule, Abp.AspNetCore.SignalR, Version=9.4.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:41,850 [1    ] Abp.Modules.AbpModuleManager             - 16 modules loaded.
+DEBUG 2025-11-20 11:57:41,908 [1    ] o.Configuration.LanguageManagementConfig - Converted Abp (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:57:41,908 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpZero (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:57:41,909 [1    ] o.Configuration.LanguageManagementConfig - Converted Morpho (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:57:41,909 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpWeb (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2025-11-20 11:57:42,185 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: Morpho.EntityFrameworkCore.MorphoDbContext, Morpho.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2025-11-20 11:57:42,379 [1    ] Abp.Localization.LocalizationManager     - Initializing 4 localization sources.
+DEBUG 2025-11-20 11:57:42,422 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2025-11-20 11:57:42,430 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2025-11-20 11:57:42,434 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Morpho
+DEBUG 2025-11-20 11:57:42,437 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2025-11-20 11:57:42,446 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Abp.BackgroundJobs.BackgroundJobManager
+DEBUG 2025-11-20 11:57:42,451 [1    ] , Culture=neutral, PublicKeyToken=null]] - Start background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[Morpho.MultiTenancy.Tenant, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Morpho.Authorization.Users.User, Morpho.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2025-11-20 11:57:42,470 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 84 classes define auto mapping attributes
+DEBUG 2025-11-20 11:57:42,470 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.CreateVehicleDto
+DEBUG 2025-11-20 11:57:42,473 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.UpdateVehicleDto
+DEBUG 2025-11-20 11:57:42,473 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.UpdateStatusVehicleDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Vehicles.VehicleDto.VehicleDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.CreateVehicleTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.UpdateVehicleTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.UpdateStatusVehicleTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleType.Dto.VehicleTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.CreateVechicleDocsTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.UpdateVechicleDocsTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.UpdateStatusVechicleDocsTypeDto
+DEBUG 2025-11-20 11:57:42,474 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.VechicleDocsType.Dto.VechicleDocsTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.CreateDocsVehicleDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.UpdateDocsVehicleDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.UpdateStatusDocsVehicleDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleDocs.DocsVehicle.Dto.DocsVehicleDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Users.Dto.CreateUserDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Users.Dto.UserDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Telemetry.Dto.DeviceStatusInputDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.CreateContainerTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.UpdateContainerTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.UpdateStatusContainerTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Dto.ContainerTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.CreateContainerDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.UpdateContainerDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.UpdateStatusContainerDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.VehicleContainer.Container.Dto.ContainerDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.CreatePackageTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.UpdatePackageTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.UpdateStatusPackageTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.PackageTypeDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.CreatePackageDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.UpdatePackageDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.UpdateStatusPackageDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.ShipmentPackage.Package.Dto.PackageDto
+DEBUG 2025-11-20 11:57:42,475 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Sessions.Dto.TenantLoginInfoDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Sessions.Dto.UserLoginInfoDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.CreateTenantDocumentDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.TenantDocumentDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantDocuments.Dtos.UpdateTenantDocumentDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.CreateTenantContactDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.TenantContactDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantContacts.Dtos.UpdateTenantContactDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.CreateTenantAddressDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.TenantAddressDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.TenantAddresses.Dtos.UpdateTenantAddressDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.CreateIndustryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.IndustryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Industries.Dtos.UpdateIndustryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.CountryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.CreateCountryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.Countries.Dtos.UpdateCountryDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.CompanyTypeDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.CreateCompanyTypeDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Services.CompanyTypes.Dtos.UpdateCompanyTypeDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Roles.Dto.PermissionDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.CreatePolicyDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.CreatePolicyRuleDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyRuleDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.PolicyViolationDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Policy.Dto.UpdatePolicyDto
+DEBUG 2025-11-20 11:57:42,476 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.MultiTenancy.Dto.CreateTenantDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.MultiTenancy.Dto.TenantDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.CreateFuelTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.UpdateFuelTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.UpdateStatusFuelTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Dto.FuelTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.CreateDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.UpdateDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.UpdateStatusDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.TrackingDeviceDto.DeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.CreateDeviceTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.UpdateDeviceTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.UpdateStatusDeviceTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Device.DeviceTypeDto.DeviceTypeDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.CreateDeviceConfigDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.DeviceConfigDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Application.Configuration.DeviceConfig.Dto.UpdateDeviceConfigDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.CreateIoTDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.IoTDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.IoT.Dto.UpdateIoTDeviceDto
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Web.Views.Shared.Components.TenantChange.TenantChangeViewModel
+DEBUG 2025-11-20 11:57:42,477 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Morpho.Web.Models.Roles.EditRoleModalViewModel
+WARN  2025-11-20 11:57:43,269 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantAddress'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:57:43,270 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantContact'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:57:43,272 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Tenant' has a global query filter defined and is the required end of a relationship with the entity 'TenantDocument'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+WARN  2025-11-20 11:57:43,323 [1    ] oft.EntityFrameworkCore.Model.Validation - The entity type 'DeviceConfig.Thresholds#ThresholdRange' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+WARN  2025-11-20 11:57:43,327 [1    ] oft.EntityFrameworkCore.Model.Validation - The entity type 'PolicyRule.Threshold#ThresholdRange' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+INFO  2025-11-20 11:57:43,952 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."DisplayName", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name"
+FROM "AbpEditions" AS a
+WHERE a."Name" = 'Standard'
+LIMIT 1
+INFO  2025-11-20 11:57:44,039 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (8ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,044 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,046 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,048 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,050 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,052 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,054 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,055 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,057 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,058 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,060 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,062 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,065 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__language_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpLanguages" AS a
+    WHERE a."TenantId" IS NULL AND a."Name" = @__language_Name_1)
+INFO  2025-11-20 11:57:44,075 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."Description", a."DisplayName", a."IsDefault", a."IsDeleted", a."IsStatic", a."LastModificationTime", a."LastModifierUserId", a."Name", a."NormalizedName", a."TenantId"
+FROM "AbpRoles" AS a
+WHERE a."TenantId" IS NULL AND a."Name" = 'Admin'
+LIMIT 1
+INFO  2025-11-20 11:57:44,109 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__adminRoleForHost_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Name"
+FROM "AbpPermissions" AS a
+WHERE a."Discriminator" = 'RolePermissionSetting' AND a."TenantId" IS NULL AND a."RoleId" = @__adminRoleForHost_Id_0
+INFO  2025-11-20 11:57:44,219 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = Int64), @p2='?', @p3='?' (DbType = Boolean), @p4='?', @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int64), @p9='?', @p10='?' (DbType = Boolean), @p11='?', @p12='?' (DbType = Int32), @p13='?' (DbType = Int32), @p14='?' (DbType = DateTime), @p15='?' (DbType = Int64), @p16='?', @p17='?' (DbType = Boolean), @p18='?', @p19='?' (DbType = Int32), @p20='?' (DbType = Int32), @p21='?' (DbType = DateTime), @p22='?' (DbType = Int64), @p23='?', @p24='?' (DbType = Boolean), @p25='?', @p26='?' (DbType = Int32), @p27='?' (DbType = Int32), @p28='?' (DbType = DateTime), @p29='?' (DbType = Int64), @p30='?', @p31='?' (DbType = Boolean), @p32='?', @p33='?' (DbType = Int32), @p34='?' (DbType = Int32), @p35='?' (DbType = DateTime), @p36='?' (DbType = Int64), @p37='?', @p38='?' (DbType = Boolean), @p39='?', @p40='?' (DbType = Int32), @p41='?' (DbType = Int32), @p42='?' (DbType = DateTime), @p43='?' (DbType = Int64), @p44='?', @p45='?' (DbType = Boolean), @p46='?', @p47='?' (DbType = Int32), @p48='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p14, @p15, @p16, @p17, @p18, @p19, @p20)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p21, @p22, @p23, @p24, @p25, @p26, @p27)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p28, @p29, @p30, @p31, @p32, @p33, @p34)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p35, @p36, @p37, @p38, @p39, @p40, @p41)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p42, @p43, @p44, @p45, @p46, @p47, @p48)
+RETURNING "Id";
+INFO  2025-11-20 11:57:44,245 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE a."TenantId" IS NULL AND a."UserName" = 'admin'
+LIMIT 1
+INFO  2025-11-20 11:57:44,292 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__name_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpSettings" AS a
+    WHERE a."Name" = @__name_0 AND a."TenantId" IS NULL AND a."UserId" IS NULL)
+INFO  2025-11-20 11:57:44,295 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__name_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpSettings" AS a
+    WHERE a."Name" = @__name_0 AND a."TenantId" IS NULL AND a."UserId" IS NULL)
+INFO  2025-11-20 11:57:44,297 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__name_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AbpSettings" AS a
+    WHERE a."Name" = @__name_0 AND a."TenantId" IS NULL AND a."UserId" IS NULL)
+INFO  2025-11-20 11:57:44,313 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE a."TenancyName" = 'Default'
+LIMIT 1
+INFO  2025-11-20 11:57:44,333 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@___tenantId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."Description", a."DisplayName", a."IsDefault", a."IsDeleted", a."IsStatic", a."LastModificationTime", a."LastModifierUserId", a."Name", a."NormalizedName", a."TenantId"
+FROM "AbpRoles" AS a
+WHERE a."TenantId" = @___tenantId_0 AND a."Name" = 'Admin'
+LIMIT 1
+INFO  2025-11-20 11:57:44,339 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@___tenantId_0='?' (DbType = Int32), @__adminRole_Id_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Name"
+FROM "AbpPermissions" AS a
+WHERE a."Discriminator" = 'RolePermissionSetting' AND a."TenantId" = @___tenantId_0 AND a."RoleId" = @__adminRole_Id_1
+INFO  2025-11-20 11:57:44,351 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = Int64), @p2='?', @p3='?' (DbType = Boolean), @p4='?', @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int64), @p9='?', @p10='?' (DbType = Boolean), @p11='?', @p12='?' (DbType = Int32), @p13='?' (DbType = Int32), @p14='?' (DbType = DateTime), @p15='?' (DbType = Int64), @p16='?', @p17='?' (DbType = Boolean), @p18='?', @p19='?' (DbType = Int32), @p20='?' (DbType = Int32), @p21='?' (DbType = DateTime), @p22='?' (DbType = Int64), @p23='?', @p24='?' (DbType = Boolean), @p25='?', @p26='?' (DbType = Int32), @p27='?' (DbType = Int32), @p28='?' (DbType = DateTime), @p29='?' (DbType = Int64), @p30='?', @p31='?' (DbType = Boolean), @p32='?', @p33='?' (DbType = Int32), @p34='?' (DbType = Int32), @p35='?' (DbType = DateTime), @p36='?' (DbType = Int64), @p37='?', @p38='?' (DbType = Boolean), @p39='?', @p40='?' (DbType = Int32), @p41='?' (DbType = Int32), @p42='?' (DbType = DateTime), @p43='?' (DbType = Int64), @p44='?', @p45='?' (DbType = Boolean), @p46='?', @p47='?' (DbType = Int32), @p48='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p14, @p15, @p16, @p17, @p18, @p19, @p20)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p21, @p22, @p23, @p24, @p25, @p26, @p27)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p28, @p29, @p30, @p31, @p32, @p33, @p34)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p35, @p36, @p37, @p38, @p39, @p40, @p41)
+RETURNING "Id";
+INSERT INTO "AbpPermissions" ("CreationTime", "CreatorUserId", "Discriminator", "IsGranted", "Name", "RoleId", "TenantId")
+VALUES (@p42, @p43, @p44, @p45, @p46, @p47, @p48)
+RETURNING "Id";
+INFO  2025-11-20 11:57:44,359 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@___tenantId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE a."TenantId" = @___tenantId_0 AND a."UserName" = 'admin'
+LIMIT 1
+INFO  2025-11-20 11:57:44,425 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."DisplayName", a."Icon", a."IsDeleted", a."IsDisabled", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenantId"
+FROM "AbpLanguages" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" IS NULL)
+INFO  2025-11-20 11:57:44,497 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenantId", a."UserId", a."Value"
+FROM "AbpSettings" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" IS NULL) AND a."UserId" IS NULL AND a."TenantId" IS NULL
+INFO  2025-11-20 11:57:44,517 [1    ] tCore.Builder.RequestLocalizationOptions - Supported Request Localization Cultures: en,es-MX,fr,de,it,nl,pt-BR,tr,ru,ar,fa,ja,zh-Hans
+INFO  2025-11-20 11:57:44,894 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/ - - -
+INFO  2025-11-20 11:57:44,930 [1    ] Microsoft.Hosting.Lifetime               - Application started. Press Ctrl+C to shut down.
+INFO  2025-11-20 11:57:44,932 [1    ] Microsoft.Hosting.Lifetime               - Hosting environment: Development
+INFO  2025-11-20 11:57:44,933 [1    ] Microsoft.Hosting.Lifetime               - Content root path: D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc
+INFO  2025-11-20 11:57:45,137 [17   ] uthorization.DefaultAuthorizationService - Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+INFO  2025-11-20 11:57:45,141 [17   ] tion.Cookies.CookieAuthenticationHandler - AuthenticationScheme: Identity.Application was challenged.
+INFO  2025-11-20 11:57:45,154 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/Account/Login?ReturnUrl=%2F - - -
+INFO  2025-11-20 11:57:45,162 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/ - 302 - - 271.0134ms
+INFO  2025-11-20 11:57:45,167 [7    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc)'
+INFO  2025-11-20 11:57:45,207 [7    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login(System.String, System.String, System.String) on controller Morpho.Web.Controllers.AccountController (Morpho.Web.Mvc).
+INFO  2025-11-20 11:57:45,773 [7    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 11:57:45,881 [17   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (9ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+INFO  2025-11-20 11:57:45,905 [17   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executing ViewResult, running view Login.
+INFO  2025-11-20 11:57:45,947 [17   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."DisplayName", a."Icon", a."IsDeleted", a."IsDisabled", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenantId"
+FROM "AbpLanguages" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2)
+INFO  2025-11-20 11:57:45,953 [17   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenantId", a."UserId", a."Value"
+FROM "AbpSettings" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" IS NULL AND a."TenantId" = @__tenantId_1
+INFO  2025-11-20 11:57:45,966 [17   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:45,973 [17   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" IS NULL) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,101 [11   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 11:57:46,179 [15   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executed ViewResult - view Login executed in 272.8995ms.
+INFO  2025-11-20 11:57:46,186 [15   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc) in 974.6611ms
+INFO  2025-11-20 11:57:46,192 [15   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc)'
+INFO  2025-11-20 11:57:46,193 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/js/adminlte.js?v=qa5rotfA_XGUme1qKFBaN2b460qKta_sMjFgsts8yW4 - - -
+INFO  2025-11-20 11:57:46,194 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/jquery/jquery.js?v=VFNHMekXY3YFH8L3IdI_hSiGN1bbC1C4BXLJH75PRog - - -
+INFO  2025-11-20 11:57:46,201 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/font-awesome/css/all.min.css?v=_Uk1JMi-bYTPlZWfkxA2gLP6oqR8kkgtQ_8YNtjAgFU - - -
+INFO  2025-11-20 11:57:46,237 [10   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js?v=i3fsIGh0z3DXDbSa7f6TwsWonuZ8-OwELSrtH1jHbDA - - -
+INFO  2025-11-20 11:57:46,247 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/jquery-validate/jquery.validate.unobtrusive.js?v=qbS02vMHZxdLNYKUtLPSYaSHXj1_ZwH1fv9f3XAY0LU - - -
+INFO  2025-11-20 11:57:46,262 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js?v=djoKib6ssm5DDzbXLe5pD7ayfFg3siaoEk-BFYzQlvI - - -
+INFO  2025-11-20 11:57:46,267 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - - -
+INFO  2025-11-20 11:57:46,327 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js?v=vMuHbqHh635SKL2RG2qsGGCDyHg1yFeGqhPKpS34g4k - - -
+INFO  2025-11-20 11:57:46,331 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 11:57:46,338 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/js/main.js?v=y-7JaW1AQn6vCt2a8mGFwEhG6sxxtSFDl3qScmULTZw - - -
+INFO  2025-11-20 11:57:46,340 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/Account/Login?ReturnUrl=%2F - 200 - text/html;+charset=utf-8 1178.3995ms
+INFO  2025-11-20 11:57:46,346 [41   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js?v=Ta7OYgm62iNXMvVrH3f4y3WqUbGsHGBNvt0Zu0eIKtk - - -
+INFO  2025-11-20 11:57:46,377 [43   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - - -
+INFO  2025-11-20 11:57:46,380 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js?v=MEOC0fqxBbFCeeJ6VHFuw8-2C710gCRqjbvYcHoBdHU - - -
+INFO  2025-11-20 11:57:46,385 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/icheck-bootstrap/icheck-bootstrap.css?v=nGN1DgpDTrAS3DS7E5J0cL-gblWBKAMSoU_LSuY8gu8 - - -
+INFO  2025-11-20 11:57:46,392 [43   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 11:57:46,401 [37   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.spin.js'
+INFO  2025-11-20 11:57:46,402 [11   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/admin-lte/dist/js/adminlte.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\admin-lte\dist\js\adminlte.js'
+INFO  2025-11-20 11:57:46,404 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/jquery-validate/jquery.validate.unobtrusive.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\jquery-validate\jquery.validate.unobtrusive.js'
+INFO  2025-11-20 11:57:46,407 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js?v=djoKib6ssm5DDzbXLe5pD7ayfFg3siaoEk-BFYzQlvI - 200 2805 text/javascript 143.0456ms
+INFO  2025-11-20 11:57:46,410 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/jquery-validate/jquery.validate.unobtrusive.js?v=qbS02vMHZxdLNYKUtLPSYaSHXj1_ZwH1fv9f3XAY0LU - 200 19798 text/javascript 168.4748ms
+INFO  2025-11-20 11:57:46,412 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/js/adminlte.js?v=qa5rotfA_XGUme1qKFBaN2b460qKta_sMjFgsts8yW4 - 200 102907 text/javascript 216.5095ms
+INFO  2025-11-20 11:57:46,418 [39   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.blockUI.js'
+INFO  2025-11-20 11:57:46,424 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/jquery-validate/jquery.validate.js?v=3YWwCWhAbC9WEyiE48ItqSuW0Cj4meiGEhcanechitI - - -
+INFO  2025-11-20 11:57:46,426 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/block-ui/jquery.blockUI.js?v=KKcUNqwNyTLaXzvuMyFk6JisiQq6Hk7ZtrciXnEf3Z0 - - -
+INFO  2025-11-20 11:57:46,429 [10   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.toastr.js'
+INFO  2025-11-20 11:57:46,431 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/abp.js?v=3lLIPNQoGBxv9DWxtKwnvHr7Wlov-D0jo-NtjAdTenA - - -
+INFO  2025-11-20 11:57:46,434 [10   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js?v=i3fsIGh0z3DXDbSa7f6TwsWonuZ8-OwELSrtH1jHbDA - 200 1459 text/javascript 239.4474ms
+INFO  2025-11-20 11:57:46,437 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/toastr/toastr.css?v=X7-pM8lU9VGHQLKWtMM5cRBOApFzVgQviIaQsFK7_aQ - - -
+INFO  2025-11-20 11:57:46,446 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.min.css?v=D9O-28vCF-qJh2qZSFIXxXc30hTED8RmnKeZRyvVEpA - - -
+INFO  2025-11-20 11:57:46,449 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js?v=vMuHbqHh635SKL2RG2qsGGCDyHg1yFeGqhPKpS34g4k - 200 631 text/javascript 122.3828ms
+INFO  2025-11-20 11:57:46,454 [40   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/js/main.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\js\main.js'
+INFO  2025-11-20 11:57:46,457 [10   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/toastr/toastr.min.js?v=qavqkJu0mPr0BFHIDexcyUz2UYRvILQlvddaKGph2JI - - -
+INFO  2025-11-20 11:57:46,461 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpServiceProxies", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ContentResult GetAll(Abp.AspNetCore.Mvc.Proxying.ApiProxyGenerationModel) on controller Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController (Abp.AspNetCore).
+INFO  2025-11-20 11:57:46,467 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Account/_Layout.css?v=pHobCa-IAfjMNqE8x1a2vYglVfPFWGtvFJmb0671Np0 - - -
+INFO  2025-11-20 11:57:46,469 [15   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/jquery/jquery.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\jquery\jquery.js'
+INFO  2025-11-20 11:57:46,473 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/js/main.js?v=y-7JaW1AQn6vCt2a8mGFwEhG6sxxtSFDl3qScmULTZw - 200 5332 text/javascript 123.8875ms
+INFO  2025-11-20 11:57:46,475 [41   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.sweet-alert.js'
+INFO  2025-11-20 11:57:46,480 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/bootstrap/dist/js/bootstrap.bundle.js?v=cI14dfElUo9qtzfUkPfsebTvsYfzEJi_Eed2UHuu-l8 - - -
+INFO  2025-11-20 11:57:46,483 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_vs/browserLink - - -
+INFO  2025-11-20 11:57:46,485 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/Components/TenantChange/Default.js?v=638992168661644466 - - -
+INFO  2025-11-20 11:57:46,488 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs-ext/spin/jquery.spin.js?v=i7H7HL08ldqUANgfQInE7LlU2uWUdQMCJ-Q7-_zLutY - - -
+INFO  2025-11-20 11:57:46,490 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - - -
+INFO  2025-11-20 11:57:46,493 [41   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js?v=Ta7OYgm62iNXMvVrH3f4y3WqUbGsHGBNvt0Zu0eIKtk - 200 2863 text/javascript 136.6530ms
+INFO  2025-11-20 11:57:46,497 [42   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/icheck-bootstrap/icheck-bootstrap.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\icheck-bootstrap\icheck-bootstrap.css'
+INFO  2025-11-20 11:57:46,500 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/spin/spin.js?v=b1plKpQIB-XuGyjWec42MhmhpPzEPzFI3OC8Ia0XIoc - - -
+INFO  2025-11-20 11:57:46,502 [41   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/moment/moment-with-locales.js?v=Snc4t4vYmqjAkMXD-_4DN9NpUNK8F5v_iUSN6TzhcN4 - - -
+INFO  2025-11-20 11:57:46,509 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/toastr/toastr.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\toastr\toastr.css'
+INFO  2025-11-20 11:57:46,512 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/icheck-bootstrap/icheck-bootstrap.css?v=nGN1DgpDTrAS3DS7E5J0cL-gblWBKAMSoU_LSuY8gu8 - 200 14967 text/css 125.3726ms
+INFO  2025-11-20 11:57:46,516 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/toastr/toastr.css?v=X7-pM8lU9VGHQLKWtMM5cRBOApFzVgQviIaQsFK7_aQ - 200 7803 text/css 99.3783ms
+INFO  2025-11-20 11:57:46,522 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - 200 16513 application/javascript;+charset=utf-8 33.2105ms
+INFO  2025-11-20 11:57:46,525 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs-ext\famfamfam-flags\dist\sprite\famfamfam-flags.min.css'
+INFO  2025-11-20 11:57:46,529 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/jquery/jquery.js?v=VFNHMekXY3YFH8L3IdI_hSiGN1bbC1C4BXLJH75PRog - 200 290962 text/javascript 332.9700ms
+INFO  2025-11-20 11:57:46,531 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.min.css?v=D9O-28vCF-qJh2qZSFIXxXc30hTED8RmnKeZRyvVEpA - 200 19009 text/css 113.9645ms
+INFO  2025-11-20 11:57:46,541 [7    ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/toastr/toastr.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\toastr\toastr.min.js'
+INFO  2025-11-20 11:57:46,544 [37   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Shared/Components/TenantChange/Default.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Shared\Components\TenantChange\Default.js'
+INFO  2025-11-20 11:57:46,546 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/toastr/toastr.min.js?v=qavqkJu0mPr0BFHIDexcyUz2UYRvILQlvddaKGph2JI - 200 5253 text/javascript 92.3466ms
+INFO  2025-11-20 11:57:46,548 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/spin/spin.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\spin\spin.js'
+INFO  2025-11-20 11:57:46,550 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/Components/TenantChange/Default.js?v=638992168661644466 - 200 498 text/javascript 63.7020ms
+INFO  2025-11-20 11:57:46,553 [10   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/bootstrap/dist/js/bootstrap.bundle.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\bootstrap\dist\js\bootstrap.bundle.js'
+INFO  2025-11-20 11:57:46,555 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/spin/spin.js?v=b1plKpQIB-XuGyjWec42MhmhpPzEPzFI3OC8Ia0XIoc - 200 11984 text/javascript 54.9992ms
+INFO  2025-11-20 11:57:46,557 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/css/adminlte.min.css?v=h3eq9dULGfUX0DNJ-CrIY0-sjS1O9xpxX-rWpDQ17iU - - -
+INFO  2025-11-20 11:57:46,560 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/sweetalert/sweetalert.min.js?v=KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms - - -
+INFO  2025-11-20 11:57:46,564 [41   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs-ext/spin/jquery.spin.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs-ext\spin\jquery.spin.js'
+INFO  2025-11-20 11:57:46,566 [10   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/bootstrap/dist/js/bootstrap.bundle.js?v=cI14dfElUo9qtzfUkPfsebTvsYfzEJi_Eed2UHuu-l8 - 200 243909 text/javascript 86.6343ms
+INFO  2025-11-20 11:57:46,568 [41   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs-ext/spin/jquery.spin.js?v=i7H7HL08ldqUANgfQInE7LlU2uWUdQMCJ-Q7-_zLutY - 200 1855 text/javascript 83.7756ms
+INFO  2025-11-20 11:57:46,571 [42   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/jquery-validate/jquery.validate.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\jquery-validate\jquery.validate.js'
+INFO  2025-11-20 11:57:46,573 [43   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetScripts", controller = "AbpScripts", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetScripts(System.String, Boolean) on controller Abp.AspNetCore.Mvc.Controllers.AbpScriptsController (Abp.AspNetCore).
+INFO  2025-11-20 11:57:46,575 [44   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Account/Login.js?v=QcQaP2tYhyMf9nF9oQ73Fek6Q4zGCxX2-VNI5iPnEaU - - -
+INFO  2025-11-20 11:57:46,578 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/jquery-validate/jquery.validate.js?v=3YWwCWhAbC9WEyiE48ItqSuW0Cj4meiGEhcanechitI - 200 52319 text/javascript 161.1537ms
+INFO  2025-11-20 11:57:46,581 [45   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/font-awesome/css/all.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\font-awesome\css\all.min.css'
+INFO  2025-11-20 11:57:46,585 [11   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/sweetalert/sweetalert.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\sweetalert\sweetalert.min.js'
+INFO  2025-11-20 11:57:46,589 [46   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.jquery.js'
+INFO  2025-11-20 11:57:46,592 [42   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Account/Login.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Account\Login.js'
+INFO  2025-11-20 11:57:46,599 [10   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/sweetalert/sweetalert.min.js?v=KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms - 200 40808 text/javascript 67.6568ms
+INFO  2025-11-20 11:57:46,601 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Account/Login.js?v=QcQaP2tYhyMf9nF9oQ73Fek6Q4zGCxX2-VNI5iPnEaU - 200 507 text/javascript 220.0266ms
+INFO  2025-11-20 11:57:46,604 [45   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/font-awesome/css/all.min.css?v=_Uk1JMi-bYTPlZWfkxA2gLP6oqR8kkgtQ_8YNtjAgFU - 200 59348 text/css 392.5541ms
+INFO  2025-11-20 11:57:46,606 [46   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js?v=MEOC0fqxBbFCeeJ6VHFuw8-2C710gCRqjbvYcHoBdHU - 200 9495 text/javascript 214.6854ms
+INFO  2025-11-20 11:57:46,609 [47   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/css/style.css?v=4lZM0wjJ2dQ7A_s0DqJZvDRfKrl2g7nHv4nvpfkfmQw - - -
+INFO  2025-11-20 11:57:46,611 [48   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/block-ui/jquery.blockUI.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\block-ui\jquery.blockUI.js'
+INFO  2025-11-20 11:57:46,613 [49   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Account/_Layout.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Account\_Layout.css'
+INFO  2025-11-20 11:57:46,616 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/block-ui/jquery.blockUI.js?v=KKcUNqwNyTLaXzvuMyFk6JisiQq6Hk7ZtrciXnEf3Z0 - 200 20586 text/javascript 198.1076ms
+INFO  2025-11-20 11:57:46,618 [49   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Account/_Layout.css?v=pHobCa-IAfjMNqE8x1a2vYglVfPFWGtvFJmb0671Np0 - 200 221 text/css 163.2078ms
+INFO  2025-11-20 11:57:46,621 [50   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/abp.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\abp.js'
+INFO  2025-11-20 11:57:46,623 [51   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/moment/moment-with-locales.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\moment\moment-with-locales.js'
+INFO  2025-11-20 11:57:46,626 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/abp.js?v=3lLIPNQoGBxv9DWxtKwnvHr7Wlov-D0jo-NtjAdTenA - 200 29160 text/javascript 209.9761ms
+INFO  2025-11-20 11:57:46,628 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/admin-lte/dist/css/adminlte.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\admin-lte\dist\css\adminlte.min.css'
+INFO  2025-11-20 11:57:46,631 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" IS NULL) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,634 [46   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/css/style.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\css\style.css'
+INFO  2025-11-20 11:57:46,638 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,640 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/moment/moment-with-locales.js?v=Snc4t4vYmqjAkMXD-_4DN9NpUNK8F5v_iUSN6TzhcN4 - 200 556128 text/javascript 139.0702ms
+INFO  2025-11-20 11:57:46,643 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/css/style.css?v=4lZM0wjJ2dQ7A_s0DqJZvDRfKrl2g7nHv4nvpfkfmQw - 200 588 text/css 197.7401ms
+INFO  2025-11-20 11:57:46,649 [51   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/css/adminlte.min.css?v=h3eq9dULGfUX0DNJ-CrIY0-sjS1O9xpxX-rWpDQ17iU - 200 1382986 text/css 123.9588ms
+INFO  2025-11-20 11:57:46,652 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" IS NULL) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,656 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,661 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" IS NULL) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,666 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @___sourceName_0='?', @__CultureInfo_Name_1='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Key", a."LanguageName", a."LastModificationTime", a."LastModifierUserId", a."Source", a."TenantId", a."Value"
+FROM "AbpLanguageTexts" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."Source" = @___sourceName_0 AND a."LanguageName" = @__CultureInfo_Name_1
+INFO  2025-11-20 11:57:46,700 [49   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.png - - -
+INFO  2025-11-20 11:57:46,704 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/font-awesome/webfonts/fa-solid-900.woff2 - - -
+INFO  2025-11-20 11:57:46,714 [15   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.png'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs-ext\famfamfam-flags\dist\sprite\famfamfam-flags.png'
+INFO  2025-11-20 11:57:46,717 [17   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/font-awesome/webfonts/fa-solid-900.woff2'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\font-awesome\webfonts\fa-solid-900.woff2'
+INFO  2025-11-20 11:57:46,720 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs-ext/famfamfam-flags/dist/sprite/famfamfam-flags.png - 200 78508 image/png 46.8705ms
+INFO  2025-11-20 11:57:46,723 [46   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/font-awesome/webfonts/fa-solid-900.woff2 - 200 78196 font/woff2 19.3907ms
+INFO  2025-11-20 11:57:46,726 [38   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript
+INFO  2025-11-20 11:57:46,731 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore) in 265.4469ms
+INFO  2025-11-20 11:57:46,734 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 11:57:46,739 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - 200 49755 application/x-javascript 470.4449ms
+INFO  2025-11-20 11:57:46,745 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 264.9021ms
+INFO  2025-11-20 11:57:46,871 [43   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript; charset=utf-8
+INFO  2025-11-20 11:57:46,876 [43   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore) in 298.3463ms
+INFO  2025-11-20 11:57:46,880 [43   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 11:57:46,883 [43   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - 200 22792 application/x-javascript;+charset=utf-8 506.5776ms
+INFO  2025-11-20 11:57:47,476 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:57:52,483 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:57:57,491 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:02,509 [43   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:07,519 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:12,528 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:17,546 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:22,559 [49   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:27,563 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:32,572 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:37,589 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:38,496 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/swagger/index.html - - -
+INFO  2025-11-20 11:58:38,509 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/swagger/index.html - 404 - - 13.6329ms
+INFO  2025-11-20 11:58:38,513 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44312/swagger/index.html, Response status code: 404
+INFO  2025-11-20 11:58:42,598 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:46,870 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/Swagger/index.html - - -
+INFO  2025-11-20 11:58:46,878 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/Swagger/index.html - 404 - - 7.3678ms
+INFO  2025-11-20 11:58:46,882 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44312/Swagger/index.html, Response status code: 404
+INFO  2025-11-20 11:58:47,615 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:52,633 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:58:57,650 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:02,665 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:07,673 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:12,682 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:17,698 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:22,713 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:27,730 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:32,743 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:37,754 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:42,781 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:47,800 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:49,046 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 POST https://localhost:44312/Account/TenantChangeModal - application/json 0
+INFO  2025-11-20 11:59:49,061 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.Web.Controllers.AccountController.TenantChangeModal (Morpho.Web.Mvc)'
+INFO  2025-11-20 11:59:49,073 [48   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "TenantChangeModal", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] TenantChangeModal() on controller Morpho.Web.Controllers.AccountController (Morpho.Web.Mvc).
+INFO  2025-11-20 11:59:49,102 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (5ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 11:59:49,126 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+INFO  2025-11-20 11:59:49,137 [50   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executing ViewResult, running view /Views/Shared/Components/TenantChange/_ChangeModal.cshtml.
+INFO  2025-11-20 11:59:49,173 [50   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executed ViewResult - view /Views/Shared/Components/TenantChange/_ChangeModal.cshtml executed in 36.4539ms.
+INFO  2025-11-20 11:59:49,177 [50   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.Web.Controllers.AccountController.TenantChangeModal (Morpho.Web.Mvc) in 100.2706ms
+INFO  2025-11-20 11:59:49,179 [50   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.Web.Controllers.AccountController.TenantChangeModal (Morpho.Web.Mvc)'
+WARN  2025-11-20 11:59:49,188 [50   ] ls.BrowserLink.Net.BrowserLinkMiddleware - Unable to configure Browser Link script injection on the response. 
+INFO  2025-11-20 11:59:49,193 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 POST https://localhost:44312/Account/TenantChangeModal - 200 - text/html;+charset=utf-8 146.8601ms
+INFO  2025-11-20 11:59:49,196 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js?v=EFIgvEXUtqeNjMNHXBjTKPW_oSs9yTaGleZTEuQmU8w - - -
+INFO  2025-11-20 11:59:49,203 [55   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Shared\Components\TenantChange\_ChangeModal.js'
+INFO  2025-11-20 11:59:49,209 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js?v=EFIgvEXUtqeNjMNHXBjTKPW_oSs9yTaGleZTEuQmU8w - 200 1865 text/javascript 9.1797ms
+INFO  2025-11-20 11:59:52,808 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 11:59:57,823 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:02,836 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:04,896 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 POST https://localhost:44312/Account/Login - application/x-www-form-urlencoded 261
+INFO  2025-11-20 12:00:04,899 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:04,910 [55   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] Login(Morpho.Web.Models.Account.LoginViewModel, System.String, System.String) on controller Morpho.Web.Controllers.AccountController (Morpho.Web.Mvc).
+INFO  2025-11-20 12:00:05,018 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__tenancyName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."TenancyName" = @__tenancyName_0
+LIMIT 1
+INFO  2025-11-20 12:00:05,150 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__normalizedUserNameOrEmailAddress_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND (a."NormalizedUserName" = @__normalizedUserNameOrEmailAddress_0 OR a."NormalizedEmailAddress" = @__normalizedUserNameOrEmailAddress_0)
+LIMIT 1
+INFO  2025-11-20 12:00:05,321 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (5ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."CreationTime", a."CreatorUserId", a."TenantId", a."UserId"
+FROM "AbpUserClaims" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" = @__p_0
+INFO  2025-11-20 12:00:05,431 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (7ms) [Parameters=[@__ef_filter__p_2='?' (DbType = Boolean), @__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__user_Id_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT t."Name"
+FROM "AbpUserRoles" AS a
+INNER JOIN (
+    SELECT a0."Id", a0."Name"
+    FROM "AbpRoles" AS a0
+    WHERE (@__ef_filter__p_2 OR NOT (a0."IsDeleted")) AND (@__ef_filter__p_0 OR a0."TenantId" = @__ef_filter__CurrentTenantId_1)
+) AS t ON a."RoleId" = t."Id"
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" = @__user_Id_0
+INFO  2025-11-20 12:00:05,463 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (5ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__user_Id_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT t0."Name"
+FROM "AbpUserOrganizationUnits" AS a
+INNER JOIN (
+    SELECT a0."OrganizationUnitId", a0."RoleId"
+    FROM "AbpOrganizationUnitRoles" AS a0
+    WHERE (@__ef_filter__p_0 OR NOT (a0."IsDeleted")) AND (@__ef_filter__p_1 OR a0."TenantId" = @__ef_filter__CurrentTenantId_2)
+) AS t ON a."OrganizationUnitId" = t."OrganizationUnitId"
+INNER JOIN (
+    SELECT a1."Id", a1."Name"
+    FROM "AbpRoles" AS a1
+    WHERE (@__ef_filter__p_0 OR NOT (a1."IsDeleted")) AND (@__ef_filter__p_1 OR a1."TenantId" = @__ef_filter__CurrentTenantId_2)
+) AS t0 ON t."RoleId" = t0."Id"
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."UserId" = @__user_Id_0
+INFO  2025-11-20 12:00:05,483 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."Description", a."DisplayName", a."IsDefault", a."IsDeleted", a."IsStatic", a."LastModificationTime", a."LastModifierUserId", a."Name", a."NormalizedName", a."TenantId"
+FROM "AbpRoles" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."NormalizedName" = @__normalizedName_0
+LIMIT 1
+INFO  2025-11-20 12:00:05,505 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."CreationTime", a."CreatorUserId", a."RoleId", a."TenantId"
+FROM "AbpRoleClaims" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."RoleId" = @__p_0
+INFO  2025-11-20 12:00:05,799 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (8ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Int16), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Int64), @p9='?'], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpUserLoginAttempts" ("BrowserInfo", "ClientIpAddress", "ClientName", "CreationTime", "FailReason", "Result", "TenancyName", "TenantId", "UserId", "UserNameOrEmailAddress")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9)
+RETURNING "Id";
+INFO  2025-11-20 12:00:05,823 [48   ] tion.Cookies.CookieAuthenticationHandler - AuthenticationScheme: Identity.Application signed in.
+INFO  2025-11-20 12:00:05,847 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (4ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+INFO  2025-11-20 12:00:05,858 [48   ] rastructure.SystemTextJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2025-11-20 12:00:05,867 [48   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc) in 954.0161ms
+INFO  2025-11-20 12:00:05,871 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.Web.Controllers.AccountController.Login (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:05,874 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 POST https://localhost:44312/Account/Login - 200 - application/json;+charset=utf-8 979.4365ms
+INFO  2025-11-20 12:00:05,884 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/ - - -
+INFO  2025-11-20 12:00:05,904 [58   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.Web.Controllers.HomeController.Index (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:05,909 [58   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Morpho.Web.Controllers.HomeController (Morpho.Web.Mvc).
+INFO  2025-11-20 12:00:05,929 [55   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+INFO  2025-11-20 12:00:05,939 [58   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executing ViewResult, running view Index.
+INFO  2025-11-20 12:00:06,027 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (4ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,053 [58   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,092 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (5ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,099 [50   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,138 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,148 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_2='?' (DbType = Boolean), @__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__user_Id_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT t."Name"
+FROM "AbpUserRoles" AS a
+INNER JOIN (
+    SELECT a0."Id", a0."Name"
+    FROM "AbpRoles" AS a0
+    WHERE (@__ef_filter__p_2 OR NOT (a0."IsDeleted")) AND (@__ef_filter__p_0 OR a0."TenantId" = @__ef_filter__CurrentTenantId_1)
+) AS t ON a."RoleId" = t."Id"
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" = @__user_Id_0
+INFO  2025-11-20 12:00:06,155 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__user_Id_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT t0."Name"
+FROM "AbpUserOrganizationUnits" AS a
+INNER JOIN (
+    SELECT a0."OrganizationUnitId", a0."RoleId"
+    FROM "AbpOrganizationUnitRoles" AS a0
+    WHERE (@__ef_filter__p_0 OR NOT (a0."IsDeleted")) AND (@__ef_filter__p_1 OR a0."TenantId" = @__ef_filter__CurrentTenantId_2)
+) AS t ON a."OrganizationUnitId" = t."OrganizationUnitId"
+INNER JOIN (
+    SELECT a1."Id", a1."Name"
+    FROM "AbpRoles" AS a1
+    WHERE (@__ef_filter__p_0 OR NOT (a1."IsDeleted")) AND (@__ef_filter__p_1 OR a1."TenantId" = @__ef_filter__CurrentTenantId_2)
+) AS t0 ON t."RoleId" = t0."Id"
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."UserId" = @__user_Id_0
+INFO  2025-11-20 12:00:06,163 [54   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."Description", a."DisplayName", a."IsDefault", a."IsDeleted", a."IsStatic", a."LastModificationTime", a."LastModifierUserId", a."Name", a."NormalizedName", a."TenantId"
+FROM "AbpRoles" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."NormalizedName" = @__normalizedName_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,187 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__userId_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Discriminator", a."IsGranted", a."Name", a."TenantId", a."UserId"
+FROM "AbpPermissions" AS a
+WHERE a."Discriminator" = 'UserPermissionSetting' AND (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" = @__userId_0
+INFO  2025-11-20 12:00:06,210 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."Description", a."DisplayName", a."IsDefault", a."IsDeleted", a."IsStatic", a."LastModificationTime", a."LastModifierUserId", a."Name", a."NormalizedName", a."TenantId"
+FROM "AbpRoles" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:06,235 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__roleId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."Discriminator", a."IsGranted", a."Name", a."TenantId", a."RoleId"
+FROM "AbpPermissions" AS a
+WHERE a."Discriminator" = 'RolePermissionSetting' AND (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."RoleId" = @__roleId_0
+INFO  2025-11-20 12:00:06,359 [48   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executed ViewResult - view Index executed in 420.5427ms.
+INFO  2025-11-20 12:00:06,364 [48   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.Web.Controllers.HomeController.Index (Morpho.Web.Mvc) in 449.9711ms
+INFO  2025-11-20 12:00:06,366 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.Web.Controllers.HomeController.Index (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:06,370 [59   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/ - 200 - text/html;+charset=utf-8 485.6247ms
+INFO  2025-11-20 12:00:06,381 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/css/responsive.bootstrap4.min.css?v=A23Q5MWh_nDSabsw_t8HPfwUlP0hvTNlMz-Sf2rKGdA - - -
+INFO  2025-11-20 12:00:06,384 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/img/logo.png - - -
+INFO  2025-11-20 12:00:06,393 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/buttons.bootstrap4.js?v=PXlsazIzatXF4p3zxU8d4S22CcBpIaxJ53NseL8FDME - - -
+INFO  2025-11-20 12:00:06,399 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_vs/browserLink - - -
+INFO  2025-11-20 12:00:06,402 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/signalr/dist/browser/signalr.js?v=IUPfQKg6XXK-4N0KCHn3NpBM9nxm1Ks9B_2q2pmXzE4 - - -
+INFO  2025-11-20 12:00:06,404 [59   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/_Bundles/helpers.min.js?v=kSjRuWZBH1TVTvCfVxaAQlKq_JbwxeM864-Qq1bEPUE - - -
+INFO  2025-11-20 12:00:06,419 [60   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/img/logo.png'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\img\logo.png'
+INFO  2025-11-20 12:00:06,429 [60   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/img/logo.png - 200 4327 image/png 43.3538ms
+INFO  2025-11-20 12:00:06,433 [48   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/css/responsive.bootstrap4.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\css\responsive.bootstrap4.min.css'
+INFO  2025-11-20 12:00:06,435 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - - -
+INFO  2025-11-20 12:00:06,438 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/css/responsive.bootstrap4.min.css?v=A23Q5MWh_nDSabsw_t8HPfwUlP0hvTNlMz-Sf2rKGdA - 200 4464 text/css 56.6183ms
+INFO  2025-11-20 12:00:06,445 [54   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/buttons.bootstrap4.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\buttons.bootstrap4.js'
+INFO  2025-11-20 12:00:06,448 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - - -
+INFO  2025-11-20 12:00:06,452 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/buttons.bootstrap4.js?v=PXlsazIzatXF4p3zxU8d4S22CcBpIaxJ53NseL8FDME - 200 1610 text/javascript 69.0552ms
+INFO  2025-11-20 12:00:06,454 [50   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:06,462 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/responsive.bootstrap4.min.js?v=C1gNb96b5B3Yap_znG5LYDcQ0rOCN4EdO5wyExzekP8 - - -
+INFO  2025-11-20 12:00:06,464 [50   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetScripts", controller = "AbpScripts", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetScripts(System.String, Boolean) on controller Abp.AspNetCore.Mvc.Controllers.AbpScriptsController (Abp.AspNetCore).
+INFO  2025-11-20 12:00:06,467 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:06,469 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/js/abp.dataTable.js?v=QwDNk6XRCxrQqhahEb-TP1LEltKyT7_ONYUhLxwRd4A - - -
+INFO  2025-11-20 12:00:06,473 [48   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpServiceProxies", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ContentResult GetAll(Abp.AspNetCore.Mvc.Proxying.ApiProxyGenerationModel) on controller Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController (Abp.AspNetCore).
+INFO  2025-11-20 12:00:06,475 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Home/Index.js?v=j15_3UQM_OHO7c9lRyJFSPI9uIy3cZwnglSG6RzPmPA - - -
+INFO  2025-11-20 12:00:06,480 [59   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/_Bundles/helpers.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\_Bundles\helpers.min.js'
+INFO  2025-11-20 12:00:06,486 [60   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/push.js/push.js?v=QvdaqnsqUvzmCO2a2d-zHZTb-bRtZ_eZ2Cy6wVDYFMA - - -
+INFO  2025-11-20 12:00:06,491 [59   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/_Bundles/helpers.min.js?v=kSjRuWZBH1TVTvCfVxaAQlKq_JbwxeM864-Qq1bEPUE - 200 362 text/javascript 104.8553ms
+INFO  2025-11-20 12:00:06,495 [61   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/jquery.dataTables.min.js?v=4jvXw0MqLch9kK5jEgSuhFFVdSylHTeP7HVUoJRoldM - - -
+INFO  2025-11-20 12:00:06,503 [63   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/_Layout.css?v=5DyZYJi1fpEQmCVfkvk-aKzmwpKMGw_ckoEEe_VPnos - - -
+INFO  2025-11-20 12:00:06,511 [58   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Home/Index.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Home\Index.js'
+INFO  2025-11-20 12:00:06,514 [48   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript
+INFO  2025-11-20 12:00:06,517 [54   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/responsive.bootstrap4.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\responsive.bootstrap4.min.js'
+INFO  2025-11-20 12:00:06,521 [55   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/js/abp.dataTable.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\js\abp.dataTable.js'
+INFO  2025-11-20 12:00:06,524 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/responsive.bootstrap4.min.js?v=C1gNb96b5B3Yap_znG5LYDcQ0rOCN4EdO5wyExzekP8 - 200 1250 text/javascript 65.5726ms
+INFO  2025-11-20 12:00:06,530 [48   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore) in 48.688ms
+INFO  2025-11-20 12:00:06,532 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/chartjs/dist/Chart.js?v=wESnP_BrB2L5_FlyzD3xB15qlw5CdOAzFiEHKci-B2Q - - -
+INFO  2025-11-20 12:00:06,534 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:06,541 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/js/abp.dataTable.js?v=QwDNk6XRCxrQqhahEb-TP1LEltKyT7_ONYUhLxwRd4A - 200 1777 text/javascript 75.1515ms
+INFO  2025-11-20 12:00:06,547 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Home/Index.js?v=j15_3UQM_OHO7c9lRyJFSPI9uIy3cZwnglSG6RzPmPA - 200 3805 text/javascript 86.3830ms
+INFO  2025-11-20 12:00:06,550 [59   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/signalr/dist/browser/signalr.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\signalr\dist\browser\signalr.js'
+INFO  2025-11-20 12:00:06,553 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - - -
+INFO  2025-11-20 12:00:06,559 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/img/avatar5.png - - -
+INFO  2025-11-20 12:00:06,562 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.responsive.min.js?v=DqUCKW9aJEq7iDfR-ud_0uuCkXjvxzfjftBfL0H_y80 - - -
+INFO  2025-11-20 12:00:06,564 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - 200 16513 application/javascript;+charset=utf-8 12.3488ms
+INFO  2025-11-20 12:00:06,567 [59   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/_Bundles/datatables.ajax.min.js?v=5j2eOMHYIMF79je8GeR2DyqDip36ydsldEMjOB-7Wvg - - -
+INFO  2025-11-20 12:00:06,570 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.bootstrap4.min.js?v=dsMm93i5fDKzWJChFeO9WfSkyQuGTRPvfatV2b_8PLE - - -
+INFO  2025-11-20 12:00:06,581 [60   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/push.js/push.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\push.js\push.js'
+INFO  2025-11-20 12:00:06,586 [61   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/css/buttons.bootstrap4.min.css?v=yAdWBbvHLZIO7QGutHy51kYJFrM9U6r9k5k0S3df35U - - -
+INFO  2025-11-20 12:00:06,589 [60   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/push.js/push.js?v=QvdaqnsqUvzmCO2a2d-zHZTb-bRtZ_eZ2Cy6wVDYFMA - 200 12929 text/javascript 150.7958ms
+INFO  2025-11-20 12:00:06,593 [64   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.buttons.js?v=Ob7yaXZhwC7stOs33Nn7VDL5DgCIi4aF9xT9URR-zd8 - - -
+INFO  2025-11-20 12:00:06,601 [63   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/Shared/_Layout.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\Shared\_Layout.css'
+INFO  2025-11-20 12:00:06,608 [65   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/datatables/css/dataTables.bootstrap4.min.css?v=gEul9whJqtQglPN-9225UUoNwA8sZxVUWtPt232bq8Y - - -
+INFO  2025-11-20 12:00:06,615 [63   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/Shared/_Layout.css?v=5DyZYJi1fpEQmCVfkvk-aKzmwpKMGw_ckoEEe_VPnos - 200 507 text/css 148.7179ms
+INFO  2025-11-20 12:00:06,621 [66   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js?v=7OzpM5utNWYP8ne_218zbUCD3Xj_R1GqM6AzwpgQktg - - -
+INFO  2025-11-20 12:00:06,623 [54   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/dataTables.bootstrap4.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\dataTables.bootstrap4.min.js'
+INFO  2025-11-20 12:00:06,626 [63   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/signalr/dist/browser/signalr.js?v=IUPfQKg6XXK-4N0KCHn3NpBM9nxm1Ks9B_2q2pmXzE4 - 200 134996 text/javascript 240.5568ms
+INFO  2025-11-20 12:00:06,631 [48   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/admin-lte/dist/img/avatar5.png'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\admin-lte\dist\img\avatar5.png'
+INFO  2025-11-20 12:00:06,636 [54   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/dataTables.responsive.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\dataTables.responsive.min.js'
+INFO  2025-11-20 12:00:06,643 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/admin-lte/dist/img/avatar5.png - 200 7587 image/png 81.6516ms
+INFO  2025-11-20 12:00:06,651 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.responsive.min.js?v=DqUCKW9aJEq7iDfR-ud_0uuCkXjvxzfjftBfL0H_y80 - 200 14038 text/javascript 88.9315ms
+INFO  2025-11-20 12:00:06,654 [48   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\abp-web-resources\Abp\Framework\scripts\libs\abp.signalr-client.js'
+INFO  2025-11-20 12:00:06,657 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.bootstrap4.min.js?v=dsMm93i5fDKzWJChFeO9WfSkyQuGTRPvfatV2b_8PLE - 200 2106 text/javascript 63.8344ms
+INFO  2025-11-20 12:00:06,661 [58   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/dataTables.buttons.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\dataTables.buttons.js'
+INFO  2025-11-20 12:00:06,664 [59   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js?v=7OzpM5utNWYP8ne_218zbUCD3Xj_R1GqM6AzwpgQktg - 200 4318 text/javascript 140.1383ms
+INFO  2025-11-20 12:00:06,666 [60   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 255.5394ms
+INFO  2025-11-20 12:00:06,669 [61   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/dataTables.buttons.js?v=Ob7yaXZhwC7stOs33Nn7VDL5DgCIi4aF9xT9URR-zd8 - 200 55311 text/javascript 151.9264ms
+INFO  2025-11-20 12:00:06,672 [63   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/css/dataTables.bootstrap4.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\css\dataTables.bootstrap4.min.css'
+INFO  2025-11-20 12:00:06,674 [64   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/css/buttons.bootstrap4.min.css'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\css\buttons.bootstrap4.min.css'
+INFO  2025-11-20 12:00:06,677 [63   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/css/dataTables.bootstrap4.min.css?v=gEul9whJqtQglPN-9225UUoNwA8sZxVUWtPt232bq8Y - 200 5233 text/css 173.8295ms
+INFO  2025-11-20 12:00:06,680 [64   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/css/buttons.bootstrap4.min.css?v=yAdWBbvHLZIO7QGutHy51kYJFrM9U6r9k5k0S3df35U - 200 3500 text/css 114.9328ms
+INFO  2025-11-20 12:00:06,684 [65   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (21ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__userId_0='?' (DbType = Int64), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenantId", a."UserId", a."Value"
+FROM "AbpSettings" AS a
+WHERE (@__ef_filter__p_0 OR a."TenantId" = @__ef_filter__CurrentTenantId_1) AND a."UserId" = @__userId_0 AND a."TenantId" = @__tenantId_1
+INFO  2025-11-20 12:00:06,686 [66   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/chartjs/dist/Chart.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\chartjs\dist\Chart.js'
+INFO  2025-11-20 12:00:06,690 [67   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/libs/datatables/js/jquery.dataTables.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\libs\datatables\js\jquery.dataTables.min.js'
+INFO  2025-11-20 12:00:06,694 [68   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - 200 49755 application/x-javascript 146.1185ms
+INFO  2025-11-20 12:00:06,698 [69   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/_Bundles/datatables.ajax.min.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\_Bundles\datatables.ajax.min.js'
+INFO  2025-11-20 12:00:06,702 [68   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/datatables/js/jquery.dataTables.min.js?v=4jvXw0MqLch9kK5jEgSuhFFVdSylHTeP7HVUoJRoldM - 200 83770 text/javascript 258.9287ms
+INFO  2025-11-20 12:00:06,705 [69   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/_Bundles/datatables.ajax.min.js?v=5j2eOMHYIMF79je8GeR2DyqDip36ydsldEMjOB-7Wvg - 200 729 text/javascript 145.0941ms
+INFO  2025-11-20 12:00:06,709 [68   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/libs/chartjs/dist/Chart.js?v=wESnP_BrB2L5_FlyzD3xB15qlw5CdOAzFiEHKci-B2Q - 200 445053 text/javascript 178.6393ms
+INFO  2025-11-20 12:00:06,724 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 POST https://localhost:44312/signalr/negotiate - text/plain;charset=UTF-8 0
+INFO  2025-11-20 12:00:06,729 [68   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript; charset=utf-8
+INFO  2025-11-20 12:00:06,733 [68   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore) in 264.6165ms
+INFO  2025-11-20 12:00:06,735 [70   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint '/signalr/negotiate'
+INFO  2025-11-20 12:00:06,738 [68   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:06,741 [68   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - 200 26333 application/x-javascript;+charset=utf-8 310.5620ms
+INFO  2025-11-20 12:00:06,750 [70   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint '/signalr/negotiate'
+INFO  2025-11-20 12:00:06,755 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 POST https://localhost:44312/signalr/negotiate - 200 273 application/json 31.1104ms
+INFO  2025-11-20 12:00:06,766 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44312/signalr?id=uYpg0QfZrz0Km8PM62HlTw - - -
+INFO  2025-11-20 12:00:06,772 [70   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint '/signalr'
+DEBUG 2025-11-20 12:00:06,840 [69   ] Abp.AspNetCore.SignalR.Hubs.AbpCommonHub - A client is connected: {"ConnectionId":"uYpg0QfZrz0Km8PM62HlTw","IpAddress":"::1","TenantId":1,"UserId":2,"ConnectTime":"2025-11-20T06:30:06.8202078Z","Properties":{}}
+DEBUG 2025-11-20 12:00:06,855 [69   ] Abp.AspNetCore.SignalR.Hubs.AbpCommonHub - A client is registered: uYpg0QfZrz0Km8PM62HlTw
+INFO  2025-11-20 12:00:07,850 [69   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:12,858 [69   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:17,875 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:21,503 [69   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/Vehicle/VehicleTypeIndex - - -
+INFO  2025-11-20 12:00:21,511 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.Web.Controllers.VehicleController.VehicleTypeIndex (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:21,515 [48   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "VehicleTypeIndex", controller = "Vehicle", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult VehicleTypeIndex() on controller Morpho.Web.Controllers.VehicleController (Morpho.Web.Mvc).
+INFO  2025-11-20 12:00:21,529 [61   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+INFO  2025-11-20 12:00:21,538 [70   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executing ViewResult, running view VehicleTypeIndex.
+INFO  2025-11-20 12:00:21,615 [48   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:21,630 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:21,644 [70   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConnectionString", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EditionId", a."IsActive", a."IsDeleted", a."LastModificationTime", a."LastModifierUserId", a."Name", a."TenancyName"
+FROM "AbpTenants" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:21,662 [64   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (3ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__p_0='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."AuthenticationSource", a."ConcurrencyStamp", a."CreationTime", a."CreatorUserId", a."DeleterUserId", a."DeletionTime", a."EmailAddress", a."EmailConfirmationCode", a."IsActive", a."IsDeleted", a."IsEmailConfirmed", a."IsLockoutEnabled", a."IsPhoneNumberConfirmed", a."IsTwoFactorEnabled", a."LastModificationTime", a."LastModifierUserId", a."LockoutEndDateUtc", a."Name", a."NormalizedEmailAddress", a."NormalizedUserName", a."Password", a."PasswordResetCode", a."PhoneNumber", a."SecurityStamp", a."Surname", a."TenantId", a."UserName"
+FROM "AbpUsers" AS a
+WHERE (@__ef_filter__p_0 OR NOT (a."IsDeleted")) AND (@__ef_filter__p_1 OR a."TenantId" = @__ef_filter__CurrentTenantId_2) AND a."Id" = @__p_0
+LIMIT 1
+INFO  2025-11-20 12:00:21,693 [64   ] Core.Mvc.ViewFeatures.ViewResultExecutor - Executed ViewResult - view VehicleTypeIndex executed in 152.8235ms.
+INFO  2025-11-20 12:00:21,698 [64   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.Web.Controllers.VehicleController.VehicleTypeIndex (Morpho.Web.Mvc) in 177.9696ms
+INFO  2025-11-20 12:00:21,703 [64   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.Web.Controllers.VehicleController.VehicleTypeIndex (Morpho.Web.Mvc)'
+INFO  2025-11-20 12:00:21,709 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/Vehicle/VehicleTypeIndex - 200 - text/html;+charset=utf-8 204.0789ms
+DEBUG 2025-11-20 12:00:21,721 [70   ] Abp.AspNetCore.SignalR.Hubs.AbpCommonHub - A client is disconnected: uYpg0QfZrz0Km8PM62HlTw
+INFO  2025-11-20 12:00:21,730 [71   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 POST https://localhost:44312/signalr/negotiate - text/plain;charset=UTF-8 0
+INFO  2025-11-20 12:00:21,735 [48   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - - -
+INFO  2025-11-20 12:00:21,737 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - - -
+INFO  2025-11-20 12:00:21,740 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/_vs/browserLink - - -
+INFO  2025-11-20 12:00:21,742 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - - -
+INFO  2025-11-20 12:00:21,746 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:21,749 [50   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_framework/aspnetcore-browser-refresh.js - 200 16513 application/javascript;+charset=utf-8 10.3877ms
+INFO  2025-11-20 12:00:21,751 [48   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpServiceProxies", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ContentResult GetAll(Abp.AspNetCore.Mvc.Proxying.ApiProxyGenerationModel) on controller Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController (Abp.AspNetCore).
+INFO  2025-11-20 12:00:21,754 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:21,757 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/view-resources/Views/VehicleType/Index.js?v=Dqu2UFwdxtQTVSkstPyEMg0badoFZgVUahF3KzkMWoA - - -
+INFO  2025-11-20 12:00:21,760 [55   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetScripts", controller = "AbpScripts", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetScripts(System.String, Boolean) on controller Abp.AspNetCore.Mvc.Controllers.AbpScriptsController (Abp.AspNetCore).
+INFO  2025-11-20 12:00:21,764 [48   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript
+INFO  2025-11-20 12:00:21,767 [70   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint '/signalr'
+INFO  2025-11-20 12:00:21,770 [71   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint '/signalr/negotiate'
+INFO  2025-11-20 12:00:21,774 [48   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore) in 16.599ms
+INFO  2025-11-20 12:00:21,777 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44312/signalr?id=uYpg0QfZrz0Km8PM62HlTw - 101 - - 15006.1731ms
+INFO  2025-11-20 12:00:21,779 [48   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Proxying.AbpServiceProxiesController.GetAll (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:21,783 [69   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/view-resources/Views/VehicleType/Index.js'. Physical path: 'D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Web.Mvc\wwwroot\view-resources\Views\VehicleType\Index.js'
+INFO  2025-11-20 12:00:21,786 [71   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint '/signalr/negotiate'
+INFO  2025-11-20 12:00:21,790 [68   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpServiceProxies/GetAll?v=638992168624522231 - 200 49755 application/x-javascript 53.8558ms
+INFO  2025-11-20 12:00:21,793 [71   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 POST https://localhost:44312/signalr/negotiate - 200 273 application/json 62.9982ms
+INFO  2025-11-20 12:00:21,797 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/_vs/browserLink - 200 - text/javascript;+charset=UTF-8 59.5560ms
+INFO  2025-11-20 12:00:21,799 [58   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/view-resources/Views/VehicleType/Index.js?v=Dqu2UFwdxtQTVSkstPyEMg0badoFZgVUahF3KzkMWoA - 200 6626 text/javascript 62.8051ms
+INFO  2025-11-20 12:00:21,802 [71   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44312/signalr?id=6Ow8pFDqgIlio1AxbBO_1w - - -
+INFO  2025-11-20 12:00:21,806 [55   ] Mvc.Infrastructure.ContentResultExecutor - Executing ContentResult with HTTP Response ContentType of application/x-javascript; charset=utf-8
+INFO  2025-11-20 12:00:21,809 [71   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint '/signalr'
+INFO  2025-11-20 12:00:21,812 [55   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore) in 48.1066ms
+INFO  2025-11-20 12:00:21,815 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpScriptsController.GetScripts (Abp.AspNetCore)'
+INFO  2025-11-20 12:00:21,819 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/AbpScripts/GetScripts?v=638992168624522231 - 200 26333 application/x-javascript;+charset=utf-8 85.0576ms
+DEBUG 2025-11-20 12:00:21,819 [69   ] Abp.AspNetCore.SignalR.Hubs.AbpCommonHub - A client is connected: {"ConnectionId":"6Ow8pFDqgIlio1AxbBO_1w","IpAddress":"::1","TenantId":1,"UserId":2,"ConnectTime":"2025-11-20T06:30:21.8181891Z","Properties":{}}
+DEBUG 2025-11-20 12:00:21,823 [69   ] Abp.AspNetCore.SignalR.Hubs.AbpCommonHub - A client is registered: 6Ow8pFDqgIlio1AxbBO_1w
+INFO  2025-11-20 12:00:21,836 [71   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/2 GET https://localhost:44312/api/services/app/VehicleType/GetVehicleTypesList - application/json -
+INFO  2025-11-20 12:00:21,844 [71   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Morpho.VehicleType.VehicleTypeAppService.GetVehicleTypesListAsync (Morpho.Application)'
+INFO  2025-11-20 12:00:21,854 [71   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetVehicleTypesList", controller = "VehicleType"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Morpho.VehicleType.Dto.VehicleTypeDto]] GetVehicleTypesListAsync() on controller Morpho.VehicleType.VehicleTypeAppService (Morpho.Application).
+ERROR 2025-11-20 12:00:21,898 [67   ] oft.EntityFrameworkCore.Database.Command - Failed executing DbCommand (19ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32), @__AbpSession_TenantId_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT v."Id", v."IsDeleted", v."TenantId", v."Updated_at", v.active_at, v.active_by, v.created_at, v.created_by, v.deleted_at, v.deleted_by, v.is_active, v.remark, v.updated_by, v.vehicle_type_name
+FROM "VehicleTypes" AS v
+WHERE (@__ef_filter__p_0 OR NOT (v."IsDeleted")) AND (@__ef_filter__p_1 OR v."TenantId" = @__ef_filter__CurrentTenantId_2) AND v."TenantId" = @__AbpSession_TenantId_Value_0 AND NOT (v."IsDeleted")
+ORDER BY v.created_at DESC
+ERROR 2025-11-20 12:00:21,970 [67   ] Microsoft.EntityFrameworkCore.Query      - An exception occurred while iterating over the results of a query for context type 'Morpho.EntityFrameworkCore.MorphoDbContext'.
+Npgsql.PostgresException (0x80004005): 42P01: relation "VehicleTypes" does not exist
+
+POSITION: 206
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "VehicleTypes" does not exist
+    Position: 206
+    File: parse_relation.c
+    Line: 1469
+    Routine: parserOpenTable
+Npgsql.PostgresException (0x80004005): 42P01: relation "VehicleTypes" does not exist
+
+POSITION: 206
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "VehicleTypes" does not exist
+    Position: 206
+    File: parse_relation.c
+    Line: 1469
+    Routine: parserOpenTable
+INFO  2025-11-20 12:00:22,108 [70   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (2ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?', @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AbpAuditLogs" ("BrowserInfo", "ClientIpAddress", "ClientName", "CustomData", "Exception", "ExceptionMessage", "ExecutionDuration", "ExecutionTime", "ImpersonatorTenantId", "ImpersonatorUserId", "MethodName", "Parameters", "ReturnValue", "ServiceName", "TenantId", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)
+RETURNING "Id";
+ERROR 2025-11-20 12:00:22,113 [70   ] Mvc.ExceptionHandling.AbpExceptionFilter - 42P01: relation "VehicleTypes" does not exist
+
+POSITION: 206
+Npgsql.PostgresException (0x80004005): 42P01: relation "VehicleTypes" does not exist
+
+POSITION: 206
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Morpho.VehicleType.VehicleTypeAppService.GetVehicleTypesListAsync() in D:\TMS_19112025\MorphoPlatform-master\src\Morpho.Application\VehicleType\VehicleTypeAppService.cs:line 66
+   at lambda_method2390(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "VehicleTypes" does not exist
+    Position: 206
+    File: parse_relation.c
+    Line: 1469
+    Routine: parserOpenTable
+INFO  2025-11-20 12:00:22,127 [70   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2025-11-20 12:00:22,140 [70   ] c.Infrastructure.ControllerActionInvoker - Executed action Morpho.VehicleType.VehicleTypeAppService.GetVehicleTypesListAsync (Morpho.Application) in 278.6133ms
+INFO  2025-11-20 12:00:22,142 [70   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Morpho.VehicleType.VehicleTypeAppService.GetVehicleTypesListAsync (Morpho.Application)'
+INFO  2025-11-20 12:00:22,145 [70   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/2 GET https://localhost:44312/api/services/app/VehicleType/GetVehicleTypesList - 500 - application/json;+charset=utf-8 308.6943ms
+INFO  2025-11-20 12:00:22,889 [70   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:27,908 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:32,924 [70   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:37,942 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:42,968 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:47,977 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:52,983 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (0ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1
+INFO  2025-11-20 12:00:57,992 [71   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (1ms) [Parameters=[@__Now_0='?' (DbType = DateTime), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."CreationTime", a."CreatorUserId", a."IsAbandoned", a."JobArgs", a."JobType", a."LastTryTime", a."NextTryTime", a."Priority", a."TryCount"
+FROM "AbpBackgroundJobs" AS a
+WHERE NOT (a."IsAbandoned") AND a."NextTryTime" <= @__Now_0
+ORDER BY a."Priority" DESC, a."TryCount", a."NextTryTime"
+LIMIT @__p_1

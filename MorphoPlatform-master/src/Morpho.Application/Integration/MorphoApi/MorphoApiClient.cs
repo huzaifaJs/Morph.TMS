@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Abp.Application.Services;
+using Morpho.Integration.MorphoApi.Dto;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Morpho.Integration.MorphoApi.Dto;
-using Newtonsoft.Json;
 
 namespace Morpho.Application.Integration.MorphoApi
 {
-    public class MorphoApiClient : IMorphoApiClient
+    public class MorphoApiClient : ApplicationService, IMorphoApiClient
     {
         private readonly HttpClient _client;
 
