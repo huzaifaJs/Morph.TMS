@@ -13,6 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Morpho.Core\Morpho.Core.csproj" />
+    <ProjectReference Include="..\Morpho.EntityFrameworkCore\Morpho.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.FluentValidation" Version="9.4.2" />
