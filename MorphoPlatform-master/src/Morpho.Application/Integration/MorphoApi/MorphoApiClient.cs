@@ -21,77 +21,88 @@ namespace Morpho.Application.Integration.MorphoApi
             };
         }
 
-        // ---------------- AUTH TOKEN ----------------
+        // ========= AUTH =========
         public async Task<string> GetAccessTokenAsync()
         {
             var response = await _client.PostAsync("/auth", null);
             var content = await response.Content.ReadAsStringAsync();
-
             dynamic obj = JsonConvert.DeserializeObject(content);
             return obj.access_token;
         }
 
-        private async Task<HttpClient> AuthorizedClientAsync()
+        private async Task<HttpClient> AuthorizedAsync()
         {
             var token = await GetAccessTokenAsync();
+
             _client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);
 
             return _client;
         }
 
-        // ---------------- Morpho GET APIs ----------------
-        public async Task<DeviceStatusResponseDto> GetDeviceStatusAsync(string externalDeviceId)
+        // ========= GET APIs =========
+
+        public async Task<DeviceStatusResponseDto> GetDeviceStatusAsync(int deviceId)
+            => await GetAsync<DeviceStatusResponseDto>($"/api/device/status?device_id={deviceId}");
+
+        public async Task<DeviceConfigResponseDto> GetDeviceConfigAsync(int deviceId)
+            => await GetAsync<DeviceConfigResponseDto>($"/api/device/config?device_id={deviceId}");
+
+        public async Task<DeviceConfigResponseDto> GetDeviceConfigResponseAsync(int deviceId)
+            => await GetAsync<DeviceConfigResponseDto>($"/api/device/config-response?device_id={deviceId}");
+
+        public async Task<DeviceRebootResponseDto> GetDeviceRebootResponseAsync(int deviceId)
+            => await GetAsync<DeviceRebootResponseDto>($"/api/device/reboot-response?device_id={deviceId}");
+
+        public async Task<DeviceLogsResponseDto> GetDeviceLogsAsync(int deviceId)
+            => await GetAsync<DeviceLogsResponseDto>($"/api/device/logs?device_id={deviceId}");
+
+        public async Task<DeviceClearLogsCommandDto> GetDeviceClearLogsCommandAsync(int deviceId)
+            => await GetAsync<DeviceClearLogsCommandDto>($"/api/device/clear-logs?device_id={deviceId}");
+
+        public async Task<DeviceClearLogsResponseDto> GetDeviceClearLogsResponseAsync(int deviceId)
+            => await GetAsync<DeviceClearLogsResponseDto>($"/api/device/clear-logs-response?device_id={deviceId}");
+
+        // ========= POST APIs =========
+
+        public async Task PostDeviceStatusAsync(DeviceStatusPushDto dto)
+            => await PostAsync("/api/device/status", dto);
+
+        public async Task PostDeviceConfigAsync(DeviceConfigPushDto dto)
+            => await PostAsync("/api/device/config", dto);
+
+        public async Task PostDeviceConfigResponseAsync(DeviceConfigResponseDto dto)
+            => await PostAsync("/api/device/config-response", dto);
+
+        public async Task PostDeviceRebootAsync(DeviceRebootPushDto dto)
+            => await PostAsync("/api/device/reboot", dto);
+
+        public async Task PostDeviceRebootResponseAsync(DeviceRebootResponseDto dto)
+            => await PostAsync("/api/device/reboot-response", dto);
+
+        public async Task PostDeviceLogsAsync(DeviceLogsPushDto dto)
+            => await PostAsync("/api/device/logs", dto);
+
+        public async Task PostDeviceClearLogsAsync(DeviceClearLogsPushDto dto)
+            => await PostAsync("/api/device/clear-logs", dto);
+
+        // ========= INTERNAL HELPERS =========
+
+        private async Task<T> GetAsync<T>(string route)
         {
-            var c = await AuthorizedClientAsync();
-            var r = await c.GetAsync($"/api/device/status?device_id={externalDeviceId}");
+            var c = await AuthorizedAsync();
+            var r = await c.GetAsync(route);
             var json = await r.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<DeviceStatusResponseDto>(json);
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public async Task<DeviceConfigResponseDto> GetDeviceConfigAsync(string externalDeviceId)
+        private async Task PostAsync(string route, object body)
         {
-            var c = await AuthorizedClientAsync();
-            var r = await c.GetAsync($"/api/device/config?device_id={externalDeviceId}");
-            var json = await r.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<DeviceConfigResponseDto>(json);
-        }
+            var c = await AuthorizedAsync();
+            var json = JsonConvert.SerializeObject(body);
 
-        public async Task<DeviceLogsResponseDto> GetDeviceLogsAsync(string externalDeviceId)
-        {
-            var c = await AuthorizedClientAsync();
-            var r = await c.GetAsync($"/api/device/logs?device_id={externalDeviceId}");
-            var json = await r.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<DeviceLogsResponseDto>(json);
-        }
-
-        // ---------------- Morpho POST APIs ----------------
-        public async Task SetDeviceConfigAsync(DeviceConfigPushDto dto)
-        {
-            var c = await AuthorizedClientAsync();
-            var json = JsonConvert.SerializeObject(dto);
             await c.PostAsync(
-                "/api/device/config",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
-        }
-
-        public async Task SetDeviceRebootAsync(DeviceRebootPushDto dto)
-        {
-            var c = await AuthorizedClientAsync();
-            var json = JsonConvert.SerializeObject(dto);
-            await c.PostAsync(
-                "/api/device/reboot",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
-        }
-
-        public async Task ClearDeviceLogsAsync(DeviceClearLogsPushDto dto)
-        {
-            var c = await AuthorizedClientAsync();
-            var json = JsonConvert.SerializeObject(dto);
-            await c.PostAsync(
-                "/api/device/clear-logs",
+                route,
                 new StringContent(json, Encoding.UTF8, "application/json")
             );
         }

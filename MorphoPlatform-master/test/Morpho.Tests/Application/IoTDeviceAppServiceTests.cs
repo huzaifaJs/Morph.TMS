@@ -22,7 +22,7 @@ namespace Morpho.Tests.Application
             var dto = new CreateIoTDeviceDto
             {
                 tenant_id = 1,
-                external_device_id = "EXT1000",
+                device_id =7777,
                 serial_number = "SN1000",
                 name = "TestDevice",
                 device_type = "sensor"

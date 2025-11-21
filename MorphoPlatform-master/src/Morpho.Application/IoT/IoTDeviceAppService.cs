@@ -50,7 +50,7 @@ namespace Morpho.Application.IoT
         {
             var device = await _deviceRepository.GetAsync(id);
 
-            var status = await _morphoApiClient.GetDeviceStatusAsync(device.ExternalDeviceId);
+            var status = await _morphoApiClient.GetDeviceStatusAsync(device.MorphoDeviceId);
 
             await _telemetryService.RecordStatusFromMorphoAsync(device, status);
         }
@@ -59,7 +59,7 @@ namespace Morpho.Application.IoT
         {
             var device = await _deviceRepository.GetAsync(id);
 
-            var config = await _morphoApiClient.GetDeviceConfigAsync(device.ExternalDeviceId);
+            var config = await _morphoApiClient.GetDeviceConfigAsync(device.MorphoDeviceId);
 
             await _configService.UpdateFromMorphoAsync(device, config);
         }
@@ -68,7 +68,7 @@ namespace Morpho.Application.IoT
         {
             var device = await _deviceRepository.GetAsync(id);
 
-            var logs = await _morphoApiClient.GetDeviceLogsAsync(device.ExternalDeviceId);
+            var logs = await _morphoApiClient.GetDeviceLogsAsync(device.MorphoDeviceId);
 
             await _logService.AppendFromMorphoAsync(device, logs);
         }
@@ -81,7 +81,7 @@ namespace Morpho.Application.IoT
         {
             var device = new IoTDevice(
                 input.tenant_id,
-                input.external_device_id,
+                input.device_id,
                 input.serial_number,
                 input.name,
                 input.device_type
@@ -105,12 +105,11 @@ namespace Morpho.Application.IoT
                 .GetAll()
                 .WhereIf(!input.Filter.IsNullOrWhiteSpace(),
                     d => d.Name.Contains(input.Filter) ||
-                         d.ExternalDeviceId.Contains(input.Filter));
+                         d.MorphoDeviceId.ToString().Contains(input.Filter) 
+                );
 
-            // Count
             var totalCount = await query.CountAsync();
 
-            // Paging + Sorting + Fetch
             var items = await query
                 .OrderBy(d => d.Name)
                 .PageBy(input)
@@ -121,6 +120,7 @@ namespace Morpho.Application.IoT
                 items.MapTo<List<IoTDeviceDto>>()
             );
         }
+
 
     }
 }

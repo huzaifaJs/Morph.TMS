@@ -11,8 +11,7 @@ namespace Morpho.IoT.Dto
         public int tenant_id { get; set; }
 
         [Required]
-        [MaxLength(64)]
-        public string external_device_id { get; set; }
+        public int device_id { get; set; }
 
         [Required]
         [MaxLength(128)]

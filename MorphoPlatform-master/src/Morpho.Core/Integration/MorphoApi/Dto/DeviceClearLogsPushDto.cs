@@ -2,6 +2,7 @@
 {
     public class DeviceClearLogsPushDto
     {
-        public string morpho_device_id { get; set; }
+        public int device_id { get; set; }
+        public bool clear { get; set; } = true;
     }
 }
