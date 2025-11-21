@@ -25,13 +25,11 @@ using System.Threading.Tasks;
 
 namespace Morpho.VehicleDocsType
 {
-    public class VehicleDocTypeAppService : ApplicationService, IVehicleDocsTypeAppService
+    public class VehicleDocsTypeAppService : ApplicationService, IVehicleDocsTypeAppService
     {
         private readonly IRepository<VehicleDocumentType, long> _vehicleDocsTypeRepository;
-        private readonly MorphoDbContext _context;
-
-
-        public VehicleDocTypeAppService(IRepository<VehicleDocumentType, long> vehicleDocsTypeRepository)
+      
+        public VehicleDocsTypeAppService(IRepository<VehicleDocumentType, long> vehicleDocsTypeRepository)
         {
             _vehicleDocsTypeRepository =vehicleDocsTypeRepository ;
         }
