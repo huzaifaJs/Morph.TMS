@@ -14,21 +14,13 @@ namespace Morpho.Device.TrackingDeviceDto
     [AutoMapTo(typeof(TrackingDevices))]
     public class CreateDeviceDto
     {
-        [Required]
-        public long device_type_id { get; set; }
-        [Required]
+        public string device_type_name { get; set; }
         public string device_unique_no { get; set; }
         public string device_type { get; set; }
-        [Required]
         public string device_name { get; set; }
-        [Required]
         public string manufacturer { get; set; }
-        [Required]
-        public string model_no { get; set; }
         public string remark { get; set; }
-        [Required]
         public string serial_number { get; set; }
-        [Required]
         public string imei_number { get; set; }
         public decimal min_value { get; set; }
         public decimal? max_value { get; set; }
@@ -39,22 +31,13 @@ namespace Morpho.Device.TrackingDeviceDto
     {
         [Required]
         public long Id { get; set; }
-
-        [Required]
-        public long device_type_id { get; set; }
-        [Required]
+        public string device_type_name { get; set; }
         public string device_unique_no { get; set; }
         public string device_type { get; set; }
-        [Required]
         public string device_name { get; set; }
-        [Required]
         public string manufacturer { get; set; }
-        [Required]
-        public string model_no { get; set; }
         public string remark { get; set; }
-        [Required]
         public string serial_number { get; set; }
-        [Required]
         public string imei_number { get; set; }
         public decimal min_value { get; set; }
         public decimal? max_value { get; set; }
@@ -69,14 +52,12 @@ namespace Morpho.Device.TrackingDeviceDto
     [AutoMapFrom(typeof(TrackingDevices))]
     public class DeviceDto : EntityDto<long>
     {
-        public long device_type_id { get; set; }
         public string device_type { get; set; }
         public string device_name { get; set; }
         public string manufacturer { get; set; }
         public string model_no { get; set; }
         public string remark { get; set; }
         public string serial_number { get; set; }
-        [Required]
         public string imei_number { get; set; }
         public decimal min_value { get; set; }
         public decimal? max_value { get; set; }

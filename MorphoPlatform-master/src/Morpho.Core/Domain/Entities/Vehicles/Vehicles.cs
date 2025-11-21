@@ -16,18 +16,14 @@ namespace Morpho.Domain.Entities.Vehicles
         public string vehicle_unqiue_id { get; set; }
         [ForeignKey("VehicleTypes")]
         public long vehicle_types_id { get; set; }
-
-        [Column("fuel_types")]
+        [ForeignKey("fuel_types")]
         public long fuel_types_id { get; set; }
         public string vehicle_number { get; set; }
         public string vehicle_name  { get; set; }
         public string model_name { get; set; }
         public string manufacturer { get; set; }
         public string remark { get; set; }
-        public string model { get; set; }
         public int manufacturing_year { get; set; }
-        public string fuel_type { get; set; }
-        public string vehicle_type { get; set; }
         public string chassis_number { get; set; }
         public string engine_number { get; set; }
         public long? created_by { get; set; }

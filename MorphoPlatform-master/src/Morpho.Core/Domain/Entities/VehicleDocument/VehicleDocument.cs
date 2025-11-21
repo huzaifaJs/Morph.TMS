@@ -17,7 +17,6 @@ namespace Morpho.Domain.Entities.VehicleDocument
         public long vehicle_id { get; set; }
         [ForeignKey("vehicle_document_types")]
         public long document_type_id { get; set; }
-        public string document_type { get; set; } 
         public string document_number { get; set; }
         public string document_docs_url { get; set; }
         public DateTime? issue_date { get; set; }

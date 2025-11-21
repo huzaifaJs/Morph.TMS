@@ -13,13 +13,11 @@ namespace Morpho.Domain.Entities.Devices
     public class TrackingDevices : Entity<long>, IMustHaveTenant, ISoftDelete
     {
         public int TenantId { get; set; }
-        [ForeignKey("device_type")]
-        public long device_type_id { get; set; }
+        public string device_type_name{ get; set; }
         public string device_unique_no { get; set; }
         public string device_type { get; set; }
         public string device_name { get; set; }
         public string manufacturer { get; set; }
-        public string model_no { get; set; }
         public string remark { get; set; }
         public string serial_number { get; set; }
         public string imei_number { get; set; }

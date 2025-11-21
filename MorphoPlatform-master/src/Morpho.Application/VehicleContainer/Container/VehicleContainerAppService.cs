@@ -1,5 +1,6 @@
 ﻿using Abp;
 using Abp.Application.Services;
+using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.Runtime.Session;
 using Abp.Specifications;
@@ -24,10 +25,9 @@ namespace Morpho.VehicleContainer
         private readonly MorphoDbContext _context;
 
 
-        public VehicleContainerAppService(IRepository<Morpho.Domain.Entities.VehicleContainer.VehicleContainer, long> vehicleContainerRepository, MorphoDbContext context)
+        public VehicleContainerAppService(IRepository<Morpho.Domain.Entities.VehicleContainer.VehicleContainer, long> vehicleContainerRepository)
         {
-            vehicleContainerRepository = _vehicleContainerRepository;
-            _context = context;
+            _vehicleContainerRepository=vehicleContainerRepository;
         }
 
         public async Task<CreateContainerDto> AddVehicleContainerAsync(CreateContainerDto input)
@@ -40,7 +40,6 @@ namespace Morpho.VehicleContainer
             var exists = await _vehicleContainerRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
                 x.container_number.ToLower() == input.container_number.ToLower() &&
-                  x.container_type_id== input.container_type_id &&
                 !x.IsDeleted
             );
 
@@ -48,9 +47,19 @@ namespace Morpho.VehicleContainer
             {
                 throw new UserFriendlyException("Vehicle container number already exists.");
             }
+            var exists1 = await _vehicleContainerRepository.FirstOrDefaultAsync(x =>
+           x.TenantId == AbpSession.TenantId.Value &&
+           x.container_unqiue_id.ToLower() == input.container_unqiue_id.ToLower() &&
+           !x.IsDeleted
+       );
+
+            if (exists1 != null)
+            {
+                throw new UserFriendlyException("Vehicle container unqiue id already exists.");
+            }
             var entity = ObjectMapper.Map<Morpho.Domain.Entities.VehicleContainer.VehicleContainer>(input);
             entity.TenantId = AbpSession.TenantId.Value;
-            entity.container_unqiue_id = await SequentialContainerGenerator.GenerateContainerIdSequentialAsync(_context, AbpSession.TenantId.Value); ;
+            entity.container_unqiue_id =input.container_unqiue_id ;
             entity.created_by = AbpSession.UserId;
             entity.created_at = DateTime.UtcNow;
             entity.isblock = false;
@@ -81,16 +90,25 @@ namespace Morpho.VehicleContainer
             var exists = await _vehicleContainerRepository.FirstOrDefaultAsync(x =>
               x.TenantId == AbpSession.TenantId.Value &&
               x.container_number.ToLower() == input.container_number.ToLower() &&
-                x.container_type_id == input.container_type_id &&
                 x.Id != input.Id &&
               !x.IsDeleted
           );
+            var exist1 = await _vehicleContainerRepository.FirstOrDefaultAsync(x =>
+       x.TenantId == AbpSession.TenantId.Value &&
+         x.container_unqiue_id == input.container_unqiue_id &&
+         x.Id != input.Id &&
+       !x.IsDeleted
+   );
 
             if (exists != null)
             {
                 throw new UserFriendlyException("Vehicle container number already exists.");
             }
 
+            if (exist1 != null)
+            {
+                throw new UserFriendlyException("Vehicle container unqiue id already exists.");
+            }
             ObjectMapper.Map(input, entity);
             entity.updated_by = AbpSession.UserId;
             entity.Updated_at = DateTime.Now;
@@ -130,12 +148,13 @@ namespace Morpho.VehicleContainer
 
         public async Task<ContainerDto> GetVehicleContainerDetailsAsync(long vehicleContainerId)
         {
-            var list = await _vehicleContainerRepository
-               .GetAll()
-               .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.Id== vehicleContainerId)
-               .OrderByDescending(x => x.created_at)
-               .ToListAsync();
-            return ObjectMapper.Map<ContainerDto>(list);
+            var entity = await _vehicleContainerRepository
+              .FirstOrDefaultAsync(x => x.Id == vehicleContainerId);
+            if (entity == null)
+            {
+                throw new UserFriendlyException("Vehicle container not found");
+            }
+            return ObjectMapper.Map<ContainerDto>(entity);
         }
         public static class SequentialContainerGenerator
         {

@@ -1,0 +1,54 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+#nullable disable
+
+namespace Morpho.Migrations
+{
+    /// <inheritdoc />
+    public partial class addVehicledocs_v1 : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "vehicle_documents",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenantId = table.Column<int>(type: "integer", nullable: false),
+                    vehicle_id = table.Column<long>(type: "bigint", nullable: false),
+                    document_type_id = table.Column<long>(type: "bigint", nullable: false),
+                    document_number = table.Column<string>(type: "text", nullable: true),
+                    document_docs_url = table.Column<string>(type: "text", nullable: true),
+                    issue_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    expiry_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    active_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    created_by = table.Column<long>(type: "bigint", nullable: true),
+                    updated_by = table.Column<long>(type: "bigint", nullable: true),
+                    deleted_by = table.Column<long>(type: "bigint", nullable: true),
+                    statu_updated_by = table.Column<long>(type: "bigint", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    deleted_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    status_updated__at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_vehicle_documents", x => x.Id);
+                });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "vehicle_documents");
+        }
+    }
+}

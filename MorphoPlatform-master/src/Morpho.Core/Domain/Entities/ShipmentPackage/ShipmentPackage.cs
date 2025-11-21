@@ -17,7 +17,6 @@ namespace Morpho.Domain.Entities.ShipmentPackage
         public string package_unique_id { get; set; }
         [ForeignKey("package_type")]
         public long? package_type_id { get; set; }
-        public string package_type { get; set; }
 
         [Column("weight_kg", TypeName = "decimal(18,2)")]
         public decimal? weight_kg { get; set; }

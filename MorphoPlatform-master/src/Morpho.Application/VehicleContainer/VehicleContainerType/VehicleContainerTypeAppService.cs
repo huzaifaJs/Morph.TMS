@@ -1,5 +1,6 @@
 ﻿using Abp;
 using Abp.Application.Services;
+using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.Runtime.Session;
 using Abp.Specifications;
@@ -13,7 +14,6 @@ using Morpho.Domain.Entities.VehicleDocumentType;
 using Morpho.EntityFrameworkCore;
 using Morpho.VehicleContainer.Dto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
-using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType.Dto;
 using System;
 using System.Collections.Generic;
@@ -27,13 +27,11 @@ namespace Morpho.VehicleContainer
     public class VehicleContainerTypeAppService : ApplicationService, IVehicleContainerTypeAppService
     {
         private readonly IRepository<VehicleContainerType, long> _vehicleContainerTypeRepository;
-        private readonly MorphoDbContext _context;
 
 
-        public VehicleContainerTypeAppService(IRepository<VehicleContainerType, long> vehicleContainerTypeRepository, MorphoDbContext context)
+        public VehicleContainerTypeAppService(IRepository<VehicleContainerType, long> vehicleContainerTypeRepository)
         {
-            vehicleContainerTypeRepository = _vehicleContainerTypeRepository;
-            _context = context;
+            _vehicleContainerTypeRepository= vehicleContainerTypeRepository ;
         }
 
         public async Task<CreateContainerTypeDto> AddVehicleContainerTypeAsync(CreateContainerTypeDto input)
@@ -45,7 +43,7 @@ namespace Morpho.VehicleContainer
             }
             var exists = await _vehicleContainerTypeRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
-                x.container_type.ToLower() == input.container_type_name.ToLower() &&
+                x.container_type.ToLower() == input.container_type.ToLower() &&
                 !x.IsDeleted
             );
 
@@ -75,18 +73,18 @@ namespace Morpho.VehicleContainer
             return ObjectMapper.Map<List<ContainerTypeDto>>(list);
         }
 
-        public async Task<UpdateContainerTypeDto> UpdateVehicleDocsTypeAsync(UpdateContainerTypeDto input)
+        public async Task<UpdateContainerTypeDto> UpdateVehicleContainerTypeAsync(UpdateContainerTypeDto input)
         {
             var entity = await _vehicleContainerTypeRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
             if (entity == null)
             {
                 throw new UserFriendlyException("Vehicle container type not found");
             }
-            var entity1 = await _vehicleContainerTypeRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.container_type.ToLower() == input.container_type_name.ToLower() &&
+            var entity1 = await _vehicleContainerTypeRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.container_type.ToLower() == input.container_type.ToLower() &&
                      !x.IsDeleted);
             if (entity1 != null)
             {
-                throw new UserFriendlyException("Vehicle document type already found");
+                throw new UserFriendlyException("Vehicle container type already found");
             }
 
             ObjectMapper.Map(input, entity);
@@ -101,8 +99,9 @@ namespace Morpho.VehicleContainer
 
             if (entity == null)
             {
-                throw new UserFriendlyException("Vehicle document type not found");
+                throw new UserFriendlyException("Vehicle container type not found");
             }
+
             entity.isactive = entity.isactive == true?false:true;
             entity.active_by = AbpSession.UserId;
             entity.active_at = DateTime.Now;
@@ -116,7 +115,7 @@ namespace Morpho.VehicleContainer
 
             if (entity == null)
             {
-                throw new UserFriendlyException("Vehicle document type not found");
+                throw new UserFriendlyException("Vehicle container type not found");
             }
             entity.IsDeleted = true;
             entity.deleted_at = DateTime.Now;
@@ -128,12 +127,13 @@ namespace Morpho.VehicleContainer
 
         public async Task<ContainerTypeDto> GetVehicleContainerTypeDetailsAsync(long vehicleContainerId)
         {
-            var list = await _vehicleContainerTypeRepository
-               .GetAll()
-               .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.Id== vehicleContainerId)
-               .OrderByDescending(x => x.created_at)
-               .ToListAsync();
-            return ObjectMapper.Map<ContainerTypeDto>(list);
+            var entity = await _vehicleContainerTypeRepository
+              .FirstOrDefaultAsync(x => x.Id == vehicleContainerId);
+            if (entity == null)
+            {
+                throw new UserFriendlyException("Vehicle container Type not found");
+            }
+            return ObjectMapper.Map<ContainerTypeDto>(entity);
         }
     }
 

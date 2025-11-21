@@ -14,11 +14,9 @@ namespace Morpho.VehicleDocs.DocsVehicle.Dto
     public class CreateDocsVehicleDto
     {
         [Required]
-        [MaxLength(250)]
-        public string vehicle_type_name { get; set; }
+        public long vehicle_id { get; set; }
         [Required]
         public long document_type_id { get; set; }
-        public string document_type { get; set; }
         [Required]
         [MaxLength(250)]
         public string document_number { get; set; }
@@ -39,13 +37,11 @@ namespace Morpho.VehicleDocs.DocsVehicle.Dto
     {
         [Required]
         public long Id { get; set; }
+        [Required]
+        public long vehicle_id { get; set; }
 
         [Required]
-        [MaxLength(250)]
-        public string vehicle_type_name { get; set; }
-        [Required]
         public long document_type_id { get; set; }
-        public string document_type { get; set; }
         [Required]
         [MaxLength(250)]
         public string document_number { get; set; }
@@ -70,11 +66,11 @@ namespace Morpho.VehicleDocs.DocsVehicle.Dto
     [AutoMapFrom(typeof(VehicleDocument))]
     public class DocsVehicleDto : EntityDto<long>
     {
-        public string vehicle_type_name { get; set; }
+       
        
         public long document_type_id { get; set; }
-        public string document_type { get; set; }
 
+        public long vehicle_id { get; set; }
         public string document_number { get; set; }
     
         public string document_docs_url { get; set; }

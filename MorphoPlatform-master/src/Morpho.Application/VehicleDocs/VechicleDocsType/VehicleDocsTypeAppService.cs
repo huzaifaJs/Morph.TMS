@@ -1,5 +1,6 @@
 ﻿using Abp;
 using Abp.Application.Services;
+using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.Runtime.Session;
 using Abp.Specifications;
@@ -9,10 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using Morpho.Device.TrackingDevice;
 using Morpho.Domain.Entities;
 using Morpho.Domain.Entities.Devices;
+using Morpho.Domain.Entities.VehicleContainer;
 using Morpho.Domain.Entities.VehicleDocumentType;
 using Morpho.EntityFrameworkCore;
+using Morpho.VehicleContainer.Container.Dto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
-using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType.Dto;
 using System;
 using System.Collections.Generic;
@@ -29,10 +31,9 @@ namespace Morpho.VehicleDocsType
         private readonly MorphoDbContext _context;
 
 
-        public VehicleDocTypeAppService(IRepository<VehicleDocumentType, long> vehicleDocsTypeRepository, MorphoDbContext context)
+        public VehicleDocTypeAppService(IRepository<VehicleDocumentType, long> vehicleDocsTypeRepository)
         {
-            vehicleDocsTypeRepository = _vehicleDocsTypeRepository;
-            _context = context;
+            _vehicleDocsTypeRepository =vehicleDocsTypeRepository ;
         }
 
         public async Task<CreateVechicleDocsTypeDto> AddVehiclDocsTypeAsync(CreateVechicleDocsTypeDto input)
@@ -126,14 +127,15 @@ namespace Morpho.VehicleDocsType
         }
     
 
-        public async Task<VechicleDocsTypeDto> GetVehicleDocsTypeDetailsAsync(long vehicleId)
+        public async Task<VechicleDocsTypeDto> GetVehicleDocsTypeDetailsAsync(long vehicleDocTypeId)
         {
-            var list = await _vehicleDocsTypeRepository
-               .GetAll()
-               .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.Id== vehicleId)
-               .OrderByDescending(x => x.created_at)
-               .ToListAsync();
-            return ObjectMapper.Map<VechicleDocsTypeDto>(list);
+            var entity = await _vehicleDocsTypeRepository
+            .FirstOrDefaultAsync(x => x.Id == vehicleDocTypeId);
+            if (entity == null)
+            {
+                throw new UserFriendlyException("Vehicle document type  not found");
+            }
+            return ObjectMapper.Map<VechicleDocsTypeDto>(entity);
         }
     }
 

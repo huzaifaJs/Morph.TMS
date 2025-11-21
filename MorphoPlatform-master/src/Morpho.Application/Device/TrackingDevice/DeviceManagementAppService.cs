@@ -5,7 +5,6 @@ using Abp.UI;
 using AutoMapper.Internal.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Morpho.Device.TrackingDeviceDto;
-using Morpho.DeviceType;
 using Morpho.Domain.Entities.Devices;
 using Morpho.EntityFrameworkCore;
 using System;
@@ -21,10 +20,11 @@ namespace Morpho.Device.TrackingDevice
         private readonly IRepository<TrackingDevices, long> _deviceRepository;
         private readonly MorphoDbContext _context;
 
-        public DeviceManagementAppService(IRepository<TrackingDevices, long> deviceRepository, MorphoDbContext context)
+       // public DeviceManagementAppService(IRepository<TrackingDevices, long> deviceRepository, MorphoDbContext context)
+        public DeviceManagementAppService(IRepository<TrackingDevices, long> deviceRepository)
         {
             _deviceRepository = deviceRepository;
-            _context = context;
+            //_context = context;
         }
 
         public async Task<CreateDeviceDto> AddDeviceAsync(CreateDeviceDto input)
@@ -39,12 +39,21 @@ namespace Morpho.Device.TrackingDevice
                 x.imei_number.ToLower() == input.imei_number.ToLower() &&
                 !x.IsDeleted
             );
+            var exists1 = await _deviceRepository.FirstOrDefaultAsync(x =>
+               x.TenantId == AbpSession.TenantId.Value &&
+               x.device_unique_no.ToLower() == input.device_unique_no.ToLower() &&
+               !x.IsDeleted
+           );
             if (exists != null)
             {
                 throw new UserFriendlyException("Device imei number already exists.");
             }
+            if (exists1 != null)
+            {
+                throw new UserFriendlyException("Device unique  number already exists.");
+            }
             var entity = ObjectMapper.Map<TrackingDevices>(input);
-            entity.device_unique_no = await SequentialDeviceIdGenerator.GenerateDeviceIdSequentialAsync(_context, AbpSession.TenantId.Value);
+            entity.device_unique_no = input.device_unique_no;
             entity.TenantId = AbpSession.TenantId.Value;
             entity.created_by = AbpSession.UserId;
             entity.created_at = DateTime.UtcNow;
@@ -73,9 +82,15 @@ namespace Morpho.Device.TrackingDevice
             }
             var entity1 = await _deviceRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.imei_number.ToLower() == input.imei_number.ToLower() &&
                      !x.IsDeleted);
+            var entity2 = await _deviceRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.device_unique_no.ToLower() == input.device_unique_no.ToLower() &&
+                   !x.IsDeleted);
             if (entity1 != null)
             {
                 throw new UserFriendlyException("Device imei number already found");
+            }
+            if (entity2 != null)
+            {
+                throw new UserFriendlyException("Device unique no already found");
             }
             ObjectMapper.Map(input, entity);
             entity.updated_by = AbpSession.UserId;

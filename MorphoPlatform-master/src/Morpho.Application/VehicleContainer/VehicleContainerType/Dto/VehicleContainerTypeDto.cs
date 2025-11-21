@@ -16,7 +16,7 @@ namespace Morpho.VehicleContainer.Dto
     {
         [Required]
         [MaxLength(250)]
-        public string container_type_name { get; set; }
+        public string container_type { get; set; }
 
         [Required]
         [MaxLength(600)]
@@ -31,7 +31,7 @@ namespace Morpho.VehicleContainer.Dto
 
         [Required]
         [MaxLength(250)]
-        public string container_type_name { get; set; }
+        public string container_type { get; set; }
 
         [Required]
         [MaxLength(600)]
@@ -51,16 +51,10 @@ namespace Morpho.VehicleContainer.Dto
         public string vehicle_type_name { get; set; }
 
         public string Remark { get; set; }
-
-        public bool is_active { get; set; }
-
-        public DateTime Created_At { get; set; }
-
-        public long? Created_By { get; set; }
-
-        public DateTime? Updated_At { get; set; }
-
-        public long? Updated_By { get; set; }
+        public long? created_by { get; set; }
+        public long? updated_by { get; set; }
+        public DateTime created_at { get; set; } 
+        public DateTime? Updated_at { get; set; }
 
     }
 

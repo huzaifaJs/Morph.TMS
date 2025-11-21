@@ -40,7 +40,7 @@ namespace Morpho.EntityFrameworkCore
         public DbSet<IoTDevice> IoTDevices { get; set; }
         public DbSet<Policy> Policies { get; set; }
         public DbSet<PolicyRule> PolicyRules { get; set; }
-        public DbSet<DeviceType> DeviceType { get; set; }
+        //public DbSet<DeviceType> DeviceType { get; set; }
         public DbSet<TrackingDevices> TrackingDevices { get; set; }
         public DbSet<FuelType> FuelType { get; set; }
         public DbSet<Vehicles> Vehicles { get; set; }

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Morpho.Device.TrackingDevice;
 using Morpho.EntityFrameworkCore;
 using Morpho.ShipmentPackage.Package.Dto;
-using Morpho.Vehicles.VehicleDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +16,9 @@ namespace Morpho.ShipmentPackage.Package
     public class PackageAppService :ApplicationService, IPackageAppService
     {
         private readonly IRepository<Morpho.Domain.Entities.ShipmentPackage.ShipmentPackage, long> _packageRepository;
-        private readonly MorphoDbContext _context;
-        public PackageAppService(IRepository<Morpho.Domain.Entities.ShipmentPackage.ShipmentPackage, long> packageRepository, MorphoDbContext context)
+        public PackageAppService(IRepository<Morpho.Domain.Entities.ShipmentPackage.ShipmentPackage, long> packageRepository)
         {
-            packageRepository = _packageRepository;
-            _context = context;
+            _packageRepository= packageRepository;
         }
 
         public async Task<CreatePackageDto> AddPackageAsync(CreatePackageDto input)
@@ -36,13 +33,21 @@ namespace Morpho.ShipmentPackage.Package
                 x.package_number.ToLower() == input.package_number.ToLower() &&
                 !x.IsDeleted && x.package_type_id== input.package_type_id
             );
-
+            var exists1 = await _packageRepository.FirstOrDefaultAsync(x =>
+              x.TenantId == AbpSession.TenantId.Value &&
+              x.package_unique_id.ToLower() == input.package_unique_id.ToLower() &&
+              !x.IsDeleted && x.package_type_id == input.package_type_id
+          );
             if (exists != null)
             {
                 throw new UserFriendlyException("Package number already exists.");
             }
+            if (exists1 != null)
+            {
+                throw new UserFriendlyException("Package unique id already exists.");
+            }
             var entity = ObjectMapper.Map<Morpho.Domain.Entities.ShipmentPackage.ShipmentPackage>(input);
-            entity.package_unique_id = await SequentialPackageGenerator.GeneratePackageIdSequentialAsync(_context, AbpSession.TenantId.Value);
+            entity.package_unique_id = input.package_unique_id;
             entity.TenantId = AbpSession.TenantId.Value;
             entity.created_by = AbpSession.UserId;
             entity.created_at = DateTime.UtcNow;
@@ -71,13 +76,16 @@ namespace Morpho.ShipmentPackage.Package
             {
                 throw new UserFriendlyException("Package not found");
             }
-            var entity1 = await _packageRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.package_number.ToLower() == input.package_number.ToLower() &&
-                     !x.IsDeleted && x.package_type_id == input.package_type_id);
+            var entity1 = await _packageRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.package_number.ToLower() == input.package_number.ToLower() );
             if (entity1 != null)
             {
                 throw new UserFriendlyException("Package number already found");
             }
-
+            var entity2 = await _packageRepository.FirstOrDefaultAsync(x => x.Id != input.Id && x.package_unique_id.ToLower() == input.package_unique_id.ToLower());
+            if (entity2 != null)
+            {
+                throw new UserFriendlyException("Package unique id already found");
+            }
             ObjectMapper.Map(input, entity);
             entity.updated_by = AbpSession.UserId;
             entity.Updated_at = DateTime.Now;
@@ -125,45 +133,45 @@ namespace Morpho.ShipmentPackage.Package
             }
             return ObjectMapper.Map<PackageDto>(entity);
         }
-        public static class SequentialPackageGenerator
-        {
-            private static readonly Random _random = new();
+        //public static class SequentialPackageGenerator
+        //{
+        //    private static readonly Random _random = new();
 
-            public static async Task<string> GeneratePackageIdSequentialAsync(
-                MorphoDbContext db,
-                int tenantId,
-                string prefix = "PKG",
-                int digits = 5)
-            {
-                string suffix = GenerateRandomSuffix(4);
+        //    public static async Task<string> GeneratePackageIdSequentialAsync(
+        //        MorphoDbContext db,
+        //        int tenantId,
+        //        string prefix = "PKG",
+        //        int digits = 5)
+        //    {
+        //        string suffix = GenerateRandomSuffix(4);
 
-                var lastId = await db.Vehicles
-                    .Where(d => d.TenantId == tenantId)
-                    .OrderByDescending(d => d.created_at)
-                    .Select(d => d.vehicle_unqiue_id)
-                    .FirstOrDefaultAsync();
+        //        var lastId = await db.Vehicles
+        //            .Where(d => d.TenantId == tenantId)
+        //            .OrderByDescending(d => d.created_at)
+        //            .Select(d => d.vehicle_unqiue_id)
+        //            .FirstOrDefaultAsync();
 
-                int next = 1;
+        //        int next = 1;
 
-                if (!string.IsNullOrEmpty(lastId))
-                {
-                    var parts = lastId.Split('-');
-                    if (parts.Length >= 2 && int.TryParse(parts[1], out int n))
-                        next = n + 1;
-                }
+        //        if (!string.IsNullOrEmpty(lastId))
+        //        {
+        //            var parts = lastId.Split('-');
+        //            if (parts.Length >= 2 && int.TryParse(parts[1], out int n))
+        //                next = n + 1;
+        //        }
 
-                string serial = next.ToString().PadLeft(digits, '0');
-                return $"{prefix}-{serial}-{suffix}";
-            }
+        //        string serial = next.ToString().PadLeft(digits, '0');
+        //        return $"{prefix}-{serial}-{suffix}";
+        //    }
 
-            private static string GenerateRandomSuffix(int length)
-            {
-                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                var sb = new StringBuilder();
-                for (int i = 0; i < length; i++)
-                    sb.Append(chars[_random.Next(chars.Length)]);
-                return sb.ToString();
-            }
-        }
+        //    private static string GenerateRandomSuffix(int length)
+        //    {
+        //        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //        var sb = new StringBuilder();
+        //        for (int i = 0; i < length; i++)
+        //            sb.Append(chars[_random.Next(chars.Length)]);
+        //        return sb.ToString();
+        //    }
+        //}
     }
 }

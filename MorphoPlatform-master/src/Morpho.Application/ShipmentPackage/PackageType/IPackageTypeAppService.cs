@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services;
 using Morpho.VehicleContainer.Dto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
-using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType.Dto;
 using System;
 using System.Collections.Generic;

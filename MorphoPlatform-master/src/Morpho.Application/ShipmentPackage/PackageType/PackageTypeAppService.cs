@@ -15,7 +15,6 @@ using Morpho.EntityFrameworkCore;
 using Morpho.ShipmentPackage;
 using Morpho.VehicleContainer.Dto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
-using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType.Dto;
 using System;
 using System.Collections.Generic;
@@ -32,10 +31,9 @@ namespace Morpho.VehicleContainer
         private readonly MorphoDbContext _context;
 
 
-        public PackageTypeAppService(IRepository<PackageType, long> packageTypeRepository, MorphoDbContext context)
+        public PackageTypeAppService(IRepository<PackageType, long> packageTypeRepository)
         {
-            packageTypeRepository = _packageTypeRepository;
-            _context = context;
+            _packageTypeRepository=packageTypeRepository ;
         }
 
         public async Task<CreatePackageTypeDto> AddPackageTypeAsync(CreatePackageTypeDto input)
@@ -126,17 +124,23 @@ namespace Morpho.VehicleContainer
             await _packageTypeRepository.UpdateAsync(entity);
             return input;
         }
-    
 
-        public async Task<PackageTypeDto> GetPackageTypeDetailsAsync(long vehicleContainerId)
+
+        public async Task<PackageTypeDto> GetPackageTypeDetailsAsync(long packageTypeId)
         {
-            var list = await _packageTypeRepository
-               .GetAll()
-               .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.Id== vehicleContainerId)
-               .OrderByDescending(x => x.created_at)
-               .ToListAsync();
-            return ObjectMapper.Map<PackageTypeDto>(list);
+            var entity = await _packageTypeRepository.FirstOrDefaultAsync(x =>
+                x.TenantId == AbpSession.TenantId.Value &&
+                !x.IsDeleted &&
+                x.Id == packageTypeId
+            );
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException("Package type not found");
+            }
+            return ObjectMapper.Map<PackageTypeDto>(entity);
         }
+
     }
 
 }

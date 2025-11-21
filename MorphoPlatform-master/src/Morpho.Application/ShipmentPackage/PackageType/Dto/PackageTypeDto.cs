@@ -48,20 +48,16 @@ namespace Morpho.ShipmentPackage
     public class PackageTypeDto : EntityDto<long>
     {
         public string package_type_name { get; set; }
-
         public string remark { get; set; }
-
         public bool isactive { get; set; }
 
-        public DateTime Created_At { get; set; }
+        public DateTime created_at { get; set; }
+        public long? created_by { get; set; }
 
-        public long? Created_By { get; set; }
-
-        public DateTime? Updated_At { get; set; }
-
-        public long? Updated_By { get; set; }
-
+        public DateTime? updated_at { get; set; }
+        public long? updated_by { get; set; }
     }
+
 
     public class PackageTypePagedRequestDto : PagedResultRequestDto
     {

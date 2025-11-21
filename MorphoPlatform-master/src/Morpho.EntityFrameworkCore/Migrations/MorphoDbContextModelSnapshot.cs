@@ -1712,58 +1712,6 @@ namespace Morpho.Migrations
                     b.ToTable("device_configs", (string)null);
                 });
 
-            modelBuilder.Entity("Morpho.Domain.Entities.DeviceType", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Updated_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("active_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("active_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("created_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("deleted_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("deleted_by")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("device_type_name")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("remark")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("updated_by")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("device_type");
-                });
-
             modelBuilder.Entity("Morpho.Domain.Entities.Devices.TrackingDevices", b =>
                 {
                     b.Property<long>("Id")
@@ -1805,8 +1753,8 @@ namespace Morpho.Migrations
                     b.Property<string>("device_type")
                         .HasColumnType("text");
 
-                    b.Property<long>("device_type_id")
-                        .HasColumnType("bigint");
+                    b.Property<string>("device_type_name")
+                        .HasColumnType("text");
 
                     b.Property<string>("device_unique_no")
                         .HasColumnType("text");
@@ -1825,9 +1773,6 @@ namespace Morpho.Migrations
 
                     b.Property<decimal>("min_value")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("model_no")
-                        .HasColumnType("text");
 
                     b.Property<string>("remark")
                         .HasColumnType("text");
@@ -2734,9 +2679,6 @@ namespace Morpho.Migrations
                     b.Property<string>("package_number")
                         .HasColumnType("text");
 
-                    b.Property<string>("package_type")
-                        .HasColumnType("text");
-
                     b.Property<long?>("package_type_id")
                         .HasColumnType("bigint");
 
@@ -3220,9 +3162,6 @@ namespace Morpho.Migrations
                     b.Property<string>("document_number")
                         .HasColumnType("text");
 
-                    b.Property<string>("document_type")
-                        .HasColumnType("text");
-
                     b.Property<long>("document_type_id")
                         .HasColumnType("bigint");
 
@@ -3397,12 +3336,8 @@ namespace Morpho.Migrations
                     b.Property<string>("engine_number")
                         .HasColumnType("text");
 
-                    b.Property<string>("fuel_type")
-                        .HasColumnType("text");
-
                     b.Property<long>("fuel_types_id")
-                        .HasColumnType("bigint")
-                        .HasColumnName("fuel_types");
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("isblock")
                         .HasColumnType("boolean");
@@ -3412,9 +3347,6 @@ namespace Morpho.Migrations
 
                     b.Property<int>("manufacturing_year")
                         .HasColumnType("integer");
-
-                    b.Property<string>("model")
-                        .HasColumnType("text");
 
                     b.Property<string>("model_name")
                         .HasColumnType("text");
@@ -3429,9 +3361,6 @@ namespace Morpho.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("vehicle_number")
-                        .HasColumnType("text");
-
-                    b.Property<string>("vehicle_type")
                         .HasColumnType("text");
 
                     b.Property<long>("vehicle_types_id")
