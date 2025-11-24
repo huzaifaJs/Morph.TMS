@@ -18,6 +18,7 @@ namespace Morpho.Authorization
         public const string Pages_Shipment_ConfirmDispatch = "Pages.Shipment.ConfirmDispatch";
         public const string Pages_Master_VehicleType = "Pages.Master.VehicleType";
         public const string Pages_Master_VehicleDocsType = "Pages.Master.VehicleDocsType";
+        public const string Pages_Master_VehicleFuelType = "Pages.Master.VehicleFuelType";
     }
 }
 

@@ -166,7 +166,7 @@
 
 	  <!-- Child permission keys -->
 
-	  <text name="VehicleDocsTypes" value="Vehicle Document Types" />
+	  <text name="VehicleDocsTypes" value="Vehicle Document Type" />
 	  <text name="VehicleDocsTypeName" value="Vehicle Document Type Name" />
 	  <text name="VehicleDocsTypesRemark" value="Remark" />
 	  <text name="VehicleDocsTypesIsActive" value="Is Active" />
@@ -177,6 +177,20 @@
 	  <text name="VehicleDocsTypesSave" value="Save" />
 	  <text name="VehicleDocsTypesCancel" value="Cancel" />
 	  <text name="VehicleDocsTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle document type?" />
+	  <text name="VehicleFuelTypes" value="Vehicle Fuel Type" />
+	  
+	  
+	  
+	  <text name="VehicleFuelTypeName" value="Vehicle Fuel Type Name" />
+	  <text name="VehicleFuelTypesRemark" value="Remark" />
+	  <text name="VehicleFuelTypesIsActive" value="Is Active" />
+	  <text name="VehicleFuelTypesActions" value="Actions" />
+	  <text name="VehicleFuelTypesCreateVehicleType" value="Create Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesEditVehicleType" value="Edit Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesDeleteVehicleType" value="Delete Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesSave" value="Save" />
+	  <text name="VehicleFuelTypesCancel" value="Cancel" />
+	  <text name="VehicleFuelTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle Fuel type?" />
 
   </texts>
 </localizationDictionary>

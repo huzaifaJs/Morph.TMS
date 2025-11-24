@@ -1,0 +1,35 @@
+﻿@using Morpho.Web.Models.Common.Modals
+@model Morpho.Dto.FuelTypeDto
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">Edit Vehicle Fuel Type</h5>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<form id="EditVehicleFuelTypeForm">
+
+    <div class="modal-body">
+
+        <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+
+        <div class="form-group">
+            <label>@L("VehicleFuelTypes")</label>
+            <input type="text" class="form-control" id="fuel_type_name" name="fuel_type_name" value="@Model.fuel_type_name" required />
+        </div>
+
+        <div class="form-group">
+            <label>@L("VehicleFuelTypesRemark")</label>
+            <textarea class="form-control" id="remark" name="remark" required>@Model.Remark</textarea>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary save-edit">Save</button>
+    </div>
+
+</form>

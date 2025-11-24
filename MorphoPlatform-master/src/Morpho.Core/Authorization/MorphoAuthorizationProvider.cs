@@ -53,6 +53,10 @@ L("Masters")
                PermissionNames.Pages_Master_VehicleDocsType,
                L("VehicleDocsTypes")
            );
+            masters.CreateChildPermission(
+              PermissionNames.Pages_Master_VehicleFuelType,
+              L("VehicleFuelTypes")
+          );
         }
 
         private static ILocalizableString L(string name)

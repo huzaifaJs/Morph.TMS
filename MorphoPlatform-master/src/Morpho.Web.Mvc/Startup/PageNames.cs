@@ -10,5 +10,6 @@
         public const string ShipmentManagement = "Shipment Management";
         public const string VehicleType = "Vehicle Type";
         public const string VehicleDocsType = "Vehicle Document Type";
+        public const string VehicleFuelType = "Vehicle Fuel Type";
     }
 }
