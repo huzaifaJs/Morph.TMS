@@ -4,6 +4,7 @@ using Morpho.Domain.Entities.Telemetry;
 using Morpho.Domain.Enums;
 using Morpho.Domain.Repositories;
 using Morpho.Domain.ValueObjects;
+using Morpho.Integration.MorphoApi;
 using Morpho.Integration.MorphoApi.Dto;
 using System;
 using System.Collections.Generic;
@@ -27,49 +28,84 @@ namespace Morpho.Domain.Services.Telemetry
         // -----------------------------------------------
         // MULTI SENSOR INGESTION (Generic)
         // -----------------------------------------------
-        public async Task<IReadOnlyList<TelemetryRecord>> RecordMultiSensorAsync(
-            int tenantId,
-            Guid deviceId,
-            DateTime timestamp,
-            GpsLocation gps,
-            decimal? batteryLevel,
-            decimal? temperature,
-            decimal? humidity,
-            decimal? light,
-            decimal? vibration)
+        public async Task<TelemetryRecord> RecordMultiSensorAsync(
+         IoTDevice device,
+         long timestamp,
+         GpsLocation gps,
+         double rssi,
+         double battery,
+         double temperature,
+         double humidity,
+         double light,
+         double vibration,
+         string status,
+         int nbrfid)
         {
-            var device = await _deviceRepository.FirstOrDefaultAsync(deviceId);
-            if (device == null || device.TenantId != tenantId)
-                throw new ArgumentException("Device not found for tenant.");
+            if (device == null)
+                throw new ArgumentNullException(nameof(device));
 
-            var records = new List<TelemetryRecord>();
+            // Create telemetry row exactly as client sends
+            var record = new TelemetryRecord(
+                tenantId: device.TenantId,
+                deviceId: device.Id,
+                timestamp: timestamp,
+                firmwareVersion: device.FirmwareVersion, // if you store it; optional
+                ip: device.IpAddress,                 // optional
+                gps: gps,
+                rssi: rssi,
+                battery: battery,
+                temp: temperature,
+                humidity: humidity,
+                vibration: vibration,
+                light: light,
+                status: status,
+                nbrfid: nbrfid
+            );
 
-            void AddIfHasValue(SensorType type, decimal? value, string unit)
+            await _telemetryRepository.InsertAsync(record);
+
+            return record;
+        }
+
+        public async Task RecordTelemetryPushAsync(IoTDevice device, MorphoTelemetryPushDto dto)
+        {
+            if (dto == null)
+                return;
+
+            // 1. Update status
+            var statusEnum = dto.status.ToDeviceStatusType();
+            device.UpdateStatus(statusEnum);
+
+            // 2. Update last known location
+            if (dto.gps != null)
             {
-                if (!value.HasValue) return;
-
-                records.Add(new TelemetryRecord(
-                    tenantId,
-                    deviceId,
-                    type,
-                    value.Value,
-                    unit,
-                    timestamp,
-                    gps,
-                    batteryLevel
-                ));
+                device.SetLastKnownLocation(dto.gps.latitude, dto.gps.longitude);
             }
 
-            AddIfHasValue(SensorType.Temperature, temperature, "C");
-            AddIfHasValue(SensorType.Humidity, humidity, "%");
-            AddIfHasValue(SensorType.Light, light, "lx");
-            AddIfHasValue(SensorType.Vibration, vibration, "g");
+            // 3. Build TelemetryRecord
+            var record = new TelemetryRecord(
+                tenantId: device.TenantId,
+                deviceId: device.Id,
+                timestamp: dto.timestamp,
+                firmwareVersion: dto.firmware_version,
+                ip: dto.ip_address,
+                gps: dto.gps != null ? new GpsLocation(dto.gps.latitude, dto.gps.longitude) : null,
+                rssi: dto.rssi,
+                battery: dto.battery_level,
+                temp: dto.temperature,
+                humidity: dto.humidity,
+                vibration: dto.mean_vibration,
+                light: dto.light,
+                status: dto.status,
+                nbrfid: dto.nbrfid
+            );
 
-            foreach (var r in records)
-                await _telemetryRepository.InsertAsync(r);
+            await _telemetryRepository.InsertAsync(record);
 
-            return records;
+            // Save updated device
+            await _deviceRepository.UpdateAsync(device);
         }
+
 
         // -----------------------------------------------
         // MORPHO DEVICE STATUS INGESTION
@@ -82,7 +118,7 @@ namespace Morpho.Domain.Services.Telemetry
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
-            // Timestamp
+            // Convert timestamp
             DateTime timestampUtc = DateTime.UtcNow;
             if (dto.timestamp > 0)
             {
@@ -93,48 +129,79 @@ namespace Morpho.Domain.Services.Telemetry
                 catch { }
             }
 
-            // GPS VO
+            // GPS
             var gps = dto.gps != null
                 ? new GpsLocation(dto.gps.latitude, dto.gps.longitude)
                 : null;
 
-            // ------------------------------------------------
-            // UPDATE LAST KNOWN LOCATION
-            // ------------------------------------------------
+            // 1. UPDATE LAST KNOWN LOCATION
             if (dto.gps != null)
             {
                 device.SetLastKnownLocation(dto.gps.latitude, dto.gps.longitude);
                 await _deviceRepository.UpdateAsync(device);
             }
 
-            // Build telemetry records
-            var records = new List<TelemetryRecord>();
+            // 2. UPDATE DEVICE STATUS
+            device.UpdateStatus(dto.status.ToDeviceStatusType());
+            await _deviceRepository.UpdateAsync(device);
 
-            void Add(SensorType type, double? value, string unit)
-            {
-                if (value == null) return;
+            // 3. Create telemetry record (FULL packet)
+            var record = new TelemetryRecord(
+                tenantId: device.TenantId,
+                deviceId: device.Id,
+                timestamp: dto.timestamp,
+                firmwareVersion: dto.firmware_version,
+                ip: dto.ip_address,
+                gps: gps,
+                rssi: dto.rssi,
+                battery: dto.batterie_level,
+                temp: dto.temperature,
+                humidity: dto.humidity,
+                vibration: dto.mean_vibration,
+                light: dto.light,
+                status: dto.status,
+                nbrfid: 0 // if missing, default 0
+            );
 
-                records.Add(new TelemetryRecord(
-                    tenantId: device.TenantId,
-                    deviceId: device.Id,
-                    sensorType: type,
-                    value: (decimal)value,
-                    unit: unit,
-                    timestamp: timestampUtc,
-                    gps: gps,
-                    batteryLevel: (decimal?)dto.batterie_level
-                ));
-            }
-
-            Add(SensorType.BatteryLevel, dto.batterie_level, "%");
-            Add(SensorType.Temperature, dto.temperature, "C");
-            Add(SensorType.Humidity, dto.humidity, "%");
-            Add(SensorType.Vibration, dto.mean_vibration, "g");
-            Add(SensorType.Light, dto.light, "lx");
-
-            foreach (var item in records)
-                await _telemetryRepository.InsertAsync(item);
+            await _telemetryRepository.InsertAsync(record);
         }
+                public async Task<TelemetryRecord> RecordMorphoTelemetryAsync(
+            IoTDevice device,
+            long timestampRaw,
+            GpsLocation gps,
+            double rssi,
+            double battery,
+            double temperature,
+            double humidity,
+            double light,
+            double vibration,
+            string status,
+            int nbrfid)
+        {
+            if (device == null)
+                throw new ArgumentNullException(nameof(device));
+
+            var record = new TelemetryRecord(
+                tenantId: device.TenantId,
+                deviceId: device.Id,
+                timestamp: timestampRaw,
+                firmwareVersion: device.FirmwareVersion, // if populated
+                ip: device.IpAddress,                    // if stored
+                gps: gps,
+                rssi: rssi,
+                battery: battery,
+                temp: temperature,
+                humidity: humidity,
+                vibration: vibration,
+                light: light,
+                status: status,
+                nbrfid: nbrfid
+            );
+
+            await _telemetryRepository.InsertAsync(record);
+            return record;
+        }
+
 
 
     }

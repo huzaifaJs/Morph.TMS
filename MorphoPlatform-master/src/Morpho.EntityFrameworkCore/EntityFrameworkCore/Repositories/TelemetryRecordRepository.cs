@@ -22,6 +22,25 @@ namespace Morpho.EntityFrameworkCore.EntityFrameworkCore.Repositories
             : base(dbContextProvider)
         {
         }
+        public async Task<double?> GetLatestHumidityAsync(int tenantId, Guid deviceId)
+        {
+            var t = await GetAll()
+                .Where(x => x.TenantId == tenantId && x.DeviceId == deviceId)
+                .OrderByDescending(x => x.TimestampUtc)
+                .FirstOrDefaultAsync();
+
+            return t?.Humidity;
+        }
+
+        public async Task<double?> GetLatestTemperatureAsync(int tenantId, Guid deviceId)
+        {
+            var t = await GetAll()
+                .Where(x => x.TenantId == tenantId && x.DeviceId == deviceId)
+                .OrderByDescending(x => x.TimestampUtc)
+                .FirstOrDefaultAsync();
+
+            return t?.Temperature;
+        }
 
         public async Task<List<TelemetryRecord>> GetLatestForDeviceAsync(
             int tenantId,
@@ -30,23 +49,19 @@ namespace Morpho.EntityFrameworkCore.EntityFrameworkCore.Repositories
         {
             return await GetAll()
                 .Where(x => x.TenantId == tenantId && x.DeviceId == deviceId)
-                .OrderByDescending(x => x.Timestamp)
+                .OrderByDescending(x => x.TimestampRaw)
                 .Take(maxCount)
                 .ToListAsync();
         }
 
-        public async Task<TelemetryRecord> GetLastForSensorAsync(
-            int tenantId,
-            Guid deviceId,
-            SensorType sensorType)
+        public async Task<TelemetryRecord?> GetLatestTelemetryAsync(int tenantId, Guid deviceId)
         {
             return await GetAll()
-                .Where(x => x.TenantId == tenantId
-                         && x.DeviceId == deviceId
-                         && x.SensorType == sensorType)
-                .OrderByDescending(x => x.Timestamp)
+                .Where(x => x.TenantId == tenantId && x.DeviceId == deviceId)
+                .OrderByDescending(x => x.TimestampUtc)
                 .FirstOrDefaultAsync();
         }
+
 
         public async Task<List<TelemetryRecord>> GetForShipmentAsync(
             int tenantId,
@@ -54,7 +69,7 @@ namespace Morpho.EntityFrameworkCore.EntityFrameworkCore.Repositories
         {
             return await GetAll()
                 .Where(x => x.TenantId == tenantId && x.ShipmentId == shipmentId)
-                .OrderBy(x => x.Timestamp)
+                .OrderBy(x => x.TimestampRaw)
                 .ToListAsync();
         }
     }

@@ -1,52 +1,78 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Morpho.Domain.Entities.Shipments;
 using Morpho.Domain.Entities.Telemetry;
 
-namespace Morpho.EntityFrameworkCore.EntityFrameworkCore.Configurations
+namespace Morpho.EntityFrameworkCore.EntityConfigurations
 {
     public class TelemetryRecordConfiguration : IEntityTypeConfiguration<TelemetryRecord>
     {
         public void Configure(EntityTypeBuilder<TelemetryRecord> builder)
         {
-            builder.ToTable("telemetry_records");
+            builder.ToTable("TelemetryRecords");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(t => t.Id);
 
-            builder.Property(x => x.TenantId)
-                   .IsRequired();
+            builder.Property(t => t.TenantId).IsRequired();
 
-            builder.Property(x => x.DeviceId)
-                   .IsRequired();
+            builder.Property(t => t.TimestampRaw)
+                .HasColumnName("TimestampRaw")
+                .IsRequired();
 
-            builder.Property(x => x.SensorType)
-                   .IsRequired()
-                   .HasConversion<int>(); // store enum as int
+            builder.Property(t => t.TimestampUtc)
+                .HasColumnName("TimestampUtc")
+                .IsRequired();
 
-            builder.Property(x => x.Value)
-                   .HasColumnType("numeric(18,4)")
-                   .IsRequired();
+            builder.Property(t => t.FirmwareVersion)
+                .HasMaxLength(128);
 
-            builder.Property(x => x.Unit)
-                   .HasMaxLength(32);
+            builder.Property(t => t.IpAddress)
+                .HasMaxLength(64);
 
-            builder.Property(x => x.Timestamp)
-                   .IsRequired();
+            // Sensor fields
+            builder.Property(t => t.Rssi);
+            builder.Property(t => t.BatteryLevel);
+            builder.Property(t => t.Temperature);
+            builder.Property(t => t.Humidity);
+            builder.Property(t => t.MeanVibration);
+            builder.Property(t => t.Light);
 
-            // GPS as owned value object
-            builder.OwnsOne(x => x.Gps, gps =>
+            builder.Property(t => t.Status)
+                .HasMaxLength(64);
+
+            builder.Property(t => t.Nbrfid);
+
+            // NEW fields
+            builder.Property(t => t.DeviceState).HasMaxLength(64);
+            builder.Property(t => t.DeviceMode).HasMaxLength(64);
+            builder.Property(t => t.ConnectionType).HasMaxLength(64);
+            builder.Property(t => t.SignalQuality).HasMaxLength(64);
+
+            builder.Property(t => t.Pressure);
+            builder.Property(t => t.Co2);
+            builder.Property(t => t.Voc);
+            builder.Property(t => t.Speed);
+            builder.Property(t => t.Altitude);
+            builder.Property(t => t.Accuracy);
+
+            // GPS Owned Value Object
+            builder.OwnsOne(t => t.Gps, gps =>
             {
-                gps.Property(g => g.Latitude).HasColumnName("gps_latitude");
-                gps.Property(g => g.Longitude).HasColumnName("gps_longitude");
-                gps.Property(g => g.Altitude).HasColumnName("gps_altitude");
-                gps.Property(g => g.Accuracy).HasColumnName("gps_accuracy");
+                gps.Property(g => g.Latitude).HasColumnName("GpsLatitude");
+                gps.Property(g => g.Longitude).HasColumnName("GpsLongitude");
             });
 
-            builder.Property(x => x.BatteryLevel)
-                   .HasColumnType("numeric(5,2)");
+            // Shipment FK
+            builder.HasOne<Shipment>()
+                .WithMany()
+                .HasForeignKey(t => t.ShipmentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // indexes useful for queries
-            builder.HasIndex(x => new { x.TenantId, x.DeviceId, x.Timestamp });
-            builder.HasIndex(x => new { x.TenantId, x.ShipmentId, x.Timestamp });
+            // Container FK
+            builder.HasOne<Container>()
+                .WithMany()
+                .HasForeignKey(t => t.ContainerId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

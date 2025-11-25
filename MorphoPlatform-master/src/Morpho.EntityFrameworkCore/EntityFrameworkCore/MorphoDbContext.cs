@@ -4,9 +4,10 @@ using Morpho.Authorization.Roles;
 using Morpho.Authorization.Users;
 using Morpho.Domain.Entities;
 using Morpho.Domain.Entities.Devices;
+using Morpho.Domain.Entities.Events;
 using Morpho.Domain.Entities.FuelType;
-using Morpho.Domain.Entities.IoT;
 using Morpho.Domain.Entities.GeoFencing;
+using Morpho.Domain.Entities.IoT;
 using Morpho.Domain.Entities.Logs;
 using Morpho.Domain.Entities.Policies;
 using Morpho.Domain.Entities.ShipmentManagement;
@@ -16,9 +17,10 @@ using Morpho.Domain.Entities.VehicleContainer;
 using Morpho.Domain.Entities.VehicleDocument;
 using Morpho.Domain.Entities.VehicleDocumentType;
 using Morpho.Domain.Entities.Vehicles;
-using Morpho.MultiTenancy;
 using Morpho.EntityFrameworkCore.Configurations;
+using Morpho.EntityFrameworkCore.EntityConfigurations;
 using Morpho.EntityFrameworkCore.EntityFrameworkCore.Configurations;
+using Morpho.MultiTenancy;
 
 
 namespace Morpho.EntityFrameworkCore
@@ -79,6 +81,7 @@ namespace Morpho.EntityFrameworkCore
             modelBuilder.ApplyConfiguration(new DeviceConfigConfiguration());
            // modelBuilder.ApplyConfiguration(new DeviceLogConfiguration());
             modelBuilder.ApplyConfiguration(new TelemetryRecordConfiguration());
+
             // modelBuilder.ApplyConfiguration(new GeoFenceAreaConfiguration());
             modelBuilder.Entity<DeviceLog>(b =>
             {
@@ -99,8 +102,20 @@ namespace Morpho.EntityFrameworkCore
                     gps.Property(p => p.Longitude).HasColumnName("LastKnown_Longitude");
                     gps.Property(p => p.Altitude).HasColumnName("LastKnown_Altitude");
                     gps.Property(p => p.Accuracy).HasColumnName("LastKnown_Accuracy");
-                });
+                }
+                );
             });
+            modelBuilder.Entity<DeviceEvent>(b =>
+            {
+                b.ToTable("device_events");
+                b.HasKey(x => x.Id);
+
+                b.Property(x => x.DeviceId).IsRequired();
+                b.Property(x => x.TenantId).IsRequired();
+                b.Property(x => x.EventType).HasMaxLength(100);
+                b.Property(x => x.Message).HasMaxLength(500);
+            });
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using Morpho.Domain.Enums;
 using Morpho.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace Morpho.Domain.Entities.Policies
 {
@@ -21,6 +22,8 @@ namespace Morpho.Domain.Entities.Policies
 
         // Thresholds (Min/Max)
         public ThresholdRange Threshold { get; protected set; }
+        public ICollection<PolicyViolation> Violations { get; protected set; }
+    = new List<PolicyViolation>();
 
 
 

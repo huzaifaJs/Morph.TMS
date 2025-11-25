@@ -15,6 +15,10 @@ namespace Morpho.Domain.Entities.IoT
 
         // NEW — The actual integer device_id coming from Morpho API
         public int MorphoDeviceId { get; protected set; }
+        public string FirmwareVersion { get; protected set; }
+        public string IpAddress { get; protected set; }
+        public DateTime LastSeenUtc { get; protected set; }
+
 
         public string SerialNumber { get; protected set; }
         public string Name { get; protected set; }
@@ -30,8 +34,9 @@ namespace Morpho.Domain.Entities.IoT
         public ICollection<TelemetryRecord> TelemetryRecords { get; protected set; }
             = new List<TelemetryRecord>();
 
-        public ICollection<Violation> Violations { get; protected set; }
-            = new List<Violation>();
+        public ICollection<PolicyViolation> Violations { get; protected set; }
+       = new List<PolicyViolation>();
+
 
         // EF Core requires a protected parameterless constructor
         protected IoTDevice() { }

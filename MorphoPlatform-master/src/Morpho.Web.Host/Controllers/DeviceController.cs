@@ -6,6 +6,7 @@ using Morpho.Application.Integration.MorphoApi;
 using Morpho.Domain.Entities.IoT;
 using Morpho.Domain.Services;
 using Morpho.Domain.Services.Telemetry;
+using Morpho.Domain.ValueObjects;
 using Morpho.Integration.MorphoApi;
 using Morpho.Integration.MorphoApi.Dto;
 using System;
@@ -20,6 +21,7 @@ namespace Morpho.Web.Host.Controllers
         private readonly IRepository<IoTDevice, Guid> _deviceRepository;
         private readonly IMorphoApiClient _morphoApiClient;
         private readonly TelemetryDomainService _telemetryService;
+        private readonly IEventService _eventService;
         private readonly DeviceConfigDomainService _configService;
         private readonly DeviceLogDomainService _logService;
 
@@ -27,12 +29,14 @@ namespace Morpho.Web.Host.Controllers
             IRepository<IoTDevice, Guid> deviceRepository,
             IMorphoApiClient morphoApiClient,
             TelemetryDomainService telemetryService,
+               IEventService eventService,
             DeviceConfigDomainService configService,
             DeviceLogDomainService logService)
         {
             _deviceRepository = deviceRepository;
             _morphoApiClient = morphoApiClient;
             _telemetryService = telemetryService;
+            _eventService = eventService;
             _configService = configService;
             _logService = logService;
         }
@@ -42,14 +46,12 @@ namespace Morpho.Web.Host.Controllers
         // ============================================================
         private async Task<IoTDevice> FindDeviceAsync(int deviceId)
         {
-           // var externalId = deviceId.ToString();
-
             var device = await _deviceRepository.FirstOrDefaultAsync(d => d.MorphoDeviceId == deviceId);
             if (device == null)
                 throw new UserFriendlyException($"Device with device_id={deviceId} not found.");
-
             return device;
         }
+
 
         // ============================================================
         // STATUS
@@ -57,25 +59,38 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/status
         [HttpGet("status")]
-        public async Task<DeviceStatusResponseDto> GetStatus(int device_id)
+        public async Task<DeviceStatusResponseDto> GetStatus(
+    [FromQuery(Name = "device_id")] int deviceId)
         {
-            var device = await FindDeviceAsync(device_id);
+            var device = await FindDeviceAsync(deviceId);
 
             var status = await _morphoApiClient.GetDeviceStatusAsync(device.MorphoDeviceId);
             await _telemetryService.RecordStatusFromMorphoAsync(device, status);
-
             return status;
         }
 
         // POST /api/device/status
+        //[HttpPost("status")]
+        //public async Task<IActionResult> PostStatus([FromBody] DeviceStatusResponseDto dto)
+        //{
+        //    var device = await FindDeviceAsync(dto.device_id);
+        //    await _telemetryService.RecordStatusFromMorphoAsync(device, dto);
+
+        //    return Ok();
+        //}
         [HttpPost("status")]
-        public async Task<IActionResult> PostStatus([FromBody] DeviceStatusResponseDto dto)
+        public async Task<IActionResult> PostStatus([FromBody] MorphoTelemetryPushDto dto)
         {
             var device = await FindDeviceAsync(dto.device_id);
-            await _telemetryService.RecordStatusFromMorphoAsync(device, dto);
+
+            await _telemetryService.RecordTelemetryPushAsync(device, dto);
+
+            // also process events (threshold exceeded etc.)
+            await _eventService.ProcessEventAsync(device, dto);
 
             return Ok();
         }
+
 
         // ============================================================
         // CONFIG
@@ -269,6 +284,48 @@ namespace Morpho.Web.Host.Controllers
 
             return Ok(response);
         }
+        [HttpPost("telemetry")]
+        public async Task<IActionResult> PostTelemetry([FromBody] MorphoTelemetryPushDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Invalid telemetry payload.");
+
+            // 1. Find IoTDevice using morpho_device_id
+            var device = await _deviceRepository.FirstOrDefaultAsync(d => d.MorphoDeviceId == dto.device_id);
+            if (device == null)
+                throw new UserFriendlyException($"Device with device_id={dto.device_id} not found.");
+
+            // 2. GPS object
+            var gps = dto.gps != null
+                ? new GpsLocation(dto.gps.latitude, dto.gps.longitude, dto.gps.altitude, dto.gps.accuracy)
+                : null;
+
+            // 3. Call CORRECT domain method
+            await _telemetryService.RecordMorphoTelemetryAsync(
+                device,
+                timestampRaw: dto.timestamp,
+                gps: gps,
+                rssi: dto.rssi,
+                battery: dto.battery_level,
+                temperature: dto.temperature,
+                humidity: dto.humidity,
+                light: dto.light,
+                vibration: dto.mean_vibration,
+                status: dto.status,
+                nbrfid: dto.nbrfid
+            );
+
+            return Ok();
+        }
+
+
+        [HttpPost("event")]
+        public async Task<IActionResult> PostEvent([FromBody] MorphoEventPushDto dto)
+        {
+            await _eventService.RecordMorphoEventAsync(dto);
+            return Ok();
+        }
+
 
     }
 }

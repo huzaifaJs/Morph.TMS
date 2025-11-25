@@ -12,14 +12,16 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ShipmentManagement\**" />
+    <EmbeddedResource Remove="ShipmentManagement\**" />
+    <None Remove="ShipmentManagement\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Morpho.Core\Morpho.Core.csproj" />
     <ProjectReference Include="..\Morpho.EntityFrameworkCore\Morpho.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.FluentValidation" Version="9.4.2" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ShipmentManagement\Shipments\ShipmentDto\" />
   </ItemGroup>
 </Project>

@@ -9,18 +9,19 @@ namespace Morpho.Domain.Repositories
 {
     public interface ITelemetryRecordRepository : IRepository<TelemetryRecord, Guid>
     {
-        Task<List<TelemetryRecord>> GetLatestForDeviceAsync(
+        Task<double?> GetLatestHumidityAsync(int tenantId, Guid deviceId);
+        Task<double?> GetLatestTemperatureAsync(int tenantId, Guid deviceId);
+
+       
+            Task<List<TelemetryRecord>> GetLatestForDeviceAsync(
             int tenantId,
             Guid deviceId,
             int maxCount = 100);
 
-        Task<TelemetryRecord> GetLastForSensorAsync(
-            int tenantId,
-            Guid deviceId,
-            SensorType sensorType);
-
         Task<List<TelemetryRecord>> GetForShipmentAsync(
             int tenantId,
             Guid shipmentId);
+        Task<TelemetryRecord?> GetLatestTelemetryAsync(int tenantId, Guid deviceId);
+
     }
 }

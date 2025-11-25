@@ -16,6 +16,8 @@ namespace Morpho.Domain.Entities.Policies
 
         // Navigation
         public virtual ICollection<PolicyRule> Rules { get; protected set; }
+        public ICollection<PolicyViolation> Violations { get; protected set; }
+    = new List<PolicyViolation>();
 
         protected Policy()
         {
