@@ -11,11 +11,18 @@ namespace Morpho.Authorization
         public const string Pages = "Pages";
         public const string Pages_Roles = "Pages.Roles";
         public const string Pages_Shipment = "Pages.Shipment";
+        public const string Pages_Master = "Pages.Master";
+        public const string Pages_Vehicle = "Pages.Vehicle";
+        public const string Pages_VehicleManagement = "Pages.VehicleManagement";
+        public const string Pages_IOTDevice = "Pages.IOTDevice";
+        public const string Pages_IOTDevice_DeviceManagement = "Pages.IOTDevice.DeviceManagement";
         public const string Pages_Shipment_Create = "Pages.Shipment.Create";
         public const string Pages_Shipment_RegisterPOD = "Pages.Shipment.RegisterPOD";
         public const string Pages_Shipment_AssignRoute = "Pages.Shipment.AssignRoute";
         public const string Pages_Shipment_ConfirmDispatch = "Pages.Shipment.ConfirmDispatch";
-        public const string Pages_Shipment_VehicleType = "Pages.Shipment.VehicleType";
+        public const string Pages_Master_VehicleType = "Pages.Master.VehicleType";
+        public const string Pages_Master_VehicleDocsType = "Pages.Master.VehicleDocsType";
+        public const string Pages_Master_VehicleFuelType = "Pages.Master.VehicleFuelType";
     }
 }
 

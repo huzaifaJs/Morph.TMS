@@ -1,0 +1,70 @@
+﻿@using Morpho.Web.Models.Device
+@model IOTDeviceViewModel
+@using Morpho.Web.Startup
+
+@{
+    ViewBag.Title = L("IOTDevice");
+    ViewBag.CurrentPageName = PageNames.DeviceIndex;
+}
+
+@section scripts
+{
+    <script src="~/view-resources/Views/Device/DeviceIndex.js" asp-append-version="true"></script>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("IOTDevice")</h1>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="javascript:;" data-toggle="modal" data-target="#CreateDeviceModal"
+                   class="btn bg-blue float-sm-right">
+                    <i class="fa fa-plus-square"></i>
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="IOTDeviceTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("deviceuniqueno")</th>
+                                <th>@L("devicetype")</th>
+                                <th>@L("devicename")</th>
+                                <th>@L("manufacturer")</th>
+                                <th>@L("serialnumber")</th>
+                                <th>@L("imeinumber")</th>
+                                <th>@L("minvalue")</th>
+                                <th>@L("maxvalue")</th>
+                                <th>@L("IOTDeviceIsActive")</th>
+                                <th>@L("IOTDeviceActions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Device/Partials/_CreateDeviceModal.cshtml")
+<div id="EditDeviceModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+

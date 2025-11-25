@@ -1,0 +1,155 @@
+﻿@using Morpho.Web.Models.Common.Modals
+@model Morpho.Web.Models.Device.IOTDeviceViewModel
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="CreateDeviceModal" tabindex="-1" role="dialog" aria-labelledby="CreateDeviceLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml",
+            new ModalHeaderViewModel(L("VehicleFuelTypesCreateVehicleType")))
+
+            <form name="CreateDevice" method="post" role="form" class="form-horizontal">
+
+                <div class="modal-body">
+
+                    <!-- VEHICLE TYPE NAME -->
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("deviceuniqueno")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="device_unique_no"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("deviceuniqueno")" />
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("devicename")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="device_name"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("devicename")" />
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("devicetype")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="device_type_name"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("devicetype")" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("manufacturer")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="manufacturer"
+                                   maxlength="250"
+                                   placeholder="@L("manufacturer")" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("serialnumber")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="serial_number"
+                                   maxlength="250"
+                                   placeholder="@L("serialnumber")" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("imeinumber")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="imei_number"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("imeinumber")" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("minvalue")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="min_value"
+                                   maxlength="250"
+                                   oninput="return validatePriceInput(this)"
+                                   onkeypress="restrictInvalidCharacters(event)"
+                                   placeholder="@L("minvalue")" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("maxvalue")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="max_value"
+                                   maxlength="250"
+                                   oninput="return validatePriceInput(this)" 
+                                   onkeypress="restrictInvalidCharacters(event)"
+                                   placeholder="@L("maxvalue")" />
+                        </div>
+                    </div>
+                
+
+                    <!-- REMARK -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("IOTDeviceRemark")</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control"
+                                      name="remark"
+                                      maxlength="600"
+                                      placeholder="@L("IOTDeviceRemark")"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+        function validatePriceInput(element) {
+        const input = element.value;
+        const validInput = input.replace(/[^0-9.]/g, '');
+        const parts = validInput.split('.');
+        if (parts.length > 2) {
+            element.value = parts[0] + '.' + parts[1];
+        } else {
+            element.value = validInput;
+        }
+        return true;
+    }
+
+    function restrictInvalidCharacters(event) {
+        const charCode = event.which || event.keyCode;
+        const charStr = String.fromCharCode(charCode);
+        if (!charStr.match(/^[0-9.]$/)) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>

@@ -144,6 +144,7 @@
 	<text name="ExceptionManagement" value="Exception Management" />
 	  <!-- Shipment Permission Group -->
 	  <text name="Shipment" value="Shipment" />
+	  <text name="Masters" value="Masters" />
 
 	  <!-- Child permission keys -->
 
@@ -162,6 +163,88 @@
 
 	  <text name="Pages" value="Pages" />
 
+
+	  <!-- Child permission keys -->
+
+	  <text name="VehicleDocsTypes" value="Vehicle Document Type" />
+	  <text name="VehicleDocsTypeName" value="Vehicle Document Type Name" />
+	  <text name="VehicleDocsTypesRemark" value="Remark" />
+	  <text name="VehicleDocsTypesIsActive" value="Is Active" />
+	  <text name="VehicleDocsTypesActions" value="Actions" />
+	  <text name="VehicleDocsTypesCreateVehicleType" value="Create Vehicle Document Type" />
+	  <text name="VehicleDocsTypesEditVehicleType" value="Edit Vehicle Document Type" />
+	  <text name="VehicleDocsTypesDeleteVehicleType" value="Delete Vehicle Document Type" />
+	  <text name="VehicleDocsTypesSave" value="Save" />
+	  <text name="VehicleDocsTypesCancel" value="Cancel" />
+	  <text name="VehicleDocsTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle document type?" />
+	  
+	  
+	  
+
+	  <text name="VehicleFuelTypes" value="Vehicle Fuel Type" />
+	  
+	  
+	  
+	  <text name="VehicleFuelTypeName" value="Vehicle Fuel Type Name" />
+	  <text name="VehicleFuelTypesRemark" value="Remark" />
+	  <text name="VehicleFuelTypesIsActive" value="Is Active" />
+	  <text name="VehicleFuelTypesActions" value="Actions" />
+	  <text name="VehicleFuelTypesCreateVehicleType" value="Create Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesEditVehicleType" value="Edit Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesDeleteVehicleType" value="Delete Vehicle Fuel Type" />
+	  <text name="VehicleFuelTypesSave" value="Save" />
+	  <text name="VehicleFuelTypesCancel" value="Cancel" />
+	  <text name="VehicleFuelTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle Fuel type?" />
+
+
+	  <text name="IOTDevice" value="IOT Device" />
+	  <text name="IOTDeviceRegister" value="IOT Device Register" />
+	  <text name="IOTDeviceManagement" value="IOT Device Management" />
+	  <text name="IOTDeviceName" value="IOT Device Name" />
+	  <text name="IOTDeviceRemark" value="Remark" />
+	  <text name="IOTDeviceIsActive" value="Is Active" />
+	  <text name="IOTDeviceActions" value="Actions" />
+	  <text name="IOTDeviceCreate" value="Create IOT Device" />
+	  <text name="IOTDeviceEdit" value="Edit IOT Device" />
+	  <text name="IOTDeviceDelete" value="Delete IOT Device" />
+	  <text name="IOTDeviceSave" value="Save" />
+	  <text name="IOTDeviceCancel" value="Cancel" />
+
+
+	  <text name="deviceuniqueno" value="Device Unique No" />
+	  <text name="devicetype" value="IOT Device Type" />
+	  <text name="devicename" value="IOT Device Name" />
+	  <text name="manufacturer" value="ManuFacturer" />
+	  <text name="serialnumber" value="Serial Number" />
+	  <text name="imeinumber" value="IMEI Number" />
+	  <text name="minvalue" value="Min Value" />
+	  <text name="maxvalue" value="Max Value" />
+
+
+	  <text name="Vehicle" value="Vehicle" />
+	  <text name="VehicleRegister" value="Vehicle Register" />
+	  <text name="VehicleManagement" value="Vehicle Management" />
+	  <text name="VehicleName" value="Vehicle Name" />
+	  <text name="VehicleRemark" value="Remark" />
+	  <text name="VehicleIsActive" value="Is Active" />
+	  <text name="VehicleActions" value="Actions" />
+	  <text name="VehicleCreate" value="Create Vehicle" />
+	  <text name="VehicleEdit" value="Edit Vehicle" />
+	  <text name="VehicleDelete" value="Delete Vehicle" />
+	  <text name="VehicleSave" value="Save" />
+	  <text name="VehicleCancel" value="Cancel" />
+
+	  <text name="vehicleunqiueid" value="Vehicle Unique No" />
+	  <text name="vehicletypesid" value="Vehicle Type" />
+	  <text name="vehiclefueltypesid" value="Fuel Type" />
+	  <text name="vehiclenumber" value="Vehicle Number" />
+	  <text name="vehiclename" value="Vehicle Name" />
+	  <text name="vehiclemodelname" value="Model Name" />
+	  <text name="vehiclemanufacturer" value="ManuFacturer" />
+	  <text name="vehicleremark" value="Remark" />
+	  <text name="vehiclemanufacturingyear" value="ManuFacturer Year" />
+	  <text name="vehiclechassisnumber" value="Chassis Number" />
+	  <text name="vehicleenginenumber" value="Engine Number" />
 
 
   </texts>

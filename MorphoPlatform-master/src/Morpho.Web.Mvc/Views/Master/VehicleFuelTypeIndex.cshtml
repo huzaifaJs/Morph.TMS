@@ -1,0 +1,64 @@
+﻿@using Morpho.Web.Models
+@model VehicleDocsTypeViewModel
+@using Morpho.Web.Startup
+
+@{
+    ViewBag.Title = L("VehicleTypes");
+    ViewBag.CurrentPageName = PageNames.VehicleFuelType;
+}
+
+@section scripts
+{
+    <script src="~/view-resources/Views/Masters/VehicleFuelIndex.js" asp-append-version="true"></script>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("VehicleFuelTypes")</h1>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="javascript:;" data-toggle="modal" data-target="#CreateVehicleFuelTypeModal"
+                   class="btn bg-blue float-sm-right">
+                    <i class="fa fa-plus-square"></i>
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="VehicleFuelTypeTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("VehicleFuelTypes")</th>
+                                <th>@L("VehicleFuelTypesRemark")</th>
+                                <th>@L("VehicleFuelTypesIsActive")</th>
+                                <th>@L("VehicleFuelTypesActions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Master/Partials/_CreateVehicleFuelTypeModal.cshtml")
+<div id="EditVehicleFuelTypeModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+

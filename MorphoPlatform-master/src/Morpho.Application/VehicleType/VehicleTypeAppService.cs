@@ -63,6 +63,13 @@ namespace Morpho.VehicleType
 
         public async Task<List<VehicleTypeDto>> GetVehicleTypesListAsync()
         {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                throw new UserFriendlyException("Tenant not selected!");
+            }
+
+            var tenantId = AbpSession.TenantId.Value;   
+
             var list = await _vehicleTypeRepository
                 .GetAll()
                 .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)

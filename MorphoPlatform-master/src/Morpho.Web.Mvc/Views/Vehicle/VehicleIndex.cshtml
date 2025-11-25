@@ -1,0 +1,70 @@
+﻿@using Morpho.Web.Models.Vehichle
+@model VehicleViewModel
+@using Morpho.Web.Startup
+@{
+    ViewBag.Title = L("Vehicle");
+    ViewBag.CurrentPageName = PageNames.Vehicle;
+}
+
+@section scripts
+{
+    <script src="~/view-resources/Views/Vehicle/vehicleindex.js" asp-append-version="true"></script>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("Vehicle")</h1>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="javascript:;" data-toggle="modal" data-target="#CreateVehicleModal"
+                   class="btn bg-blue float-sm-right">
+                    <i class="fa fa-plus-square"></i>
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="VehicleTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("vehicletypesid")</th>
+                                <th>@L("vehiclefueltypesid")</th>
+                                <th>@L("vehicleunqiueid")</th>
+                                <th>@L("vehiclename")</th>
+                                <th>@L("vehiclenumber")</th>
+                                <th>@L("vehiclemodelname")</th>
+                                <th>@L("vehiclemanufacturer")</th>
+                                <th>@L("vehiclemanufacturingyear")</th>
+                                <th>@L("vehiclechassisnumber")</th>
+                                <th>@L("vehicleenginenumber")</th>
+                                <th>@L("vehicleremark")</th>
+                                <th>@L("VehicleIsActive")</th>
+                                <th>@L("VehicleActions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Vehicle/Partials/_CreateVehicleModal.cshtml")
+<div id="EditVehicleModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>

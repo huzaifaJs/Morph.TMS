@@ -20,7 +20,7 @@ namespace Morpho.Authorization
      L("ShipmentManagement")
  );
 
-           
+
             shipment.CreateChildPermission(
                 PermissionNames.Pages_Shipment_Create,
                 L("CreateShipmentRequest")
@@ -40,10 +40,41 @@ namespace Morpho.Authorization
                 PermissionNames.Pages_Shipment_RegisterPOD,
                 L("RegisterPOD")
             );
-            shipment.CreateChildPermission(
-                PermissionNames.Pages_Shipment_VehicleType,
+
+            var masters = pages.CreateChildPermission(
+PermissionNames.Pages_Master,
+L("Masters")
+);
+            masters.CreateChildPermission(
+                PermissionNames.Pages_Master_VehicleType,
                 L("VehicleTypes")
             );
+            masters.CreateChildPermission(
+               PermissionNames.Pages_Master_VehicleDocsType,
+               L("VehicleDocsTypes")
+           );
+            masters.CreateChildPermission(
+              PermissionNames.Pages_Master_VehicleFuelType,
+              L("VehicleFuelTypes")
+          );
+
+            var iotDevice = pages.CreateChildPermission(
+            PermissionNames.Pages_IOTDevice_DeviceManagement,
+            L("IOTDeviceManagement")
+            );
+            iotDevice.CreateChildPermission(
+             PermissionNames.Pages_IOTDevice,
+             L("IOTDeviceRegister")
+         );
+            var vehicleIndex = pages.CreateChildPermission(
+          PermissionNames.Pages_VehicleManagement,
+          L("VehicleManagement")
+          );
+            vehicleIndex.CreateChildPermission(
+             PermissionNames.Pages_Vehicle,
+             L("Vehicle")
+         );
+
         }
 
         private static ILocalizableString L(string name)

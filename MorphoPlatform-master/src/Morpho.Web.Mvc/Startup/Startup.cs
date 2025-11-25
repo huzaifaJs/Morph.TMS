@@ -1,22 +1,23 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Unicode;
+﻿using Abp.AspNetCore;
+using Abp.AspNetCore.Mvc.Antiforgery;
+using Abp.AspNetCore.SignalR.Hubs;
+using Abp.Castle.Logging.Log4Net;
+using Castle.Facilities.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Castle.Facilities.Logging;
-using Abp.AspNetCore;
-using Abp.AspNetCore.Mvc.Antiforgery;
-using Abp.Castle.Logging.Log4Net;
+using Microsoft.Extensions.WebEncoders;
 using Morpho.Authentication.JwtBearer;
 using Morpho.Configuration;
 using Morpho.Identity;
 using Morpho.Web.Resources;
-using Abp.AspNetCore.SignalR.Hubs;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.WebEncoders;
+using System.Net.Http;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Morpho.Web.Startup
 {
@@ -41,6 +42,13 @@ namespace Morpho.Web.Startup
                         options.Filters.Add(new AbpAutoValidateAntiforgeryTokenAttribute());
                     }
                 );
+            services.AddHttpClient("IgnoreSSL")
+    .ConfigurePrimaryHttpMessageHandler(() =>
+        new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback =
+                (message, cert, chain, errors) => true
+        });
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, _appConfiguration);

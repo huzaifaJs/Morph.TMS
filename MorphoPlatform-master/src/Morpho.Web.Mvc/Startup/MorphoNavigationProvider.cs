@@ -103,16 +103,45 @@ namespace Morpho.Web.Startup
                             permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_RegisterPOD)
                         )
                     )
-                      .AddItem(
-                        new MenuItemDefinition(
-                            "VehicleType",
-                            L("VehicleTypes"),
-                            url: "/Vehicle/VehicleTypeIndex",
-                            order: 6,
-                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Shipment_VehicleType)
-                        )
-                    )
+                     
                 );
+
+
+            context.Manager.MainMenu
+             .AddItem(
+                 new MenuItemDefinition(
+                     "Masters",
+                     L("Masters"),
+                     icon: "fas fa-boxes",
+                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master)
+                 )
+                   .AddItem(
+                     new MenuItemDefinition(
+                         "VehicleType",
+                         L("VehicleTypes"),
+                         url: "/Vehicle/VehicleTypeIndex",
+                         order: 1,
+                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master_VehicleType)
+                     )
+                 ).AddItem(
+                     new MenuItemDefinition(
+                         "VehicleDocsTypes",
+                         L("VehicleDocsTypes"),
+                         url: "/Master/VehicleDocsTypeIndex",
+                         order: 2,
+                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master_VehicleFuelType)
+                     )
+                 )
+                   .AddItem(
+                     new MenuItemDefinition(
+                         "VehicleFuelTypes",
+                         L("VehicleFuelTypes"),
+                         url: "/Master/VehicleFuelTypeIndex",
+                         order: 2,
+                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master_VehicleFuelType)
+                     )
+                 )
+             );
 
             // =====================
             // REAL-TIME TRACKING
@@ -182,10 +211,11 @@ namespace Morpho.Web.Startup
                     )
                     .AddItem(
                         new MenuItemDefinition(
-                            "DeviceRegistration",
-                            L("DeviceRegistration"),
-                            url: "/Devices/Register",
-                            order: 1
+                            "IOTDevice",
+                            L("IOTDevice"),
+                            url: "/Device/DeviceIndex",
+                            order: 1,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_IOTDevice_DeviceManagement)
                         )
                     )
                     .AddItem(
@@ -205,6 +235,26 @@ namespace Morpho.Web.Startup
                         )
                     )
                 );
+
+            context.Manager.MainMenu
+      .AddItem(
+          new MenuItemDefinition(
+              "VehicleManagement",
+              L("VehicleManagement"),
+              icon: "fas fa-microchip"
+          )
+          .AddItem(
+              new MenuItemDefinition(
+                  "Vehicle",
+                  L("Vehicle"),
+                  url: "/Vehicle/VehicleIndex",
+                  order: 1,
+                  permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_VehicleManagement)
+              )
+          )
+          
+      );
+
 
             // =====================
             // EXCEPTION HANDLING
