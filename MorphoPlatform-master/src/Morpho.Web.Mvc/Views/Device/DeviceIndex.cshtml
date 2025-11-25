@@ -1,5 +1,5 @@
-﻿@using Morpho.Web.Models
-@model VehicleDocsTypeViewModel
+﻿@using Morpho.Web.Models.Device
+@model IOTDeviceViewModel
 @using Morpho.Web.Startup
 
 @{
@@ -9,7 +9,7 @@
 
 @section scripts
 {
-    <script src="~/view-resources/Views/Masters/VehicleIndex.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/Device/DeviceIndex.js" asp-append-version="true"></script>
 }
 
 <section class="content-header">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="col-sm-6">
-                <a href="javascript:;" data-toggle="modal" data-target="#CreateVehicleDocsTypeModal"
+                <a href="javascript:;" data-toggle="modal" data-target="#CreateDeviceModal"
                    class="btn bg-blue float-sm-right">
                     <i class="fa fa-plus-square"></i>
                     @L("Create")
@@ -47,6 +47,7 @@
                                 <th>@L("imeinumber")</th>
                                 <th>@L("minvalue")</th>
                                 <th>@L("maxvalue")</th>
+                                <th>@L("IOTDeviceIsActive")</th>
                                 <th>@L("IOTDeviceActions")</th>
                             </tr>
                         </thead>
@@ -59,8 +60,8 @@
     </div>
 </section>
 
-@await Html.PartialAsync("~/Views/Master/Partials/_CreateDeviceModal.cshtml")
-<div id="EditVehicleDocsTypeModal" class="modal fade">
+@await Html.PartialAsync("~/Views/Device/Partials/_CreateDeviceModal.cshtml")
+<div id="EditDeviceModal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content"></div>
     </div>

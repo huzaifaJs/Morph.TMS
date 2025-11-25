@@ -220,5 +220,32 @@
 	  <text name="minvalue" value="Min Value" />
 	  <text name="maxvalue" value="Max Value" />
 
+
+	  <text name="Vehicle" value="Vehicle" />
+	  <text name="VehicleRegister" value="Vehicle Register" />
+	  <text name="VehicleManagement" value="Vehicle Management" />
+	  <text name="VehicleName" value="Vehicle Name" />
+	  <text name="VehicleRemark" value="Remark" />
+	  <text name="VehicleIsActive" value="Is Active" />
+	  <text name="VehicleActions" value="Actions" />
+	  <text name="VehicleCreate" value="Create Vehicle" />
+	  <text name="VehicleEdit" value="Edit Vehicle" />
+	  <text name="VehicleDelete" value="Delete Vehicle" />
+	  <text name="VehicleSave" value="Save" />
+	  <text name="VehicleCancel" value="Cancel" />
+
+	  <text name="vehicleunqiueid" value="Vehicle Unique No" />
+	  <text name="vehicletypesid" value="Vehicle Type" />
+	  <text name="vehiclefueltypesid" value="Fuel Type" />
+	  <text name="vehiclenumber" value="Vehicle Number" />
+	  <text name="vehiclename" value="Vehicle Name" />
+	  <text name="vehiclemodelname" value="Model Name" />
+	  <text name="vehiclemanufacturer" value="ManuFacturer" />
+	  <text name="vehicleremark" value="Remark" />
+	  <text name="vehiclemanufacturingyear" value="ManuFacturer Year" />
+	  <text name="vehiclechassisnumber" value="Chassis Number" />
+	  <text name="vehicleenginenumber" value="Engine Number" />
+
+
   </texts>
 </localizationDictionary>

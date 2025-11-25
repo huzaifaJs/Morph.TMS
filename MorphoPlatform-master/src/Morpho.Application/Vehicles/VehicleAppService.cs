@@ -69,6 +69,8 @@ namespace Morpho.Vehicle
         {
             var list = await _vehicleRepository
                 .GetAll()
+                   .Include(x => x.VehicleType)     
+                 .Include(x => x.FuelType)
                 .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)
                 .OrderByDescending(x => x.created_at)
                 .ToListAsync();

@@ -23,6 +23,42 @@ namespace Morpho.Web.Host.Controllers
             _deviceManagementAppService = deviceManagementAppService;
         }
         #region  ================================ Device Management ================================
+        [HttpGet("GetDeviceListAll")]
+        public async Task<IActionResult> GetDeviceListAll()
+        {
+            try
+            {
+                var result = await _deviceManagementAppService.GetDeviceListAsync();
+                return Ok(result);
+            }
+            catch (UserFriendlyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("GetDeviceDetails")]
+        public async Task<IActionResult> GetDeviceDetails(long id)
+        {
+            try
+            {
+                var result = await _deviceManagementAppService.GetDeviceDetailsAsync(id);
+                return Ok(result);
+            }
+            catch (UserFriendlyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error fetching details", error = ex.Message });
+            }
+        }
+
         [HttpPost("CreateIOTDeviceRegister")]
         public async Task<IActionResult> CreateIOTDeviceRegister(CreateDeviceDto input)
         {

@@ -1945,11 +1945,6 @@ namespace Morpho.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<string>("ExternalDeviceId")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -1963,6 +1958,10 @@ namespace Morpho.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("MorphoDeviceId")
+                        .HasMaxLength(128)
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
@@ -3336,7 +3335,7 @@ namespace Morpho.Migrations
                     b.Property<string>("engine_number")
                         .HasColumnType("text");
 
-                    b.Property<long>("fuel_types_id")
+                    b.Property<long?>("fuel_types_id")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("isblock")
@@ -3363,13 +3362,17 @@ namespace Morpho.Migrations
                     b.Property<string>("vehicle_number")
                         .HasColumnType("text");
 
-                    b.Property<long>("vehicle_types_id")
+                    b.Property<long?>("vehicle_types_id")
                         .HasColumnType("bigint");
 
                     b.Property<string>("vehicle_unqiue_id")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("fuel_types_id");
+
+                    b.HasIndex("vehicle_types_id");
 
                     b.ToTable("vehicle");
                 });
@@ -4040,6 +4043,21 @@ namespace Morpho.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.Vehicles.Vehicles", b =>
+                {
+                    b.HasOne("Morpho.Domain.Entities.FuelType.FuelType", "FuelType")
+                        .WithMany()
+                        .HasForeignKey("fuel_types_id");
+
+                    b.HasOne("Morpho.Domain.Entities.VehicleTypes", "VehicleType")
+                        .WithMany()
+                        .HasForeignKey("vehicle_types_id");
+
+                    b.Navigation("FuelType");
+
+                    b.Navigation("VehicleType");
                 });
 
             modelBuilder.Entity("Morpho.MultiTenancy.Tenant", b =>

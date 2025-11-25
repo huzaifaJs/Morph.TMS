@@ -66,6 +66,14 @@ L("Masters")
              PermissionNames.Pages_IOTDevice,
              L("IOTDeviceRegister")
          );
+            var vehicleIndex = pages.CreateChildPermission(
+          PermissionNames.Pages_VehicleManagement,
+          L("VehicleManagement")
+          );
+            vehicleIndex.CreateChildPermission(
+             PermissionNames.Pages_Vehicle,
+             L("Vehicle")
+         );
 
         }
 

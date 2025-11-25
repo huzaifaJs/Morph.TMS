@@ -1,8 +1,11 @@
 ﻿using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Morpho.Controllers;
+using Morpho.Device.TrackingDeviceDto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
 using Morpho.VehicleDocsType;
+using Morpho.Web.Models.Device;
+using Morpho.Web.Models.Vehichle;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,9 +34,12 @@ namespace Morpho.Web.Controllers
         {
             return View();
         }
-
+        public async Task<PartialViewResult> CreateModal()
+        {
+            return PartialView("_CreateDeviceModal", new IOTDeviceViewModel());
+        }
         [HttpGet]
-        public async Task<ActionResult> EditVehicleDocsTypeModal(long id)
+        public async Task<ActionResult> EditDeviceModal(long id)
         {
             try
             {
@@ -41,7 +47,7 @@ namespace Morpho.Web.Controllers
                 _http.DefaultRequestHeaders.Remove("Abp.TenantId");
                 _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
 
-                var response = await _http.GetAsync($"api/MasterApi/GetVehicleDocsType?id={id}");
+                var response = await _http.GetAsync($"api/DeviceManagement/GetDeviceDetails?id={id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -49,7 +55,7 @@ namespace Morpho.Web.Controllers
                 }
                 var jsonString = await response.Content.ReadAsStringAsync();
                 dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var dto = JsonConvert.DeserializeObject<VechicleDocsTypeDto>(
+                var dto = JsonConvert.DeserializeObject<DeviceDto>(
                     hostResponse.result.ToString()
                 );
 
@@ -67,14 +73,14 @@ namespace Morpho.Web.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult> getAllVehicleDocsTypeList()
+        public async Task<ActionResult> getAllDeviceList()
         {
             try
             {
                 _http.DefaultRequestHeaders.Remove("Abp.TenantId");
                 _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
 
-                var response = await _http.GetAsync("api/MasterApi/GetVehicleDocsTypeAll");
+                var response = await _http.GetAsync("api/DeviceManagement/GetDeviceListAll");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -83,7 +89,7 @@ namespace Morpho.Web.Controllers
 
                 var jsonString = await response.Content.ReadAsStringAsync();
                 dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var realList = JsonConvert.DeserializeObject<List<VechicleDocsTypeDto>>(
+                var realList = JsonConvert.DeserializeObject<List<DeviceDto>>(
                     hostResponse.result.ToString()
                 );
 
@@ -101,7 +107,7 @@ namespace Morpho.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateVehicleDocsType(CreateVechicleDocsTypeDto input)
+        public async Task<ActionResult> CreateDevice(CreateDeviceDto input)
         {
             try
             {
@@ -113,7 +119,7 @@ namespace Morpho.Web.Controllers
                 var jsonBody = JsonConvert.SerializeObject(input);
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-                var response = await _http.PostAsync("api/MasterApi/CreateVehicleDocsType", content);
+                var response = await _http.PostAsync("api/DeviceManagement/CreateIOTDeviceRegister", content);
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
@@ -124,7 +130,7 @@ namespace Morpho.Web.Controllers
                 }
 
                 dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<CreateVechicleDocsTypeDto>(
+                var createdObj = JsonConvert.DeserializeObject<CreateDeviceDto>(
                     hostResponse.result.ToString()
                 );
 
@@ -142,7 +148,7 @@ namespace Morpho.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateVehicleDocsType(UpdateVechicleDocsTypeDto input)
+        public async Task<ActionResult> UpdateDevice(UpdateDeviceDto input)
         {
             try
             {
@@ -152,7 +158,7 @@ namespace Morpho.Web.Controllers
                 var jsonBody = JsonConvert.SerializeObject(input);
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-                var response = await _http.PostAsync("api/MasterApi/UpdateVehicleDocsTypeAsync", content);
+                var response = await _http.PostAsync("api/DeviceManagement/UpdateIOTDevice", content);
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
@@ -164,7 +170,7 @@ namespace Morpho.Web.Controllers
 
                 dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
 
-                var createdObj = JsonConvert.DeserializeObject<UpdateVechicleDocsTypeDto>(
+                var createdObj = JsonConvert.DeserializeObject<UpdateDeviceDto>(
                     hostResponse.result.ToString()
                 );
 
@@ -181,7 +187,7 @@ namespace Morpho.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> DeleteVehicleDocsType(UpdateStatusVechicleDocsTypeDto input)
+        public async Task<ActionResult> DeleteDevice(UpdateStatusDeviceDto input)
         {
             try
             {
@@ -192,7 +198,7 @@ namespace Morpho.Web.Controllers
                 var jsonBody = JsonConvert.SerializeObject(input);
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-                var response = await _http.PostAsync("api/MasterApi/DeleteVehicleDocsType", content);
+                var response = await _http.PostAsync("api/DeviceManagement/DeleteIOTDevice", content);
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
@@ -222,7 +228,7 @@ namespace Morpho.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateStatusVehicleDocsType(UpdateStatusVechicleDocsTypeDto input)
+        public async Task<ActionResult> UpdateStatusDevice(UpdateStatusDeviceDto input)
         {
             try
             {
@@ -232,7 +238,7 @@ namespace Morpho.Web.Controllers
                 var jsonBody = JsonConvert.SerializeObject(input);
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-                var response = await _http.PostAsync("api/MasterApi/UpdateVhicleDocsTypeStatus", content);
+                var response = await _http.PostAsync("api/DeviceManagement/UpdateIOTDeviceStatus", content);
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)

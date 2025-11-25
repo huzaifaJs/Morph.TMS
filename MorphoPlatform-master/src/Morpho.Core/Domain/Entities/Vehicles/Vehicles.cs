@@ -14,10 +14,12 @@ namespace Morpho.Domain.Entities.Vehicles
     {
         public int TenantId { get; set; }
         public string vehicle_unqiue_id { get; set; }
-        [ForeignKey("VehicleTypes")]
-        public long vehicle_types_id { get; set; }
-        [ForeignKey("fuel_types")]
-        public long fuel_types_id { get; set; }
+        [ForeignKey(nameof(VehicleType))]
+        public long? vehicle_types_id { get; set; }
+        public VehicleTypes VehicleType { get; set; }
+        [ForeignKey(nameof(FuelType))]
+        public long? fuel_types_id { get; set; }
+        public Domain.Entities.FuelType.FuelType FuelType { get; set; }
         public string vehicle_number { get; set; }
         public string vehicle_name  { get; set; }
         public string model_name { get; set; }

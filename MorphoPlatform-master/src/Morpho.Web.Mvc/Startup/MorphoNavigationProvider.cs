@@ -236,6 +236,26 @@ namespace Morpho.Web.Startup
                     )
                 );
 
+            context.Manager.MainMenu
+      .AddItem(
+          new MenuItemDefinition(
+              "VehicleManagement",
+              L("VehicleManagement"),
+              icon: "fas fa-microchip"
+          )
+          .AddItem(
+              new MenuItemDefinition(
+                  "Vehicle",
+                  L("Vehicle"),
+                  url: "/Vehicle/VehicleIndex",
+                  order: 1,
+                  permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_VehicleManagement)
+              )
+          )
+          
+      );
+
+
             // =====================
             // EXCEPTION HANDLING
             // =====================

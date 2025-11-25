@@ -1,0 +1,152 @@
+﻿@using Morpho.Web.Models.Common.Modals
+@model Morpho.Vehicles.VehicleDto.VehicleDto
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">Edit Vehicle</h5>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<form id="EditVehicleForm">
+
+    <div class="modal-body">
+
+        <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehicletypesid")</label>
+            <div class="col-md-9">
+                <input type="number"
+                       class="form-control"
+                       name="vehicle_types_id"
+                       value="@Model.vehicle_types_id"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehicletypesid")" />
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehiclefueltypesid")</label>
+            <div class="col-md-9">
+                <input type="number"
+                       class="form-control"
+                       name="fuel_types_id"
+                       value="@Model.fuel_types_id"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehiclefueltypesid")" />
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehicleunqiueid")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="vehicle_unqiue_id"
+                       value="@Model.vehicle_unqiue_id"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehicleunqiueid")" />
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehiclename")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="vehicle_name"
+                       value="@Model.vehicle_name"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehiclename")" />
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehiclenumber")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="vehicle_number"
+                       value="@Model.vehicle_number"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehiclenumber")" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">@L("vehiclemodelname")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="model_name"
+                       value="@Model.model_name"
+                       maxlength="250"
+                       placeholder="@L("vehiclemodelname")" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">@L("vehiclemanufacturer")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="manufacturer"
+                       value="@Model.manufacturer"
+                       maxlength="250"
+                       placeholder="@L("vehiclemanufacturer")" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">@L("vehiclemanufacturingyear")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="manufacturing_year"
+                       value="@Model.manufacturing_year"
+                       maxlength="250"
+                       placeholder="@L("vehiclemanufacturingyear")" />
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("vehiclechassisnumber")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="chassis_number"
+                       value="@Model.chassis_number"
+                       required
+                       maxlength="250"
+                       placeholder="@L("vehiclechassisnumber")" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">@L("vehicleenginenumber")</label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="engine_number"
+                       value="@Model.engine_number"
+                       maxlength="250"
+                       placeholder="@L("vehicleenginenumber")" />
+            </div>
+        </div>
+        <!-- REMARK -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">@L("vehicleremark")</label>
+            <div class="col-md-9">
+                <textarea class="form-control"
+                          name="remark"
+                          maxlength="600"
+                          placeholder="@L("vehicleremark")">@Model.engine_number</textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary save-edit">Save</button>
+    </div>
+
+</form>
