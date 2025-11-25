@@ -211,10 +211,11 @@ namespace Morpho.Web.Startup
                     )
                     .AddItem(
                         new MenuItemDefinition(
-                            "DeviceRegistration",
-                            L("DeviceRegistration"),
-                            url: "/Devices/Register",
-                            order: 1
+                            "IOTDevice",
+                            L("IOTDevice"),
+                            url: "/Device/DeviceIndex",
+                            order: 1,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_IOTDevice_DeviceManagement)
                         )
                     )
                     .AddItem(

@@ -177,6 +177,10 @@
 	  <text name="VehicleDocsTypesSave" value="Save" />
 	  <text name="VehicleDocsTypesCancel" value="Cancel" />
 	  <text name="VehicleDocsTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle document type?" />
+	  
+	  
+	  
+
 	  <text name="VehicleFuelTypes" value="Vehicle Fuel Type" />
 	  
 	  
@@ -191,6 +195,30 @@
 	  <text name="VehicleFuelTypesSave" value="Save" />
 	  <text name="VehicleFuelTypesCancel" value="Cancel" />
 	  <text name="VehicleFuelTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle Fuel type?" />
+
+
+	  <text name="IOTDevice" value="IOT Device" />
+	  <text name="IOTDeviceRegister" value="IOT Device Register" />
+	  <text name="IOTDeviceManagement" value="IOT Device Management" />
+	  <text name="IOTDeviceName" value="IOT Device Name" />
+	  <text name="IOTDeviceRemark" value="Remark" />
+	  <text name="IOTDeviceIsActive" value="Is Active" />
+	  <text name="IOTDeviceActions" value="Actions" />
+	  <text name="IOTDeviceCreate" value="Create IOT Device" />
+	  <text name="IOTDeviceEdit" value="Edit IOT Device" />
+	  <text name="IOTDeviceDelete" value="Delete IOT Device" />
+	  <text name="IOTDeviceSave" value="Save" />
+	  <text name="IOTDeviceCancel" value="Cancel" />
+
+
+	  <text name="deviceuniqueno" value="Device Unique No" />
+	  <text name="devicetype" value="IOT Device Type" />
+	  <text name="devicename" value="IOT Device Name" />
+	  <text name="manufacturer" value="ManuFacturer" />
+	  <text name="serialnumber" value="Serial Number" />
+	  <text name="imeinumber" value="IMEI Number" />
+	  <text name="minvalue" value="Min Value" />
+	  <text name="maxvalue" value="Max Value" />
 
   </texts>
 </localizationDictionary>
