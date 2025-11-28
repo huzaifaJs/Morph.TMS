@@ -12,10 +12,12 @@ namespace Morpho.Vehicle
     public interface IVehicleAppService : IApplicationService
     {
         Task<List<VehicleDto>> GetVehicleListAsync();
+        Task<List<VehicleDto>> GetVehicleDDListAsync();
         Task<CreateVehicleDto> AddVehicleAsync(CreateVehicleDto input);
         Task<UpdateVehicleDto> UpdateVehicleAsync(UpdateVehicleDto input);
         Task<UpdateStatusVehicleDto> DeleteVehicleAsync(UpdateStatusVehicleDto input);
         Task<UpdateStatusVehicleDto> UpdateVehicleStatusAsync(UpdateStatusVehicleDto input);
         Task<VehicleDto> GetVehicleDetailsAsync(long vehicleId);
+        Task<string> GenerateVehicleUniqueIdAsync();
     }
 }

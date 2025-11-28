@@ -45,6 +45,7 @@
     <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
     <text name="DatabaseConnectionString" value="Database connection string" />
     <text name="Users" value="Users" />
+    <text name="UsersManagement" value="User Management" />
     <text name="IsActive" value="Is active" />
     <text name="FullName" value="Full name" />
     <text name="CreateNewUser" value="Create new user" />
@@ -247,5 +248,25 @@
 	  <text name="vehicleenginenumber" value="Engine Number" />
 
 
+	  <text name="VehicleDocs" value="Vehicle Document" />
+	  <text name="VehicleDocsRegister" value="Vehicle Document Register" />
+	  <text name="VehicleDocsManagement" value="Vehicle Document Management" />
+	  <text name="VehicleDocsName" value="Vehicle Document Name" />
+	  <text name="VehicleDocsRemark" value="Remark" />
+	  <text name="VehicleDocsIsActive" value="Is Active" />
+	  <text name="VehicleDocsActions" value="Actions" />
+	  <text name="VehicleDocsCreate" value="Create Vehicle" />
+	  <text name="VehicleDocsEdit" value="Edit Vehicle" />
+	  <text name="VehicleDocsDelete" value="Delete Vehicle" />
+	  <text name="VehicleDocsSave" value="Save" />
+	  <text name="VehicleDocsCancel" value="Cancel" />
+
+
+	  <text name="documentnumber" value="Document Number" />
+	  <text name="document_docs_url" value="Document" />
+	  <text name="issue_date" value="Issue Date" />
+	  <text name="expiry_date" value="Expiry Date" />
+	  <text name="documentdescription" value="Remark" />
+	
   </texts>
 </localizationDictionary>

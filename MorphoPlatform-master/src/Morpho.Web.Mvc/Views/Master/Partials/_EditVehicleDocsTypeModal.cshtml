@@ -14,15 +14,18 @@
     <div class="modal-body">
 
         <input type="hidden" name="Id" id="Id" value="@Model.Id" />
-
-        <div class="form-group">
-            <label>@L("VehicleDocsTypes")</label>
-            <input type="text" class="form-control" id="document_type_name" name="document_type_name" value="@Model.document_type_name" required />
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("VehicleDocsTypes")</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" id="document_type_name" name="document_type_name" value="@Model.document_type_name" required />
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>@L("VehicleDocsTypesRemark")</label>
-            <textarea class="form-control" id="description" name="description" required>@Model.description</textarea>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label">@L("VehicleDocsTypesRemark")</label>
+            <div class="col-md-9">
+                <textarea class="form-control" id="description" name="description" required>@Model.description</textarea>
+            </div>
+            
         </div>
 
     </div>

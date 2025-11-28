@@ -16,5 +16,6 @@ namespace Morpho.FuelType
         Task<UpdateStatusFuelTypeDto> DeleteFuelTypeAsync(UpdateStatusFuelTypeDto input);
         Task<UpdateStatusFuelTypeDto> UpdateFuelTypeStatusAsync(UpdateStatusFuelTypeDto input);
         Task<FuelTypeDto> GetFuelTypeDetailsAsync(long fuelTypeId);
+        Task<List<FuelTypeDto>> GetFuelTypesDDLListAsync();
     }
 }

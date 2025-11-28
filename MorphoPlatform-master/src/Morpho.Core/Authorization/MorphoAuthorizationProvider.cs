@@ -74,6 +74,10 @@ L("Masters")
              PermissionNames.Pages_Vehicle,
              L("Vehicle")
          );
+            vehicleIndex.CreateChildPermission(
+             PermissionNames.Pages_Vehicle_VehicleDocs,
+             L("VehicleDocs")
+         );
 
         }
 

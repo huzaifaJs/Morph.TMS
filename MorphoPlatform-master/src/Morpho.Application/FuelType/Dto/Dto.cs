@@ -13,13 +13,23 @@ namespace Morpho.Dto
     [AutoMapTo(typeof(Morpho.Domain.Entities.FuelType.FuelType))]
     public class CreateFuelTypeDto
     {
-        [Required]
-        [MaxLength(250)]
-        public string fuel_type_name { get; set; }
+        private string _fueltypename;
+        private string _remark;
 
-        [Required]
+        [MaxLength(250)]
+        public string fuel_type_name
+        {
+            get => _fueltypename;
+            set => _fueltypename = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+ 
     }
 
     [AutoMapTo(typeof(Morpho.Domain.Entities.FuelType.FuelType))]
@@ -27,14 +37,23 @@ namespace Morpho.Dto
     {
         [Required]
         public long Id { get; set; }
+        private string _fueltypename;
+        private string _remark;
 
-        [Required]
         [MaxLength(250)]
-        public string fuel_type_name { get; set; }
+        public string fuel_type_name
+        {
+            get => _fueltypename;
+            set => _fueltypename = value?.Trim();
+        }
 
-        [Required]
         [MaxLength(600)]
-        public string Remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+
     }
     [AutoMapTo(typeof(Morpho.Domain.Entities.FuelType.FuelType))]
     public class UpdateStatusFuelTypeDto

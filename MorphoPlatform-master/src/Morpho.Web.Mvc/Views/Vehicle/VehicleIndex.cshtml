@@ -9,6 +9,9 @@
 @section scripts
 {
     <script src="~/view-resources/Views/Vehicle/vehicleindex.js" asp-append-version="true"></script>
+
+
+   
 }
 
 <section class="content-header">
@@ -19,7 +22,7 @@
             </div>
 
             <div class="col-sm-6">
-                <a href="javascript:;" data-toggle="modal" data-target="#CreateVehicleModal"
+                <a href="javascript:;" data-toggle="modal" id="btnCreateVehicle" data-target="#CreateVehicleModal"
                    class="btn bg-blue float-sm-right">
                     <i class="fa fa-plus-square"></i>
                     @L("Create")
@@ -68,3 +71,5 @@
         <div class="modal-content"></div>
     </div>
 </div>
+
+

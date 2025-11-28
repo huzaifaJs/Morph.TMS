@@ -1,14 +1,19 @@
 ﻿using Abp.AspNetCore.Mvc.Authorization;
+using Abp.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Morpho.Controllers;
+using Morpho.Device.TrackingDevice;
 using Morpho.Device.TrackingDeviceDto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
 using Morpho.VehicleDocsType;
+using Morpho.Web.Models.Common.Modals;
 using Morpho.Web.Models.Device;
 using Morpho.Web.Models.Vehichle;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,17 +23,15 @@ namespace Morpho.Web.Controllers
     [AbpMvcAuthorize]
     public class DeviceController : MorphoControllerBase
     {
-        private readonly IVehicleDocsTypeAppService _vehicleDocsTypeService;
-        private readonly HttpClient _http;
+        private readonly IDeviceManagementAppService _deviceManagementAppService;
 
-        public DeviceController(IVehicleDocsTypeAppService vehicleDocsTypeService, IHttpClientFactory httpClientFactory)
+
+        public DeviceController(IDeviceManagementAppService deviceManagementAppService, IHttpClientFactory httpClientFactory, IOptions<ModalApiBaseUrl> apiOptions)
         {
-            _vehicleDocsTypeService = vehicleDocsTypeService;
-            _http = httpClientFactory.CreateClient("IgnoreSSL");
-            _http.BaseAddress = new Uri("https://localhost:44311/");
+            _deviceManagementAppService = deviceManagementAppService;
         }
 
-       
+
         #region ########################  Document managment master #####################
         public IActionResult DeviceIndex()
         {
@@ -36,6 +39,7 @@ namespace Morpho.Web.Controllers
         }
         public async Task<PartialViewResult> CreateModal()
         {
+
             return PartialView("_CreateDeviceModal", new IOTDeviceViewModel());
         }
         [HttpGet]
@@ -43,25 +47,10 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync($"api/DeviceManagement/GetDeviceDetails?id={id}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return Content("Error fetching vehicle type details.");
-                }
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var dto = JsonConvert.DeserializeObject<DeviceDto>(
-                    hostResponse.result.ToString()
-                );
-
+                var dto = await _deviceManagementAppService.GetDeviceDetailsAsync(id);
                 if (dto == null)
                 {
-                    return Content("Vehicle Document type not found.");
+                    return Content("Device not found.");
                 }
                 return PartialView("Partials/_EditDeviceModal", dto);
             }
@@ -72,33 +61,21 @@ namespace Morpho.Web.Controllers
         }
 
         [HttpPost]
-
         public async Task<ActionResult> getAllDeviceList()
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync("api/DeviceManagement/GetDeviceListAll");
-
-                if (!response.IsSuccessStatusCode)
+                var dtoList = await _deviceManagementAppService.GetDeviceListAsync();
+                if (dtoList == null || !dtoList.Any())
                 {
-                    return Json(new { ERROR = true, MESSAGE = "Something went wrong!", data = new object[0] });
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Device list not found!",
+                        data = new object[0]
+                    });
                 }
-
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var realList = JsonConvert.DeserializeObject<List<DeviceDto>>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "",
-                    data = realList
-                });
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
             }
             catch (Exception ex)
             {
@@ -111,35 +88,33 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-
-
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/DeviceManagement/CreateIOTDeviceRegister", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.device_unique_no = input.device_unique_no?.Trim();
+                input.device_name = input.device_name?.Trim();
+                input.device_type_name = input.device_type_name?.Trim();
+                input.imei_number = input.imei_number?.Trim();
+                if (string.IsNullOrWhiteSpace(input.device_unique_no))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Device unique no is required!" });
                 }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<CreateDeviceDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.device_name))
                 {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Device name is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.device_type_name))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Device type is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.imei_number))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "IMEI number is required!" });
+                }
+                var result = await _deviceManagementAppService.AddDeviceAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -152,34 +127,33 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/DeviceManagement/UpdateIOTDevice", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.device_unique_no = input.device_unique_no?.Trim();
+                input.device_name = input.device_name?.Trim();
+                input.device_type_name = input.device_type_name?.Trim();
+                input.imei_number = input.imei_number?.Trim();
+                if (string.IsNullOrWhiteSpace(input.device_unique_no))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Device unique no is required!" });
                 }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateDeviceDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.device_name))
                 {
-                    ERROR = false,
-                    MESSAGE = "Updated Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Device name is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.device_type_name))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Device type is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.imei_number))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "IMEI number is required!" });
+                }
+                var result = await _deviceManagementAppService.UpdateDeviceAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -191,35 +165,12 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/DeviceManagement/DeleteIOTDevice", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                var result = await _deviceManagementAppService.DeleteDeviceAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Deleted Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -232,39 +183,19 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/DeviceManagement/UpdateIOTDeviceStatus", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Status Updated Successfully!",
-                    data = createdObj
-                });
+                var result = await _deviceManagementAppService.UpdateDeviceStatusAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Status Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
                 return Json(new { ERROR = true, MESSAGE = ex.Message });
             }
         }
+
         #endregion  ########################  Document managment master #####################
 
     }

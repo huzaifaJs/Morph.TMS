@@ -76,7 +76,17 @@ namespace Morpho.Vehicle
                 .ToListAsync();
             return ObjectMapper.Map<List<VehicleDto>>(list);
         }
-
+        public async Task<List<VehicleDto>> GetVehicleDDListAsync()
+        {
+            var list = await _vehicleRepository
+                .GetAll()
+                   .Include(x => x.VehicleType)
+                 .Include(x => x.FuelType)
+                .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.isblock==false) 
+                .OrderByDescending(x => x.created_at)
+                .ToListAsync();
+            return ObjectMapper.Map<List<VehicleDto>>(list);
+        }
         public async Task<UpdateVehicleDto> UpdateVehicleAsync(UpdateVehicleDto input)
         {
             var entity = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
@@ -100,7 +110,7 @@ namespace Morpho.Vehicle
         }
         public async Task<UpdateStatusVehicleDto> UpdateVehicleStatusAsync(UpdateStatusVehicleDto input)
         {
-            var entity = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == input.VehicleId);
+            var entity = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
 
             if (entity == null)
             {
@@ -115,7 +125,7 @@ namespace Morpho.Vehicle
 
         public async Task<UpdateStatusVehicleDto> DeleteVehicleAsync(UpdateStatusVehicleDto input)
         {
-            var entity = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == input.VehicleId);
+            var entity = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
 
             if (entity == null)
             {
@@ -138,6 +148,44 @@ namespace Morpho.Vehicle
             }
             return ObjectMapper.Map<VehicleDto>(entity);
         }
+        public async Task<string> GenerateVehicleUniqueIdAsync()
+        {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                throw new UserFriendlyException("Tenant not selected!");
+            }
+            int tenantId = AbpSession.TenantId.Value;
+            var lastId = await _vehicleRepository
+                .GetAll()
+                .Where(x => x.TenantId == tenantId)
+                .OrderByDescending(x => x.Id)
+                .Select(x => x.vehicle_unqiue_id)
+                .FirstOrDefaultAsync();
+
+            int nextNumber = 1;
+
+            if (!string.IsNullOrWhiteSpace(lastId))
+            {
+                var parts = lastId.Split('-');
+                if (parts.Length == 3 && int.TryParse(parts[2], out int currentNo))
+                    nextNumber = currentNo + 1;
+            }
+
+            string random = GenerateRandomCode(5);
+
+            string finalId = $"VHL-{random}-{nextNumber.ToString("D5")}";
+
+            return finalId;
+        }
+
+        private string GenerateRandomCode(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
 
     }
     public class SequentialVehicleGenerator
