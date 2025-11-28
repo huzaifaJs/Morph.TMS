@@ -46,6 +46,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\DeviceController.cs" />
+    <Compile Remove="Controllers\DeviceManagementController.cs" />
     <Compile Remove="Support\IElmahLogStorageMaintenance.cs" />
   </ItemGroup>
 </Project>
