@@ -3453,6 +3453,10 @@ namespace Morpho.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("document_type_id");
+
+                    b.HasIndex("vehicle_id");
+
                     b.ToTable("vehicle_documents");
                 });
 
@@ -4402,6 +4406,25 @@ namespace Morpho.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleDocument.VehicleDocument", b =>
+                {
+                    b.HasOne("Morpho.Domain.Entities.VehicleDocumentType.VehicleDocumentType", "mainVehicleDocumentType")
+                        .WithMany()
+                        .HasForeignKey("document_type_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Morpho.Domain.Entities.Vehicles.Vehicles", "mainVehicles")
+                        .WithMany()
+                        .HasForeignKey("vehicle_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("mainVehicleDocumentType");
+
+                    b.Navigation("mainVehicles");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.Vehicles.Vehicles", b =>

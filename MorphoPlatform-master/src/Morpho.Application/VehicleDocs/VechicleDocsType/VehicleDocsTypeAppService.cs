@@ -140,6 +140,21 @@ namespace Morpho.VehicleDocsType
             }
             return ObjectMapper.Map<VechicleDocsTypeDto>(entity);
         }
+        public async Task<List<VechicleDocsTypeDto>> GetVehicleDDLDocsTypeListAsync()
+        {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                throw new UserFriendlyException("Tenant not selected!");
+            }
+
+            var list = await _vehicleDocsTypeRepository
+                .GetAll()
+                .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted  && x.is_active == true)
+                .OrderByDescending(x => x.created_at)
+                .ToListAsync();
+            return ObjectMapper.Map<List<VechicleDocsTypeDto>>(list);
+        }
+
     }
 
 }

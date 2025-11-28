@@ -14,17 +14,57 @@ namespace Morpho.Device.TrackingDeviceDto
     [AutoMapTo(typeof(TrackingDevices))]
     public class CreateDeviceDto
     {
-        [Required]
-        public string device_type_name { get; set; }
-        [Required]
-        public string device_unique_no { get; set; }
-        [Required]
-        public string device_name { get; set; }
-        public string manufacturer { get; set; }
-        public string remark { get; set; }
-        public string serial_number { get; set; }
-        [Required]
-        public string imei_number { get; set; }
+        private string _devicetypename;
+        private string _deviceuniqueno;
+        private string _remark;
+        private string _devicename;
+        private string _manufacturer;
+        private string _serialnumber;
+        private string _imeinumber;
+
+        [MaxLength(250)]
+        public string device_type_name
+        {
+            get => _devicetypename;
+            set => _devicetypename = value?.Trim();
+        }
+
+        [MaxLength(600)]
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string device_unique_no
+        {
+            get => _deviceuniqueno;
+            set => _deviceuniqueno = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string device_name
+        {
+            get => _devicename;
+            set => _devicename = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string manufacturer
+        {
+            get => _manufacturer;
+            set => _manufacturer = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string serial_number
+        {
+            get => _serialnumber;
+            set => _serialnumber = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string imei_number
+        {
+            get => _imeinumber;
+            set => _imeinumber = value?.Trim();
+        }
         public decimal? min_value { get; set; }
         public decimal? max_value { get; set; }
     }
@@ -35,20 +75,59 @@ namespace Morpho.Device.TrackingDeviceDto
         [Required]
         public long Id { get; set; }
 
-        [Required]
-        public string device_type_name { get; set; }
-        [Required]
-        public string device_unique_no { get; set; }
-        [Required]
-        public string device_name { get; set; }
-        public string manufacturer { get; set; }
-        public string remark { get; set; }
-        public string serial_number { get; set; }
-        [Required]
-        public string imei_number { get; set; }
+        private string _devicetypename;
+        private string _deviceuniqueno;
+        private string _remark;
+        private string _devicename;
+        private string _manufacturer;
+        private string _serialnumber;
+        private string _imeinumber;
+
+        [MaxLength(250)]
+        public string device_type_name
+        {
+            get => _devicetypename;
+            set => _devicetypename = value?.Trim();
+        }
+
+        [MaxLength(600)]
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string device_unique_no
+        {
+            get => _deviceuniqueno;
+            set => _deviceuniqueno = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string device_name
+        {
+            get => _devicename;
+            set => _devicename = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string manufacturer
+        {
+            get => _manufacturer;
+            set => _manufacturer = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string serial_number
+        {
+            get => _serialnumber;
+            set => _serialnumber = value?.Trim();
+        }
+        [MaxLength(250)]
+        public string imei_number
+        {
+            get => _imeinumber;
+            set => _imeinumber = value?.Trim();
+        }
         public decimal? min_value { get; set; }
         public decimal? max_value { get; set; }
-
     }
     [AutoMapTo(typeof(TrackingDevices))]
     public class UpdateStatusDeviceDto

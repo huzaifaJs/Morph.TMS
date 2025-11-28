@@ -17,26 +17,25 @@
 
         <div class="form-group row required">
             <label class="col-md-3 col-form-label">@L("vehicletypesid")</label>
+
             <div class="col-md-9">
-                <input type="number"
-                       class="form-control"
-                       name="vehicle_types_id"
-                       value="@Model.vehicle_types_id"
-                       required
-                       maxlength="250"
-                       placeholder="@L("vehicletypesid")" />
+                <select class="form-control form-select vehicle_types_id"
+                        id="vehicle_types_id"
+                        name="vehicle_types_id"
+                        required></select>
+                <input type="hidden" id="hdnvehicle_types_id" value="@Model.vehicle_types_id" />
+             
             </div>
         </div>
         <div class="form-group row required">
             <label class="col-md-3 col-form-label">@L("vehiclefueltypesid")</label>
             <div class="col-md-9">
-                <input type="number"
-                       class="form-control"
-                       name="fuel_types_id"
-                       value="@Model.fuel_types_id"
-                       required
-                       maxlength="250"
-                       placeholder="@L("vehiclefueltypesid")" />
+                <select class="form-control form-select fuel_types_id"
+                        id="fuel_types_id"
+                        name="fuel_types_id"
+                        required ></select>
+                <input type="hidden" id="hdnfuel_types_id" value="@Model.fuel_types_id" />
+                
             </div>
         </div>
         <div class="form-group row required">
@@ -45,6 +44,8 @@
                 <input type="text"
                        class="form-control"
                        name="vehicle_unqiue_id"
+                       id="vehicle_unqiue_id"
+                       readonly
                        value="@Model.vehicle_unqiue_id"
                        required
                        maxlength="250"
@@ -57,6 +58,7 @@
                 <input type="text"
                        class="form-control"
                        name="vehicle_name"
+                       id="vehicle_name"
                        value="@Model.vehicle_name"
                        required
                        maxlength="250"
@@ -69,7 +71,9 @@
                 <input type="text"
                        class="form-control"
                        name="vehicle_number"
+                       id="vehicle_number"
                        value="@Model.vehicle_number"
+                    
                        required
                        maxlength="250"
                        placeholder="@L("vehiclenumber")" />
@@ -81,6 +85,7 @@
                 <input type="text"
                        class="form-control"
                        name="model_name"
+                       id="model_name"
                        value="@Model.model_name"
                        maxlength="250"
                        placeholder="@L("vehiclemodelname")" />
@@ -92,6 +97,7 @@
                 <input type="text"
                        class="form-control"
                        name="manufacturer"
+                       id="manufacturer"
                        value="@Model.manufacturer"
                        maxlength="250"
                        placeholder="@L("vehiclemanufacturer")" />
@@ -103,6 +109,9 @@
                 <input type="text"
                        class="form-control"
                        name="manufacturing_year"
+                       id="manufacturing_year"
+                       oninput="return validatePriceInput(this)"
+                       onkeypress="restrictInvalidCharacters(event)"
                        value="@Model.manufacturing_year"
                        maxlength="250"
                        placeholder="@L("vehiclemanufacturingyear")" />
@@ -114,6 +123,7 @@
                 <input type="text"
                        class="form-control"
                        name="chassis_number"
+                       id="chassis_number"
                        value="@Model.chassis_number"
                        required
                        maxlength="250"
@@ -126,6 +136,7 @@
                 <input type="text"
                        class="form-control"
                        name="engine_number"
+                       id="engine_number"
                        value="@Model.engine_number"
                        maxlength="250"
                        placeholder="@L("vehicleenginenumber")" />
@@ -137,8 +148,9 @@
             <div class="col-md-9">
                 <textarea class="form-control"
                           name="remark"
+                          id="remark"
                           maxlength="600"
-                          placeholder="@L("vehicleremark")">@Model.engine_number</textarea>
+                          placeholder="@L("vehicleremark")">@Model.remark</textarea>
             </div>
         </div>
 
@@ -150,3 +162,26 @@
     </div>
 
 </form>
+<script>
+        function validatePriceInput(element) {
+        const input = element.value;
+        const validInput = input.replace(/[^0-9]/g, '');
+        const parts = validInput.split('.');
+        if (parts.length > 2) {
+            element.value = parts[0] + '.' + parts[1];
+        } else {
+            element.value = validInput;
+        }
+        return true;
+    }
+
+    function restrictInvalidCharacters(event) {
+        const charCode = event.which || event.keyCode;
+        const charStr = String.fromCharCode(charCode);
+        if (!charStr.match(/^[0-9]$/)) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>

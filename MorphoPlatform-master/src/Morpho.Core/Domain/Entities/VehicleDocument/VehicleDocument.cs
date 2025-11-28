@@ -13,10 +13,14 @@ namespace Morpho.Domain.Entities.VehicleDocument
     public class VehicleDocument : Entity<long>, IMustHaveTenant, ISoftDelete
     {
         public int TenantId { get; set; }
-        [ForeignKey("vehicle")]
-        public long vehicle_id { get; set; }
-        [ForeignKey("vehicle_document_types")]
+
         public long document_type_id { get; set; }
+
+        public long vehicle_id { get; set; }
+        [ForeignKey(nameof(vehicle_id))]
+        public Domain.Entities.Vehicles.Vehicles mainVehicles { get; set; }
+        [ForeignKey(nameof(document_type_id))]
+        public Domain.Entities.VehicleDocumentType.VehicleDocumentType mainVehicleDocumentType { get; set; }
         public string document_number { get; set; }
         public string document_docs_url { get; set; }
         public DateTime? issue_date { get; set; }

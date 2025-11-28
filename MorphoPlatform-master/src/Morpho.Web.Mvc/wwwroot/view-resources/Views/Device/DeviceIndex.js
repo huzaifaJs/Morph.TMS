@@ -1,8 +1,5 @@
 ﻿
 $(function () {
-
-    const API_BASE = "/api/MasterApi/";
-
     let _service = abp.services.app.vehicleType,
         l = abp.localization.getSource('Morpho'),
         _$modal = $('#CreateDeviceModal'),
@@ -16,20 +13,26 @@ $(function () {
         serverSide: false,
 
         ajax: function (data, callback, settings) {
-            
+          
             $.post("/Device/getAllDeviceList")
-
                 .done(function (response) {
-                    if (response.ERROR) {
-                        abp.notify.error(response.MESSAGE || "Something went wrong!");
+                    
+                    console.log(response)
+                    if (response.error) {
+                        abp.notify.error(response.error.message || "Something went wrong!");
                         return callback({ data: [] });
                     }
+
+                    if (response.result.error) {
+                        abp.notify.error(response.result.message || "Something went wrong!");
+                        return callback({ data: [] });
+                    }
+
                     let rows = response.result.data || [];
                     callback({ data: rows });
                 })
-
-                .fail(function (err) {
-                    abp.notify.error("VehicleType API not found!");
+                .fail(function () {
+                    abp.notify.error("API not found!");
                     callback({ data: [] });
                 });
         },
@@ -107,45 +110,35 @@ $(function () {
         let data = _$form.serializeFormToObject();  
 
         abp.ui.setBusy(_$modal);
-
         $.ajax({
             url: "/Device/CreateDevice",
             type: "POST",
-            data: data, 
+            data: data,
         })
             .done(function (response) {
-                
-      
-                if (response.ERROR) {
-                    abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
-                    return; 
+
+                if (response.error) {
+                    abp.notify.error(response.error.message || "Something went wrong!");
                 }
-                else if (response.result && response.result.error) {
+
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
                     _$modal.modal("hide");
                     _$form[0].reset();
-                    abp.notify.success("Saved Successfully");
+                    abp.notify.success(response.result.message || "Created Successfully!");
                     _$vehicleTable.ajax.reload();
                 }
-               
+
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||  
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
+                console.log(err)
+                abp.message.error("Something went wrong");
+                abp.notify.error("Something went wrong");
             })
-            .always(function () {
-                abp.ui.clearBusy(_$modal);
-            });
+            .always(() => abp.ui.clearBusy(_$modal));
+     
     });
 
 
@@ -170,7 +163,6 @@ $(function () {
 
 
     $(document).on("click", ".save-edit", function () {
-        debugger
         let data = {
             Id: $("#Id").val(),
             device_unique_no: $("#device_unique_no").val(),
@@ -192,35 +184,26 @@ $(function () {
             data: data,
         })
             .done(function (response) {
-                
-      
-                if (response.ERROR) {
-                    abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
-                    return;
+
+                if (response.error) {
+                    abp.notify.error(response.error.message || "Something went wrong!");
                 }
-                else if (response.result && response.result.error) {
+
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
-                    abp.notify.success("Updated Successfully");
+                    abp.notify.success(response.MESSAGE || "Updated Successfully!");
                     $("#EditDeviceModal").modal("hide");
                     _$vehicleTable.ajax.reload();
                 }
 
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
+                console.log(err)
+                abp.message.error("Something went wrong");
+                abp.notify.error("Something went wrong");
             })
-
             .always(() => abp.ui.clearBusy("#EditDeviceModal"));
     });
 
@@ -229,6 +212,7 @@ $(function () {
         var id = $(this).attr("data-id");
         var name = $(this).attr("data-name");
 
+
         abp.message.confirm(
             `Are you sure you want to delete '${name}' ?`,
             null,
@@ -236,7 +220,7 @@ $(function () {
                 if (isConfirmed) {
 
                     let data = {
-                        Id: id,
+                        Id: id
                     };
 
                     $.ajax({
@@ -245,35 +229,23 @@ $(function () {
                         data: data,
                     })
                         .done(function (response) {
-                            
-                  
+
                             if (response.ERROR) {
                                 abp.message.error(response.MESSAGE || "Error");
-                                _$vehicleTable.ajax.reload();
                                 return;
                             }
-                            else if (response.result && response.result.error) {
+                            else if (response.result.error) {
                                 abp.notify.error(response.result.message || "Something went wrong!");
-                                _$vehicleTable.ajax.reload();
                             }
                             else {
-                                abp.notify.success("Deleted Successfully");
-                                $("#EditDeviceModal").modal("hide");
+                                abp.notify.success(response.MESSAGE || "Deleted Successfully!");
                                 _$vehicleTable.ajax.reload();
                             }
-
                         })
                         .fail(function (err) {
-                            console.log("Create Fail:", err);
-
-                            let msg =
-                                err?.responseJSON?.MESSAGE ||
-                                err?.responseJSON?.message ||
-                                "Error";
-
-                            abp.message.error(msg);
-                        })
-
+                            console.log(err)
+                            abp.message.error("Something went wrong!");
+                        });
                 }
             }
         );
@@ -286,42 +258,31 @@ $(function () {
         let data = {
             Id: id,
         };
-
         $.ajax({
             url: "/Device/UpdateStatusDevice",
             type: "POST",
             data: data,
         })
             .done(function (response) {
-                
-      
                 if (response.ERROR) {
                     abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
                     return;
                 }
-                else if (response.result && response.result.error) {
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
-                    abp.notify.success(response.result.message);
-                    $("#EditDeviceModal").modal("hide");
+                    abp.notify.success(response.MESSAGE || "Status Updated!");
                     _$vehicleTable.ajax.reload();
                 }
 
+
+                _$vehicleTable.ajax.reload();
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
-            })
-
+                console.log(err)
+                abp.message.error("Something went wrong!");
+            });
 
     });
 

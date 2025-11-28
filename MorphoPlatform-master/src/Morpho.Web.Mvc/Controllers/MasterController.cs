@@ -1,18 +1,26 @@
 ﻿using Abp.AspNetCore.Mvc.Authorization;
 using Abp.Authorization;
+using Abp.UI;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Morpho.Authorization;
 using Morpho.Controllers;
 using Morpho.Dto;
+using Morpho.FuelType;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
 using Morpho.VehicleDocsType;
 using Morpho.VehicleType;
 using Morpho.VehicleType.Dto;
+using Morpho.Web.Models.Common.Modals;
+using Morpho.Web.Models.Roles;
 using Morpho.Web.Models.Shipment;
 using Morpho.Web.Models.Vehichle;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +31,24 @@ namespace Morpho.Web.Controllers
     [AbpMvcAuthorize]
     public class MasterController : MorphoControllerBase
     {
+        //private readonly IVehicleDocsTypeAppService _vehicleDocsTypeService;
+        //private readonly HttpClient _http;
+        //private readonly string _apiUrl;
+        private readonly IVehicleTypeAppService _vehicleTypeService;
         private readonly IVehicleDocsTypeAppService _vehicleDocsTypeService;
-        private readonly HttpClient _http;
+        private readonly IFuelTypeAppService _fuelTypeAppService;
 
-        public MasterController(IVehicleDocsTypeAppService vehicleDocsTypeService, IHttpClientFactory httpClientFactory)
+        //   public MasterController(IVehicleDocsTypeAppService vehicleDocsTypeService, IHttpClientFactory httpClientFactory, IOptions<ModalApiBaseUrl> apiOptions)
+        public MasterController(IVehicleTypeAppService vehicleTypeService, IVehicleDocsTypeAppService vehicleDocsTypeService, IFuelTypeAppService fuelTypeAppService)
         {
+            //_apiUrl = apiOptions.Value.BaseUrl;
+            //_vehicleDocsTypeService = vehicleDocsTypeService;
+            //_http = httpClientFactory.CreateClient("IgnoreSSL");
+            //_http.BaseAddress = new Uri(_apiUrl);
+            _vehicleTypeService = vehicleTypeService;
             _vehicleDocsTypeService = vehicleDocsTypeService;
-            _http = httpClientFactory.CreateClient("IgnoreSSL");
-            _http.BaseAddress = new Uri("https://localhost:44311/");
+            _fuelTypeAppService = fuelTypeAppService;
+
         }
 
         #region ########################  Document type managment master #####################
@@ -40,28 +58,12 @@ namespace Morpho.Web.Controllers
         {
             return View();
         }
-
         [HttpGet]
         public async Task<ActionResult> EditVehicleDocsTypeModal(long id)
         {
             try
             {
-   
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync($"api/MasterApi/GetVehicleDocsType?id={id}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return Content("Error fetching vehicle type details.");
-                }
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var dto = JsonConvert.DeserializeObject<VechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
+                var dto = await _vehicleDocsTypeService.GetVehicleDocsTypeDetailsAsync(id);
                 if (dto == null)
                 {
                     return Content("Vehicle Document type not found.");
@@ -75,74 +77,55 @@ namespace Morpho.Web.Controllers
         }
 
         [HttpPost]
-
         public async Task<ActionResult> getAllVehicleDocsTypeList()
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync("api/MasterApi/GetVehicleDocsTypeAll");
-
-                if (!response.IsSuccessStatusCode)
+                var dtoList = await _vehicleDocsTypeService.GetVehicleDocsTypeListAsync();
+                if (dtoList == null || !dtoList.Any())
                 {
-                    return Json(new { ERROR = true, MESSAGE = "Something went wrong!", data = new object[0] });
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Vehicle Document type list not found!",
+                        data = new object[0]
+                    });
                 }
-
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var realList = JsonConvert.DeserializeObject<List<VechicleDocsTypeDto>>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "",
-                    data = realList
-                });
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
             }
             catch (Exception ex)
             {
                 return Json(new { ERROR = true, MESSAGE = ex.Message, data = new object[0] });
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> CreateVehicleDocsType(CreateVechicleDocsTypeDto input)
         {
             try
             {
 
-              
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/CreateVehicleDocsType", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.document_type_name = input.document_type_name?.Trim();
+                input.description = input.description?.Trim();
+                if (string.IsNullOrWhiteSpace(input.document_type_name))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Document type name is required!" });
                 }
 
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<CreateVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.description))
                 {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+
+                var result = await _vehicleDocsTypeService.AddVehiclDocsTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -150,39 +133,30 @@ namespace Morpho.Web.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<ActionResult> UpdateVehicleDocsType(UpdateVechicleDocsTypeDto input)
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/UpdateVehicleDocsTypeAsync", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.document_type_name = input.document_type_name?.Trim();
+                input.description = input.description?.Trim();
+                if (string.IsNullOrWhiteSpace(input.document_type_name))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Document type name is required!" });
                 }
 
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.description))
                 {
-                    ERROR = false,
-                    MESSAGE = "Updated Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+                var result = await _vehicleDocsTypeService.UpdateVehicleDocsTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -194,35 +168,13 @@ namespace Morpho.Web.Controllers
         {
             try
             {
+                var result = await _vehicleDocsTypeService.DeleteVehicleDocsTypeAsync(input);
 
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/DeleteVehicleDocsType", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                return Json(new { ERROR = false, MESSAGE = "Deleted Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -235,33 +187,13 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
+                var result = await _vehicleDocsTypeService.UpdateVehicleDocsTypeStatusAsync(input);
 
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/UpdateVhicleDocsTypeStatus", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Status Updated Successfully!",
-                    data = createdObj
-                });
+                return Json(new { ERROR = false, MESSAGE = "Status Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -277,32 +209,17 @@ namespace Morpho.Web.Controllers
         {
             return View();
         }
-    
+
 
         [HttpGet]
         public async Task<ActionResult> EditVehicleFuelTypeModal(long id)
         {
             try
             {
-
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync($"api/MasterApi/GetVehicleFuelType?id={id}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return Content("Error fetching vehicle fuel type details.");
-                }
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var dto = JsonConvert.DeserializeObject<FuelTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
+                var dto = await _fuelTypeAppService.GetFuelTypeDetailsAsync(id);
                 if (dto == null)
                 {
-                    return Content("Vehicle fuel type not found.");
+                    return Content("Vehicle Fuel type not found.");
                 }
                 return PartialView("Partials/_EditVehicleFuelTypeModal", dto);
             }
@@ -317,28 +234,17 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var response = await _http.GetAsync("api/MasterApi/GetVehicleFuelTypeAll");
-
-                if (!response.IsSuccessStatusCode)
+                var dtoList = await _fuelTypeAppService.GetFuelTypesListAsync();
+                if (dtoList == null || !dtoList.Any())
                 {
-                    return Json(new { ERROR = true, MESSAGE = "Something went wrong!", data = new object[0] });
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Vehicle fuel type list not found!",
+                        data = new object[0]
+                    });
                 }
-
-                var jsonString = await response.Content.ReadAsStringAsync();
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var realList = JsonConvert.DeserializeObject<List<FuelTypeDto>>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "",
-                    data = realList
-                });
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
             }
             catch (Exception ex)
             {
@@ -352,33 +258,26 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
 
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/CreateVehicleFuelType", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.fuel_type_name = input.fuel_type_name?.Trim();
+                input.remark = input.remark?.Trim();
+                if (string.IsNullOrWhiteSpace(input.fuel_type_name))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Fuel type is required!" });
                 }
 
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<CreateFuelTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.remark))
                 {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+
+                var result = await _fuelTypeAppService.AddFuelTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -391,34 +290,25 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/UpdateVehicleFuelTypeAsync", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                input.fuel_type_name = input.fuel_type_name?.Trim();
+                input.remark = input.remark?.Trim();
+                if (string.IsNullOrWhiteSpace(input.fuel_type_name))
                 {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle fuel type name is required!" });
                 }
 
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateFuelTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
+                if (string.IsNullOrWhiteSpace(input.remark))
                 {
-                    ERROR = false,
-                    MESSAGE = "Updated Successfully!",
-                    data = createdObj
-                });
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+
+                var result = await _fuelTypeAppService.UpdateFuelTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -432,35 +322,12 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/DeleteVehicleFuelType", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusFuelTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Created Successfully!",
-                    data = createdObj
-                });
+                var result = await _fuelTypeAppService.DeleteFuelTypeAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Deleted Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
@@ -473,38 +340,18 @@ namespace Morpho.Web.Controllers
         {
             try
             {
-                _http.DefaultRequestHeaders.Remove("Abp.TenantId");
-                _http.DefaultRequestHeaders.Add("Abp.TenantId", AbpSession.TenantId?.ToString());
-
-                var jsonBody = JsonConvert.SerializeObject(input);
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                var response = await _http.PostAsync("api/MasterApi/UpdateVhicleFuelTypeStatus", content);
-                var jsonString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    dynamic errObj = JsonConvert.DeserializeObject(jsonString);
-                    string msg = errObj?.result?.message ?? "Something went wrong!";
-                    return Json(new { ERROR = true, MESSAGE = msg });
-                }
-
-                dynamic hostResponse = JsonConvert.DeserializeObject(jsonString);
-                var createdObj = JsonConvert.DeserializeObject<UpdateStatusVechicleDocsTypeDto>(
-                    hostResponse.result.ToString()
-                );
-
-                return Json(new
-                {
-                    ERROR = false,
-                    MESSAGE = "Status Updated Successfully!",
-                    data = createdObj
-                });
+                var result = await _fuelTypeAppService.UpdateFuelTypeStatusAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Status Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
             }
             catch (Exception ex)
             {
                 return Json(new { ERROR = true, MESSAGE = ex.Message });
             }
+
         }
         #endregion  ########################  Fuel  type managment master #####################
     }

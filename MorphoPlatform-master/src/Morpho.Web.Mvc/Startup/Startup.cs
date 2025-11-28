@@ -14,6 +14,7 @@ using Microsoft.Extensions.WebEncoders;
 using Morpho.Authentication.JwtBearer;
 using Morpho.Configuration;
 using Morpho.Identity;
+using Morpho.Web.Models.Common.Modals;
 using Morpho.Web.Resources;
 using System.Net.Http;
 using System.Text.Encodings.Web;
@@ -57,7 +58,7 @@ namespace Morpho.Web.Startup
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
             });
-
+            services.Configure<ModalApiBaseUrl>(_appConfiguration.GetSection("APISettings"));
             services.AddScoped<IWebResourceManager, WebResourceManager>();
 
             services.AddSignalR();

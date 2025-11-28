@@ -15,28 +15,45 @@ namespace Morpho.VehicleType.Dto
     [AutoMapTo(typeof(VehicleTypes))]
     public class CreateVehicleTypeDto
     {
-        [Required]
-        [MaxLength(250)]
-        public string vehicle_type_name { get; set; }
+        private string _vehicletypename;
+        private string _remark;
 
-        [Required]
+        [MaxLength(250)]
+        public string vehicle_type_name
+        {
+            get => _vehicletypename;
+            set => _vehicletypename = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string  remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+       
     }
 
     [AutoMapTo(typeof(VehicleTypes))]
     public class UpdateVehicleTypeDto
     {
+        private string _vehicletypename;
+        private string _remark;
         [Required]
-        public long Id { get; set; }   
-
-        [Required]
+        public long Id { get; set; }
         [MaxLength(250)]
-        public string vehicle_type_name { get; set; }
+        public string vehicle_type_name
+        {
+            get => _vehicletypename;
+            set => _vehicletypename = value?.Trim();
+        }
 
-        [Required]
         [MaxLength(600)]
-        public string Remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
     }
     [AutoMapTo(typeof(VehicleTypes))]
     public class UpdateStatusVehicleTypeDto

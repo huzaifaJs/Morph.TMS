@@ -17,5 +17,6 @@ namespace Morpho.VehicleType
         Task<UpdateStatusVehicleTypeDto> DeleteVehicleTypeAsync(UpdateStatusVehicleTypeDto input);
         Task<UpdateStatusVehicleTypeDto> UpdateVehicleTypeStatusAsync(UpdateStatusVehicleTypeDto input);
         Task<VehicleTypeDto> GetVehicleTypeDetailsAsync(long vehicleTypeId);
+        Task<List<VehicleTypeDto>> GetVehicleTypesDDListAsync();
     }
 }
