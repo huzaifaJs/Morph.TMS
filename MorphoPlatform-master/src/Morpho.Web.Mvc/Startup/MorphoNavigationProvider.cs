@@ -252,7 +252,15 @@ namespace Morpho.Web.Startup
                   permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_VehicleManagement)
               )
           )
-          
+           .AddItem(
+              new MenuItemDefinition(
+                  "VehicleDocs",
+                  L("VehicleDocs"),
+                  url: "/Vehicle/VehicleDocsIndex",
+                  order: 1,
+                  permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Vehicle_VehicleDocs)
+              )
+          )
       );
 
 

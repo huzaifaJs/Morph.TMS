@@ -47,7 +47,7 @@ namespace Morpho.DocsVehicle
             }
             var exists = await _vehicleDocsRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
-                x.document_type_id == input.document_type_id &&
+                x.document_type_id == Convert.ToInt64(input.document_type_id) &&
                 x.document_number == input.document_number &&
                 !x.IsDeleted
             );
@@ -74,6 +74,8 @@ namespace Morpho.DocsVehicle
         {
             var list = await _vehicleDocsRepository
                 .GetAll()
+                 .Include(x => x.mainVehicles)
+                 .Include(x => x.mainVehicleDocumentType)
                 .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)
                 .OrderByDescending(x => x.created_at)
                 .ToListAsync();
@@ -82,35 +84,63 @@ namespace Morpho.DocsVehicle
 
         public async Task<UpdateDocsVehicleDto> UpdateDocsVehicleAsync(UpdateDocsVehicleDto input)
         {
+         
+            input.document_number = input.document_number?.Trim();
+            input.document_docs_url = input.document_docs_url?.Trim();
+            input.issue_date = input.issue_date?.Trim();
+            input.expiry_date = input.expiry_date?.Trim();
+            input.description = input.description?.Trim();
+
+            
             var entity = await _vehicleDocsRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
             if (entity == null)
             {
-                throw new UserFriendlyException("Vehicle document not found");
+                throw new UserFriendlyException("Vehicle document not found.");
             }
+            var document_docs_url = entity.document_docs_url;
+        
+            DateTime? issueDate = null;
+            DateTime? expiryDate = null;
 
-            if (input.expiry_date == input.issue_date)
+            if (!string.IsNullOrWhiteSpace(input.issue_date))
             {
-                throw new UserFriendlyException("expiry date and issue date not equal .");
+                issueDate = Convert.ToDateTime(input.issue_date);
             }
-            var entity1 = await _vehicleDocsRepository.FirstOrDefaultAsync(x =>
+            if (!string.IsNullOrWhiteSpace(input.issue_date))
+            {
+                expiryDate = Convert.ToDateTime(input.expiry_date);
+            }
+            if (issueDate.HasValue && expiryDate.HasValue && issueDate.Value == expiryDate.Value)
+            {
+                throw new UserFriendlyException("Expiry date cannot be the same as issue date.");
+            }
+            var duplicate = await _vehicleDocsRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
-                x.document_type_id == input.document_type_id &&
+                x.document_type_id == Convert.ToInt64(input.document_type_id )&&
                 x.document_number == input.document_number &&
                 x.Id != input.Id &&
                 !x.IsDeleted
             );
-            if (entity1 != null)
-            {
-                throw new UserFriendlyException("Vehicle document no already found");
-            }
 
+            if (duplicate != null)
+            {
+                throw new UserFriendlyException("Document number already exists.");
+            }
+          
+            if (string.IsNullOrEmpty(input.document_docs_url))
+            {
+                input.document_docs_url = document_docs_url;
+            }
             ObjectMapper.Map(input, entity);
+            
             entity.updated_by = AbpSession.UserId;
             entity.Updated_at = DateTime.Now;
+
             await _vehicleDocsRepository.UpdateAsync(entity);
 
-            return input;
+            return input; 
         }
+
         public async Task<UpdateStatusDocsVehicleDto> UpdateDocsVehicleStatusAsync(UpdateStatusDocsVehicleDto input)
         {
             var entity = await _vehicleDocsRepository.FirstOrDefaultAsync(x => x.Id == input.Id);

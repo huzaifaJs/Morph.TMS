@@ -13,5 +13,6 @@
         public const string VehicleFuelType = "Vehicle Fuel Type";
         public const string DeviceIndex = "IOT Device Management";
         public const string Vehicle = "Vehicle Management";
+        public const string VehicleDocs  = "Vehicle Document Management";
     }
 }

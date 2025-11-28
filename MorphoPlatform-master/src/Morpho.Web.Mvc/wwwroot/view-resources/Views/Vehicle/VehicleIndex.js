@@ -1,7 +1,4 @@
 ﻿
-$(function () {
-
-    const API_BASE = "/api/MasterApi/";
 
     let _service = abp.services.app.vehicleType,
         l = abp.localization.getSource('Morpho'),
@@ -14,25 +11,30 @@ $(function () {
 
         paging: true,
         serverSide: false,
-
         ajax: function (data, callback, settings) {
-            
-            $.post("/Vehicle/getAllDataVehicleModal")
 
+            $.post("/Vehicle/getAllDataVehicleModal")
                 .done(function (response) {
-                    if (response.ERROR) {
-                        abp.notify.error(response.MESSAGE || "Something went wrong!");
+                    
+                    console.log(response)
+                    if (response.error) {
+                        abp.notify.error(response.error.message || "Something went wrong!");
                         return callback({ data: [] });
                     }
+
+                    if (response.result.error) {
+                        abp.notify.error(response.result.message || "Something went wrong!");
+                        return callback({ data: [] });
+                    }
+
                     let rows = response.result.data || [];
                     callback({ data: rows });
                 })
-                .fail(function (err) {
-                    abp.notify.error("Vehicle not found!");
+                .fail(function () {
+                    abp.notify.error("API not found!");
                     callback({ data: [] });
                 });
         },
-
 
         buttons: [
             {
@@ -80,7 +82,7 @@ $(function () {
 
                 <button class="btn btn-sm bg-danger delete-vehicle"
                     data-id="${row.id}"
-                    data-name="${row.vehicle_number} (${row.vehicle_number}) ">
+                    data-name="${row.vehicle_name} , ${row.vehicle_unqiue_id} (${row.vehicle_number}) ">
                     <i class="fas fa-trash"></i> ${l('Delete')}
                 </button>
             `
@@ -102,7 +104,7 @@ $(function () {
     });
 
     _$form.find(".save-button").on("click", function (e) {
-        debugger
+    
 
         e.preventDefault();
         if (!_$form.valid()) return;
@@ -110,45 +112,34 @@ $(function () {
         let data = _$form.serializeFormToObject();  
 
         abp.ui.setBusy(_$modal);
-
         $.ajax({
             url: "/Vehicle/CreateVehicle",
             type: "POST",
-            data: data, 
+            data: data,
         })
             .done(function (response) {
-                
-      
-                if (response.ERROR) {
-                    abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
-                    return; 
+
+                if (response.error) {
+                    abp.notify.error(response.error.message || "Something went wrong!");
                 }
-                else if (response.result && response.result.error) {
+
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
                     _$modal.modal("hide");
                     _$form[0].reset();
-                    abp.notify.success("Saved Successfully");
+                    abp.notify.success(response.result.message || "Created Successfully!");
                     _$vehicleTable.ajax.reload();
                 }
-               
+
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||  
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
+                console.log(err)
+                abp.message.error("Something went wrong");
+                abp.notify.error("Something went wrong");
             })
-            .always(function () {
-                abp.ui.clearBusy(_$modal);
-            });
+            .always(() => abp.ui.clearBusy(_$modal));
     });
 
 
@@ -164,6 +155,10 @@ $(function () {
             success: function (content) {
                 $('#EditVehicleModal .modal-content').html(content);
                 $('#EditVehicleModal').modal('show');
+                let vehicle_types_id = $("#hdnvehicle_types_id").val();
+                let fuel_types_id = $("#hdnfuel_types_id").val();
+                BindVehicleTypeDDL("vehicle_types_id", vehicle_types_id);
+                BindFuelTypeDDL("fuel_types_id", fuel_types_id);
             }
         });
     });
@@ -176,47 +171,47 @@ $(function () {
         
         let data = {
             Id: $("#Id").val(),
-            vehicle_type_name: $("#vehicle_type_name").val(),
-            Remark: $("#Remark").val()
+            vehicle_types_id: $("#vehicle_types_id").val(),
+            fuel_types_id: $("#fuel_types_id").val(),
+            vehicle_number: $("#vehicle_number").val(),
+            vehicle_unqiue_id: $("#vehicle_unqiue_id").val(),
+            vehicle_name: $("#vehicle_name").val(),
+            model_name: $("#model_name").val(),
+            manufacturer: $("#manufacturer").val(),
+            remark: $("#remark").val(),
+            manufacturing_year: $("#manufacturing_year").val(),
+            chassis_number: $("#chassis_number").val(),
+            engine_number: $("#engine_number").val(),
         };
 
         abp.ui.setBusy("#EditVehicleModal");
 
         $.ajax({
-            url: "/Vehicle/UpdateVehicleType",
+            url: "/Vehicle/UpdateVehicle",
             type: "POST",
             data: data,
         })
             .done(function (response) {
-                
-      
-                if (response.ERROR) {
-                    abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
-                    return;
+
+                if (response.error) {
+                    abp.notify.error(response.error.message || "Something went wrong!");
                 }
-                else if (response.result && response.result.error) {
+
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
-                    abp.notify.success("Updated Successfully");
+                    abp.notify.success(response.MESSAGE || "Updated Successfully!");
                     $("#EditVehicleModal").modal("hide");
                     _$vehicleTable.ajax.reload();
                 }
 
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
+                console.log(err)
+                abp.message.error("Something went wrong");
+                abp.notify.error("Something went wrong");
             })
-
             .always(() => abp.ui.clearBusy("#EditVehicleModal"));
     });
 
@@ -224,7 +219,6 @@ $(function () {
 
         var id = $(this).attr("data-id");
         var name = $(this).attr("data-name");
-
         abp.message.confirm(
             `Are you sure you want to delete '${name}' ?`,
             null,
@@ -232,93 +226,177 @@ $(function () {
                 if (isConfirmed) {
 
                     let data = {
-                        VehicleTypeId: id,
+                        Id: id
                     };
 
                     $.ajax({
-                        url: "/Vehicle/DeleteVehicleType",
+                        url: "/Vehicle/DeleteVehicle",
                         type: "POST",
                         data: data,
                     })
                         .done(function (response) {
-                            
-                  
+
                             if (response.ERROR) {
                                 abp.message.error(response.MESSAGE || "Error");
-                                _$vehicleTable.ajax.reload();
                                 return;
                             }
-                            else if (response.result && response.result.error) {
+                            else if (response.result.error) {
                                 abp.notify.error(response.result.message || "Something went wrong!");
-                                _$vehicleTable.ajax.reload();
                             }
                             else {
-                                abp.notify.success("Deleted Successfully");
-                                $("#EditVehicleModal").modal("hide");
+                                abp.notify.success(response.MESSAGE || "Deleted Successfully!");
                                 _$vehicleTable.ajax.reload();
                             }
-
                         })
                         .fail(function (err) {
-                            console.log("Create Fail:", err);
-
-                            let msg =
-                                err?.responseJSON?.MESSAGE ||
-                                err?.responseJSON?.message ||
-                                "Error";
-
-                            abp.message.error(msg);
-                        })
-
+                            console.log(err)
+                            abp.message.error("Something went wrong!");
+                        });
                 }
             }
         );
-
     });
 
     $(document).on('change', '.vt-status-toggle', function () {
 
         var id = $(this).data('id');
         let data = {
-            VehicleTypeId: id,
+            Id: id,
         };
-
         $.ajax({
-            url: "/Vehicle/UpdateStatusVehicleType",
+            url: "/Vehicle/UpdateStatusVehicle",
             type: "POST",
             data: data,
         })
             .done(function (response) {
-                
-      
+
+
                 if (response.ERROR) {
                     abp.message.error(response.MESSAGE || "Error");
-                    _$vehicleTable.ajax.reload();
                     return;
                 }
-                else if (response.result && response.result.error) {
+                else if (response.result.error) {
                     abp.notify.error(response.result.message || "Something went wrong!");
-                    _$vehicleTable.ajax.reload();
                 }
                 else {
-                    abp.notify.success(response.result.message);
-                    $("#EditVehicleModal").modal("hide");
+                    abp.notify.success(response.MESSAGE || "Status Updated!");
                     _$vehicleTable.ajax.reload();
                 }
 
+
+                _$vehicleTable.ajax.reload();
             })
             .fail(function (err) {
-                console.log("Create Fail:", err);
-
-                let msg =
-                    err?.responseJSON?.MESSAGE ||
-                    err?.responseJSON?.message ||
-                    "Error";
-
-                abp.message.error(msg);
-            })
-
-
+                console.log(err)
+                abp.message.error("Something went wrong!");
+            });
     });
+
+    function BindVehicleTypeDDL(IdName,value) {
+
+        $.ajax({
+            type: "POST",
+            url: '/MorphoUtility/getVehicleTypeDropDown',
+            dataType: 'json',
+            success: function (response) {
+                
+                let options = "";
+                console.log("VehicleType:", response.result.data);
+
+                if (response.ERROR) {
+                    abp.notify.error(response.MESSAGE);
+                    return;
+                }
+
+                let ddl = $("#" + IdName);
+
+                ddl.html("");
+
+                for (let i = 0; i < response.result.data.length; i++) {
+                    let item = response.result.data[i];
+                    if (item.value === value) {
+                        options += `<option value="${item.value}" selected>${item.text}</option>`;
+                    }
+                    else {
+                        options += `<option value="${item.value}" >${item.text}</option>`;
+                    }
+                  
+                }
+
+                ddl.html(options);
+            }
+        });
+    }
+
+    function BindFuelTypeDDL(IdName, value) {
+
+        $.ajax({
+            type: "POST",
+            url: '/MorphoUtility/getFuelTypeDropDown',
+            dataType: 'json',
+            success: function (response) {
+                let options = "";
+                if (response.ERROR) {
+                    abp.notify.error(response.MESSAGE);
+                    return;
+                }
+
+                let ddl = $("#" + IdName);
+
+                ddl.html("");
+
+                for (let i = 0; i < response.result.data.length; i++) {
+                    let item = response.result.data[i];
+                    if (item.value === value) {
+                        options += `<option value="${item.value}" selected>${item.text}</option>`;
+                    }
+                    else {
+                        options += `<option value="${item.value}" >${item.text}</option>`;
+                    }
+
+                }
+                ddl.html(options);
+            }
+        });
+    }
+    //$('#CreateVehicleTypeModal').on('shown.bs.modal', function () {
+    //    BindVehicleTypeDDL("Createvehicle_types_id", "0");
+    //    BindFuelTypeDDL("Createfuel_types_id", "0");
+    //});
+    $(function () {
+        $("#btnCreateVehicle").on("click", function () {
+            BindVehicleTypeDDL("Createvehicle_types_id", "0");
+            BindFuelTypeDDL("Createfuel_types_id", "0");
+            GenerateUniqueVehicleId();
+        });
+    });
+    function GenerateUniqueVehicleId() {
+        $.ajax({
+            type: "Post",
+            url: "/MorphoUtility/getGenerateVehicleId",
+            success: function (res) {
+
+                if (res.ERROR) {
+                    abp.notify.error(res.MESSAGE);
+                    return;
+                }
+                if (res.success) {
+                    $("#Createvehicle_unqiue_id").val(res.result.data);
+                } else {
+                    abp.notify.error(res.message);
+                }
+            }
+        });
+    }
+
+    //$(document).on("click", ".edit-vehicle", function () {
+    //    
+    //    let vehicle_types_id = $("#hdnvehicle_types_id").val();
+    //    let fuel_types_id = $("#hdnfuel_types_id").val();
+
+    //    BindVehicleTypeDDL("vehicle_types_id", vehicle_types_id);
+    //    BindFuelTypeDDL("fuel_types_id", fuel_types_id);
+    //});
+
 
 });

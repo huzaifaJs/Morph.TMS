@@ -139,6 +139,23 @@ namespace Morpho.VehicleType
             }
             return ObjectMapper.Map<VehicleTypeDto>(entity);
         }
+
+        public async Task<List<VehicleTypeDto>> GetVehicleTypesDDListAsync()
+        {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                throw new UserFriendlyException("Tenant not selected!");
+            }
+
+            var tenantId = AbpSession.TenantId.Value;
+
+            var list = await _vehicleTypeRepository
+                .GetAll()
+                .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted  && x.is_active == true)
+                .OrderByDescending(x => x.created_at)
+                .ToListAsync();
+            return ObjectMapper.Map<List<VehicleTypeDto>>(list);
+        }
     }
 
 }

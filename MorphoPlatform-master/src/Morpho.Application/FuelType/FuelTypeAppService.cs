@@ -122,6 +122,15 @@ namespace Morpho.FuelType
             }
             return ObjectMapper.Map<FuelTypeDto>(entity);
         }
+        public async Task<List<FuelTypeDto>> GetFuelTypesDDLListAsync()
+        {
+            var list = await _fuelTypeRepository
+                .GetAll()
+                .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted && x.is_active==true)
+                .OrderByDescending(x => x.created_at)
+                .ToListAsync();
+            return ObjectMapper.Map<List<FuelTypeDto>>(list);
+        }
     }
 
 }

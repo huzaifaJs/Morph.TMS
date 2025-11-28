@@ -13,13 +13,22 @@ namespace Morpho.VehicleDocs.VechicleDocsType.Dto
     [AutoMapTo(typeof(VehicleDocumentType))]
     public class CreateVechicleDocsTypeDto
     {
-        [Required]
-        [MaxLength(250)]
-        public string document_type_name { get; set; }
+        private string _documentTypeName;
+        private string _description;
 
-        [Required]
+        [MaxLength(250)]
+        public string document_type_name
+        {
+            get => _documentTypeName;
+            set => _documentTypeName = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string description { get; set; }
+        public string description
+        {
+            get => _description;
+            set => _description = value?.Trim();
+        }
     }
 
     [AutoMapTo(typeof(VehicleDocumentType))]
@@ -28,13 +37,22 @@ namespace Morpho.VehicleDocs.VechicleDocsType.Dto
         [Required]
         public long Id { get; set; }
 
-        [Required]
-        [MaxLength(250)]
-        public string document_type_name { get; set; }
+        private string _documentTypeName;
+        private string _description;
 
-        [Required]
+        [MaxLength(250)]
+        public string document_type_name
+        {
+            get => _documentTypeName;
+            set => _documentTypeName = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string description { get; set; }
+        public string description
+        {
+            get => _description;
+            set => _description = value?.Trim();
+        }
     }
     [AutoMapTo(typeof(VehicleDocumentType))]
     public class UpdateStatusVechicleDocsTypeDto

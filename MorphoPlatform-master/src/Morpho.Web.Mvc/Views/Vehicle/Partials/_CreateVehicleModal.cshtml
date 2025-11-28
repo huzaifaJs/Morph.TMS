@@ -18,23 +18,22 @@
                     <div class="form-group row required">
                         <label class="col-md-3 col-form-label">@L("vehicletypesid")</label>
                         <div class="col-md-9">
-                            <input type="number"
-                                   class="form-control"
-                                   name="vehicle_types_id"
-                                   required
-                                   maxlength="250"
-                                   placeholder="@L("vehicletypesid")" />
+                            <select class="form-control form-select"
+                                    id="Createvehicle_types_id"
+                                    name="vehicle_types_id"
+                                    required></select>
+                 
                         </div>
                     </div>
                     <div class="form-group row required">
                         <label class="col-md-3 col-form-label">@L("vehiclefueltypesid")</label>
                         <div class="col-md-9">
-                            <input type="number"
-                                   class="form-control"
-                                   name="fuel_types_id"
-                                   required
-                                   maxlength="250"
-                                   placeholder="@L("vehiclefueltypesid")" />
+                         
+                            <select class="form-control form-select"
+                                    id="Createfuel_types_id"
+                                    name="fuel_types_id"
+                                    required></select>
+
                         </div>
                     </div>
                     <div class="form-group row required">
@@ -43,7 +42,9 @@
                             <input type="text"
                                    class="form-control"
                                    name="vehicle_unqiue_id"
+                                   id="Createvehicle_unqiue_id"
                                    required
+                                   readonly
                                    maxlength="250"
                                    placeholder="@L("vehicleunqiueid")" />
                         </div>
@@ -97,6 +98,8 @@
                                    class="form-control"
                                    name="manufacturing_year"
                                    maxlength="250"
+                                   oninput="return validatePriceInput(this)"
+                                   onkeypress="restrictInvalidCharacters(event)"
                                    placeholder="@L("vehiclemanufacturingyear")" />
                         </div>
                     </div>
@@ -141,3 +144,26 @@
         </div>
     </div>
 </div>
+<script>
+        function validatePriceInput(element) {
+        const input = element.value;
+        const validInput = input.replace(/[^0-9]/g, '');
+        const parts = validInput.split('.');
+        if (parts.length > 2) {
+            element.value = parts[0] + '.' + parts[1];
+        } else {
+            element.value = validInput;
+        }
+        return true;
+    }
+
+    function restrictInvalidCharacters(event) {
+        const charCode = event.which || event.keyCode;
+        const charStr = String.fromCharCode(charCode);
+        if (!charStr.match(/^[0-9]$/)) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
