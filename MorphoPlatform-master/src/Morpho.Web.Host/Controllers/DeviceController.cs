@@ -59,10 +59,9 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/status
         [HttpGet("status")]
-        public async Task<DeviceStatusResponseDto> GetStatus(
-    [FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceStatusResponseDto> GetStatus(int device_id)
         {
-            var device = await FindDeviceAsync(deviceId);
+            var device = await FindDeviceAsync(device_id);
 
             var status = await _morphoApiClient.GetDeviceStatusAsync(device.MorphoDeviceId);
             await _telemetryService.RecordStatusFromMorphoAsync(device, status);
@@ -98,9 +97,9 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/config
         [HttpGet("config")]
-        public async Task<DeviceConfigResponseDto> GetConfig([FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceConfigResponseDto> GetConfig(int device_id)
         {
-            var device = await FindDeviceAsync(deviceId);
+            var device = await FindDeviceAsync(device_id);
 
             var config = await _morphoApiClient.GetDeviceConfigAsync(device.MorphoDeviceId);
             await _configService.UpdateFromMorphoAsync(device, config);
@@ -120,9 +119,9 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/config-response
         [HttpGet("config-response")]
-        public async Task<DeviceConfigResponseDto> GetConfigResponse([FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceConfigResponseDto> GetConfigResponse(int device_id)
         {
-            return await GetConfig(deviceId);
+            return await GetConfig(device_id);
         }
 
         // POST /api/device/config-response
@@ -138,9 +137,9 @@ namespace Morpho.Web.Host.Controllers
 
         // GET /api/device/logs
         [HttpGet("logs")]
-        public async Task<DeviceLogsResponseDto> GetLogs([FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceLogsResponseDto> GetLogs(int device_id)
         {
-            var device = await FindDeviceAsync(deviceId);
+            var device = await FindDeviceAsync(device_id);
 
             var logs = await _morphoApiClient.GetDeviceLogsAsync(device.MorphoDeviceId);
             await _logService.AppendFromMorphoAsync(device, logs);
@@ -163,13 +162,12 @@ namespace Morpho.Web.Host.Controllers
         // ============================================================
 
         [HttpGet("clear-logs")]
-        public async Task<DeviceClearLogsCommandDto> GetClearLogsCommand(
-            [FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceClearLogsCommandDto> GetClearLogsCommand(int device_id)
         {          
 
             return await Task.FromResult(new DeviceClearLogsCommandDto
             {
-                device_id = deviceId,
+                device_id = device_id,
                 clear = true
             });
         }
@@ -193,13 +191,12 @@ namespace Morpho.Web.Host.Controllers
 
         //// GET /api/device/clear-logs-response
         [HttpGet("clear-logs-response")]
-        public async Task<DeviceClearLogsResponseDto> GetClearLogsResponse(
-      [FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceClearLogsResponseDto> GetClearLogsResponse(int device_id)
         {
             // This is the expected REPLY that Morpho device sends back
             return new DeviceClearLogsResponseDto
             {
-                device_id = deviceId,
+                device_id = device_id,
                 cleared = true,
                 message = "Logs cleared successfully"
             };
@@ -220,11 +217,11 @@ namespace Morpho.Web.Host.Controllers
 
         //// GET /api/device/reboot
         [HttpGet("reboot")]
-        public async Task<DeviceRebootResponseDto> GetRebootCommand([FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceRebootResponseDto> GetRebootCommand(int device_id)
         {
             return new DeviceRebootResponseDto
             {
-                device_id = deviceId,
+                device_id = device_id,
                 rebooted = true
             };
         }
@@ -249,16 +246,15 @@ namespace Morpho.Web.Host.Controllers
 
 
         [HttpGet("reboot-response")]
-        public async Task<DeviceRebootResponseDto> GetRebootResponse(
-        [FromQuery(Name = "device_id")] int deviceId)
+        public async Task<DeviceRebootResponseDto> GetRebootResponse(int device_id)
         {
             // Call the Morpho API client
-            var result = await _morphoApiClient.GetDeviceRebootResponseAsync(deviceId);
+            var result = await _morphoApiClient.GetDeviceRebootResponseAsync(device_id);
 
             // Always return a DTO — required for Web API
             return result ?? new DeviceRebootResponseDto
             {
-                device_id = deviceId,
+                device_id = device_id,
                 rebooted = false,
                 message = "No response received from Morpho API."
             };
