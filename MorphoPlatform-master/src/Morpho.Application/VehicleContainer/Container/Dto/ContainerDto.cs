@@ -1,6 +1,9 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Morpho.Domain.Entities.VehicleContainer;
+using Morpho.Dto;
+using Morpho.VehicleContainer.Dto;
+using Morpho.VehicleType.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,11 +22,11 @@ namespace Morpho.VehicleContainer.Container.Dto
         public string container_number { get; set; }
           
         [Required]
-        public long container_type_id { get; set; }
+        public string container_type_id { get; set; }
         [Required]
         [MaxLength(250)]
         public string container_unqiue_id { get; set; }
-        public decimal? weight_capacity { get; set; }
+        public string  weight_capacity { get; set; }
         [Required]
         [MaxLength(250)]
         public string ownership { get; set; }
@@ -40,11 +43,11 @@ namespace Morpho.VehicleContainer.Container.Dto
         public string container_number { get; set; }
 
         [Required]
-        public long container_type_id { get; set; }
+        public string container_type_id { get; set; }
         [Required]
         [MaxLength(250)]
         public string container_unqiue_id { get; set; }
-        public decimal? weight_capacity { get; set; }
+        public string weight_capacity { get; set; }
         [Required]
         [MaxLength(250)]
         public string ownership { get; set; }
@@ -64,6 +67,8 @@ namespace Morpho.VehicleContainer.Container.Dto
         public decimal? weight_capacity { get; set; }
         public string ownership { get; set; }
         public string load_status { get; set; }
+        public ContainerTypeDto VehicleDocumentType { get; set; }
+        public string container_type => VehicleDocumentType?.container_type;
         public DateTime Created_At { get; set; }
 
         public long? Created_By { get; set; }

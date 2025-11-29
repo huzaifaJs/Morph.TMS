@@ -1,0 +1,109 @@
+﻿@using Morpho.Web.Models.Common.Modals
+@model Morpho.Web.Models.Vehichle.VehicleContainerViewModel
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="CreateVehicleDocsModal" tabindex="-1" role="dialog" aria-labelledby="CreateVehicleDocsModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml",
+            new ModalHeaderViewModel(L("VehicleDocsRegister")))
+
+            <form name="CreateVehicleDocs" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
+              
+
+                <div class="modal-body">
+                    <!-- VEHICLE TYPE NAME -->
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("Vehicle")</label>
+                        <div class="col-md-9">
+                            <select class="form-control form-select"
+                                    id="Createvehicle_id"
+                                    name="vehicle_id"
+                                    required></select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("VehicleDocsTypes")</label>
+                        <div class="col-md-9">
+
+                            <select class="form-control form-select"
+                                    id="Createdocument_type_id"
+                                    name="document_type_id"
+                                    required></select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("document_docs_url")</label>
+                        <div class="col-md-9">
+                            <input type="file"
+                                   class="form-control"
+                                   name="fileUpload"
+                                   id="fileUpload"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("document_docs_url")" />
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("documentnumber")</label>
+                        <div class="col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   name="document_number"
+                                   id="Createdocument_number"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("documentnumber")" />
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("issue_date")</label>
+                        <div class="col-md-9">
+                            <input type="date"
+                                   class="form-control"
+                                   name="issue_date"
+                                   id="Createissue_date"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("issue_date")" />
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">@L("expiry_date")</label>
+                        <div class="col-md-9">
+                            <input type="date"
+                                   class="form-control"
+                                   name="expiry_date"
+                                   id="Createexpiry_date"
+                                   required
+                                   maxlength="250"
+                                   placeholder="@L("expiry_date")" />
+                        </div>
+                    </div>
+      
+                    <!-- REMARK -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">@L("vehicleremark")</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control"
+                                      name="description"
+                                      id="createdescription"
+                                      maxlength="600"
+                                      placeholder="@L("documentdescription")"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+            </form>
+
+        </div>
+    </div>
+</div>

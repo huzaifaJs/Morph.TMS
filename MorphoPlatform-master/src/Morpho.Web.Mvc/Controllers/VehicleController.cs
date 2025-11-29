@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Morpho.Controllers;
 using Morpho.DocsVehicle;
 using Morpho.Vehicle;
+using Morpho.VehicleContainer;
+using Morpho.VehicleContainer.Container.Dto;
 using Morpho.VehicleDocs.DocsVehicle.Dto;
 using Morpho.Vehicles.VehicleDto;
 using Morpho.VehicleType;
@@ -34,15 +36,17 @@ namespace Morpho.Web.Controllers
         private readonly IVehicleTypeAppService _vehicleTypeService;
         private readonly IVehicleAppService _vehicleService;
         private readonly IDocsVehicleAppService _docsVehicle;
+        private readonly IVehicleContainerAppService _vehicleContainer;
         //private readonly HttpClient _http;
         //private readonly string _apiUrl;
 
         // public VehicleController(IVehicleTypeAppService vehicleTypeService, IHttpClientFactory httpClientFactory, IOptions<ModalApiBaseUrl> apiOptions)
-        public VehicleController(IVehicleTypeAppService vehicleTypeService, IVehicleAppService vehicleService, IDocsVehicleAppService docsVehicle)
+        public VehicleController(IVehicleTypeAppService vehicleTypeService, IVehicleAppService vehicleService, IDocsVehicleAppService docsVehicle, IVehicleContainerAppService vehicleContainer)
         {
             _vehicleTypeService = vehicleTypeService;
             _vehicleService = vehicleService;
             _docsVehicle = docsVehicle;
+            _vehicleContainer = vehicleContainer;
         }
         #region ########################  Vehicle Type managment master #####################
         public IActionResult VehicleTypeIndex()
@@ -622,5 +626,176 @@ namespace Morpho.Web.Controllers
             }
         }
         #endregion ########################  Vehicle Docs managment master #####################
+
+        #region ########################  Vehicle Container managment master #####################
+        public IActionResult VehicleContainerIndex()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditVehicleContainerModal(long id)
+        {
+            try
+            {
+                var dto = await _vehicleContainer.GetVehicleContainerDetailsAsync(id);
+                if (dto == null)
+                {
+                    return Content("Vehicle Container not found.");
+                }
+                return PartialView("Partials/_EditVehicleContainerModal", dto);
+            }
+            catch (Exception ex)
+            {
+                return Content("Error: " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+
+        public async Task<ActionResult> getAllDataVehicleContainer()
+        {
+            try
+            {
+                var dtoList = await _vehicleContainer.GetVehicleContainerListAsync();
+                if (dtoList == null || !dtoList.Any())
+                {
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Vehicle Container list not found!",
+                        data = new object[0]
+                    });
+                }
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message, data = new object[0] });
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<ActionResult> CreateVehicleContainer(CreateContainerDto input)
+        {
+            try
+            {
+                input.container_type_id = input.container_type_id?.Trim();
+                input.container_unqiue_id = input.container_unqiue_id?.Trim();
+                input.weight_capacity = input.weight_capacity?.Trim();
+                input.ownership = input.ownership?.Trim();;
+                if (string.IsNullOrWhiteSpace(input.container_type_id))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle container is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.container_unqiue_id))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle container unqiue no is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.weight_capacity))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Container weight capacity no  is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.ownership))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Ownership is required!" });
+                }
+
+                var result = await _vehicleContainer.AddVehicleContainerAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> UpdateVehicleContainer(UpdateContainerDto input)
+        {
+            try
+            {
+                input.container_type_id = input.container_type_id?.Trim();
+                input.container_unqiue_id = input.container_unqiue_id?.Trim();
+                input.weight_capacity = input.weight_capacity?.Trim();
+                input.ownership = input.ownership?.Trim(); ;
+                if (string.IsNullOrWhiteSpace(input.container_type_id))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle container is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.container_unqiue_id))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle container unqiue no is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.weight_capacity))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Container weight capacity no  is required!" });
+                }
+                if (string.IsNullOrWhiteSpace(input.ownership))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Ownership is required!" });
+                }
+
+                var result = await _vehicleContainer.UpdateVehicleContainerAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> DeleteVehicleContainer(UpdateStatusContainerDto input)
+        {
+            try
+            {
+                var result = await _vehicleContainer.DeleteVehicleContainerAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Deleted Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> UpdateStatusVehicleContainer(UpdateStatusContainerDto input)
+        {
+
+            try
+            {
+                var result = await _vehicleContainer.UpdateVehicleContainerStatusAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Status Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+        #endregion ########################  Vehicle Container managment master #####################
     }
 }

@@ -2,6 +2,7 @@
 using Abp.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Morpho.Application.Integration.MorphoApi;
 using Morpho.Controllers;
 using Morpho.Device.TrackingDevice;
 using Morpho.Device.TrackingDeviceDto;
@@ -24,11 +25,13 @@ namespace Morpho.Web.Controllers
     public class DeviceController : MorphoControllerBase
     {
         private readonly IDeviceManagementAppService _deviceManagementAppService;
+        private readonly IMorphoApiClient _morphoApiClient;
 
 
-        public DeviceController(IDeviceManagementAppService deviceManagementAppService, IHttpClientFactory httpClientFactory, IOptions<ModalApiBaseUrl> apiOptions)
+        public DeviceController(IDeviceManagementAppService deviceManagementAppService, IMorphoApiClient morphoApiClient )
         {
             _deviceManagementAppService = deviceManagementAppService;
+            _morphoApiClient = morphoApiClient;
         }
 
 
@@ -193,6 +196,32 @@ namespace Morpho.Web.Controllers
             catch (Exception ex)
             {
                 return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult> getDeviceStatus(UpdateStatusDeviceDto input)
+        {
+            try
+            {
+                int deviceId = Convert.ToInt32(input.Id);
+                var dtoList = await _morphoApiClient.GetDeviceStatusAsync(deviceId);
+
+
+                if (dtoList == null)
+                {
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Device status not found!",
+                        data = new object[0]
+                    });
+                }
+
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message, data = new object[0] });
             }
         }
 

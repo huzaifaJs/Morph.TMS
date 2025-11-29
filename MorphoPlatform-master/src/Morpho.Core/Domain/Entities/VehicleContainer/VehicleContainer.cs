@@ -14,12 +14,12 @@ namespace Morpho.Domain.Entities.VehicleContainer
     public class VehicleContainer : Entity<long>, IMustHaveTenant, ISoftDelete
     {
         public string container_number { get; set; }
+        [ForeignKey(nameof(VehicleDocumentType))]
         public long container_type_id { get; set; }
+        public VehicleDocumentType.VehicleDocumentType VehicleDocumentType { get; set; }
         public int TenantId { get; set; }
         public string container_unqiue_id { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal? weight_capacity { get; set; }
+        public string weight_capacity { get; set; }
         public string ownership { get; set; }
         public string load_status { get; set; } = "Empty";
         public long? created_by { get; set; }

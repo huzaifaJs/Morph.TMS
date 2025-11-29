@@ -14,13 +14,23 @@ namespace Morpho.VehicleContainer.Dto
     [AutoMapTo(typeof(VehicleContainerType))]
     public class CreateContainerTypeDto
     {
-        [Required]
-        [MaxLength(250)]
-        public string container_type { get; set; }
+        private string _containertype;
+        private string _remark;
 
-        [Required]
+        [MaxLength(250)]
+        public string container_type
+        {
+            get => _containertype;
+            set => _containertype = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
+       
     }
 
     [AutoMapTo(typeof(VehicleContainerType))]
@@ -29,13 +39,22 @@ namespace Morpho.VehicleContainer.Dto
         [Required]
         public long Id { get; set; }
 
-        [Required]
-        [MaxLength(250)]
-        public string container_type { get; set; }
+        private string _containertype;
+        private string _remark;
 
-        [Required]
+        [MaxLength(250)]
+        public string container_type
+        {
+            get => _containertype;
+            set => _containertype = value?.Trim();
+        }
+
         [MaxLength(600)]
-        public string Remark { get; set; }
+        public string remark
+        {
+            get => _remark;
+            set => _remark = value?.Trim();
+        }
     }
     [AutoMapTo(typeof(VehicleContainerType))]
     public class UpdateStatusContainerTypeDto
@@ -48,11 +67,12 @@ namespace Morpho.VehicleContainer.Dto
     public class ContainerTypeDto : EntityDto<long>
     {
 
-        public string vehicle_type_name { get; set; }
+        public string container_type { get; set; }
 
-        public string Remark { get; set; }
+        public string remark { get; set; }
         public long? created_by { get; set; }
         public long? updated_by { get; set; }
+        public bool isactive { get; set; }
         public DateTime created_at { get; set; } 
         public DateTime? Updated_at { get; set; }
 

@@ -1,0 +1,70 @@
+﻿@using Morpho.Web.Models.Vehichle
+@model VehicleContainerViewModel
+@using Morpho.Web.Startup
+@{
+    ViewBag.Title = L("VehicleContainer");
+    ViewBag.CurrentPageName = PageNames.VehicleContainer;
+}
+
+@section scripts
+{
+    <script src="~/view-resources/Views/VehicleContainer/VehicleContainer.js" asp-append-version="true"></script>
+
+
+
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("VehicleContainer")</h1>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="javascript:;" data-toggle="modal" id="btnCreateVehicle" data-target="#CreateVehicleModal"
+                   class="btn bg-blue float-sm-right">
+                    <i class="fa fa-plus-square"></i>
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="VehicleContainerTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("VehicleContainerTypes")</th>
+                                <th>@L("VehicleContainerName")</th>
+                                <th>@L("ContainerUnqiueNo")</th>
+                                <th>@L("ContainerWeightCapacity")</th>
+                                <th>@L("ContainerOwnership")</th>
+                                <th>@L("ContainerloadStatus")</th>
+                                <th>@L("VehicleContainerTypesIsActive")</th>
+                                <th>@L("VehicleContainerTypesActions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Vehicle/Partials/_CreateVehicleContainerModal.cshtml")
+<div id="EditVehicleModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+

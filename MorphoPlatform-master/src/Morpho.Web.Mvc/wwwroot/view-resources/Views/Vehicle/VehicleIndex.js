@@ -1,5 +1,6 @@
 ﻿
 
+$(function () {
     let _service = abp.services.app.vehicleType,
         l = abp.localization.getSource('Morpho'),
         _$modal = $('#CreateVehicleModal'),
@@ -397,6 +398,7 @@
     //    BindVehicleTypeDDL("vehicle_types_id", vehicle_types_id);
     //    BindFuelTypeDDL("fuel_types_id", fuel_types_id);
     //});
+
 
 
 });

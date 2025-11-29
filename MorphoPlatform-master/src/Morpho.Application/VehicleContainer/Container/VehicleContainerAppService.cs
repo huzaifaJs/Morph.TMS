@@ -75,6 +75,7 @@ namespace Morpho.VehicleContainer
             var list = await _vehicleContainerRepository
                 .GetAll()
                 .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)
+                .Include(x => x.VehicleDocumentType)
                 .OrderByDescending(x => x.created_at)
                 .ToListAsync();
             return ObjectMapper.Map<List<ContainerDto>>(list);
