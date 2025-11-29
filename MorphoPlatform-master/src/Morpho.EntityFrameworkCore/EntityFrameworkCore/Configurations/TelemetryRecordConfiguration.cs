@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Morpho.Domain.Entities.Shipments;
 using Morpho.Domain.Entities.Telemetry;
+using Morpho.Domain.Entities.VehicleContainer;
 
 namespace Morpho.EntityFrameworkCore.EntityConfigurations
 {
@@ -15,21 +16,26 @@ namespace Morpho.EntityFrameworkCore.EntityConfigurations
 
             builder.Property(t => t.TenantId).IsRequired();
 
-            builder.Property(t => t.TimestampRaw)
-                .HasColumnName("TimestampRaw")
+            // ⭐ CRITICAL — DeviceId (int)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            builder.Property(t => t.TimestampUtc)
-                .HasColumnName("TimestampUtc")
-                .IsRequired();
+            builder.HasIndex(t => t.DeviceId); // FAST lookups
 
-            builder.Property(t => t.FirmwareVersion)
-                .HasMaxLength(128);
 
-            builder.Property(t => t.IpAddress)
-                .HasMaxLength(64);
 
-            // Sensor fields
+            // -------------------------
+            // Timestamps
+            // -------------------------
+            builder.Property(t => t.TimestampRaw).IsRequired();
+            builder.Property(t => t.TimestampUtc).IsRequired();
+
+            builder.Property(t => t.FirmwareVersion).HasMaxLength(128);
+            builder.Property(t => t.IpAddress).HasMaxLength(64);
+
+            // -------------------------
+            // Sensor Data
+            // -------------------------
             builder.Property(t => t.Rssi);
             builder.Property(t => t.BatteryLevel);
             builder.Property(t => t.Temperature);
@@ -37,12 +43,12 @@ namespace Morpho.EntityFrameworkCore.EntityConfigurations
             builder.Property(t => t.MeanVibration);
             builder.Property(t => t.Light);
 
-            builder.Property(t => t.Status)
-                .HasMaxLength(64);
-
+            builder.Property(t => t.Status).HasMaxLength(64);
             builder.Property(t => t.Nbrfid);
 
-            // NEW fields
+            // -------------------------
+            // New Fields
+            // -------------------------
             builder.Property(t => t.DeviceState).HasMaxLength(64);
             builder.Property(t => t.DeviceMode).HasMaxLength(64);
             builder.Property(t => t.ConnectionType).HasMaxLength(64);
@@ -55,11 +61,15 @@ namespace Morpho.EntityFrameworkCore.EntityConfigurations
             builder.Property(t => t.Altitude);
             builder.Property(t => t.Accuracy);
 
-            // GPS Owned Value Object
+            // -------------------------
+            // GPS Owned Type
+            // -------------------------
             builder.OwnsOne(t => t.Gps, gps =>
             {
                 gps.Property(g => g.Latitude).HasColumnName("GpsLatitude");
                 gps.Property(g => g.Longitude).HasColumnName("GpsLongitude");
+                gps.Property(g => g.Altitude).HasColumnName("GpsAltitude");
+                gps.Property(g => g.Accuracy).HasColumnName("GpsAccuracy");
             });
 
             // Shipment FK
@@ -68,11 +78,10 @@ namespace Morpho.EntityFrameworkCore.EntityConfigurations
                 .HasForeignKey(t => t.ShipmentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Container FK
-            builder.HasOne<Container>()
-                .WithMany()
-                .HasForeignKey(t => t.ContainerId)
-                .OnDelete(DeleteBehavior.Restrict);
+            // ContainerId is NOT a foreign key (entity does not exist)
+            builder.Property(t => t.ContainerId);
+
+
         }
     }
 }

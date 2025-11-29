@@ -17,6 +17,9 @@
     <None Remove="ShipmentManagement\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Telemetry\Dto\DeviceStatusInputDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Morpho.Core\Morpho.Core.csproj" />
     <ProjectReference Include="..\Morpho.EntityFrameworkCore\Morpho.EntityFrameworkCore.csproj" />
   </ItemGroup>

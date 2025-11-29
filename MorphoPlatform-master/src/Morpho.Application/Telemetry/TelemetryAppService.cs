@@ -6,7 +6,6 @@ using Morpho.Domain.Entities.IoT;
 using Morpho.Domain.Services.Telemetry;
 using Morpho.Domain.ValueObjects;
 using Morpho.Integration.MorphoApi.Dto;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,40 +26,47 @@ namespace Morpho.Telemetry
         }
 
         /// <summary>
-        /// Ingest unified status+telemetry push from Morpho device
+        /// Unified Telemetry ingestion (Morpho device POST → TelemetryRecord)
         /// </summary>
-        public async Task<ListResultDto<Guid>> IngestDeviceStatusAsync(DeviceStatusInputDto input)
+        public async Task<ListResultDto<Guid>> IngestMorphoTelemetryAsync(MorphoTelemetryPushDto dto)
         {
-            // 1. Resolve IoTDevice using *morpho_device_id*
+            if (dto == null)
+                throw new UserFriendlyException("Telemetry payload cannot be empty.");
+
+            // 1. Resolve IoTDevice using morpho_device_id (INT)
             var device = await _deviceRepository.FirstOrDefaultAsync(
-                d => d.MorphoDeviceId == input.morpho_device_id)
-                ?? throw new UserFriendlyException(
-                    $"Device with device_id={input.morpho_device_id} not found.");
+                d => d.MorphoDeviceId == dto.device_id);
 
-            // 2. GPS Object
-            var gps = new GpsLocation(
-                input.latitude,
-                input.longitude,
-                input.altitude,
-                input.accuracy
-            );
+            if (device == null)
+                throw new UserFriendlyException($"Device with device_id={dto.device_id} not found.");
 
-            // 3. Save Telemetry into Domain Service
+
+            // 2. Build GPS Value Object
+            var gps = dto.gps != null
+                ? new GpsLocation(
+                    dto.gps.latitude,
+                    dto.gps.longitude,
+                    dto.gps.altitude,
+                    dto.gps.accuracy
+                )
+                : null;
+
+            // 3. Pass to DomainService (records TelemetryRecord)
             var record = await _telemetryDomainService.RecordMorphoTelemetryAsync(
                 device,
-                timestampRaw: input.timestamp,
+                timestampRaw: dto.timestamp,
                 gps: gps,
-                rssi: input.rssi,
-                battery: input.battery_level,
-                temperature: input.temperature,
-                humidity: input.humidity,
-                light: input.light,
-                vibration: input.mean_vibration,
-                status: input.status,
-                nbrfid: input.nbrfid
+                rssi: dto.rssi,
+                battery: dto.battery_level,
+                temperature: dto.temperature,
+                humidity: dto.humidity,
+                light: dto.light,
+                vibration: dto.mean_vibration,
+                status: dto.status,
+                nbrfid: dto.nbrfid
             );
 
-            // 4. Return the created record ID list
+            // 4. Return created TelemetryRecord ID
             return new ListResultDto<Guid>(
                 new List<Guid> { record.Id }
             );

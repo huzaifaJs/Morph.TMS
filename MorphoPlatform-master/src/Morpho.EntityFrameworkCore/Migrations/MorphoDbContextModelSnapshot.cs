@@ -3020,19 +3020,17 @@ namespace Morpho.Migrations
                         .HasColumnType("integer");
 
                     b.Property<long>("TimestampRaw")
-                        .HasColumnType("bigint")
-                        .HasColumnName("TimestampRaw");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimestampUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("TimestampUtc");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double?>("Voc")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContainerId");
+                    b.HasIndex("DeviceId");
 
                     b.HasIndex("IoTDeviceId");
 
@@ -4192,11 +4190,6 @@ namespace Morpho.Migrations
 
             modelBuilder.Entity("Morpho.Domain.Entities.Telemetry.TelemetryRecord", b =>
                 {
-                    b.HasOne("Morpho.Domain.Entities.Shipments.Container", null)
-                        .WithMany()
-                        .HasForeignKey("ContainerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Morpho.Domain.Entities.IoT.IoTDevice", null)
                         .WithMany("TelemetryRecords")
                         .HasForeignKey("IoTDeviceId");
@@ -4212,10 +4205,12 @@ namespace Morpho.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<double?>("Accuracy")
-                                .HasColumnType("double precision");
+                                .HasColumnType("double precision")
+                                .HasColumnName("GpsAccuracy");
 
                             b1.Property<double?>("Altitude")
-                                .HasColumnType("double precision");
+                                .HasColumnType("double precision")
+                                .HasColumnName("GpsAltitude");
 
                             b1.Property<double>("Latitude")
                                 .HasColumnType("double precision")

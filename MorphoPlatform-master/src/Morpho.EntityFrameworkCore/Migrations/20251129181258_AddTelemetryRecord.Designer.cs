@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Morpho.Migrations
 {
     [DbContext(typeof(MorphoDbContext))]
-    [Migration("20251125163210_AddTelemetryRecord")]
+    [Migration("20251129181258_AddTelemetryRecord")]
     partial class AddTelemetryRecord
     {
         /// <inheritdoc />
@@ -3023,19 +3023,17 @@ namespace Morpho.Migrations
                         .HasColumnType("integer");
 
                     b.Property<long>("TimestampRaw")
-                        .HasColumnType("bigint")
-                        .HasColumnName("TimestampRaw");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimestampUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("TimestampUtc");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double?>("Voc")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContainerId");
+                    b.HasIndex("DeviceId");
 
                     b.HasIndex("IoTDeviceId");
 
@@ -3329,10 +3327,12 @@ namespace Morpho.Migrations
                     b.Property<long?>("updated_by")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal?>("weight_capacity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("weight_capacity")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("container_type_id");
 
                     b.ToTable("vehicle_containers");
                 });
@@ -3455,6 +3455,10 @@ namespace Morpho.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("document_type_id");
+
+                    b.HasIndex("vehicle_id");
 
                     b.ToTable("vehicle_documents");
                 });
@@ -4189,11 +4193,6 @@ namespace Morpho.Migrations
 
             modelBuilder.Entity("Morpho.Domain.Entities.Telemetry.TelemetryRecord", b =>
                 {
-                    b.HasOne("Morpho.Domain.Entities.Shipments.Container", null)
-                        .WithMany()
-                        .HasForeignKey("ContainerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Morpho.Domain.Entities.IoT.IoTDevice", null)
                         .WithMany("TelemetryRecords")
                         .HasForeignKey("IoTDeviceId");
@@ -4209,10 +4208,12 @@ namespace Morpho.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<double?>("Accuracy")
-                                .HasColumnType("double precision");
+                                .HasColumnType("double precision")
+                                .HasColumnName("GpsAccuracy");
 
                             b1.Property<double?>("Altitude")
-                                .HasColumnType("double precision");
+                                .HasColumnType("double precision")
+                                .HasColumnName("GpsAltitude");
 
                             b1.Property<double>("Latitude")
                                 .HasColumnType("double precision")
@@ -4405,6 +4406,36 @@ namespace Morpho.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleContainer.VehicleContainer", b =>
+                {
+                    b.HasOne("Morpho.Domain.Entities.VehicleDocumentType.VehicleDocumentType", "VehicleDocumentType")
+                        .WithMany()
+                        .HasForeignKey("container_type_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VehicleDocumentType");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleDocument.VehicleDocument", b =>
+                {
+                    b.HasOne("Morpho.Domain.Entities.VehicleDocumentType.VehicleDocumentType", "mainVehicleDocumentType")
+                        .WithMany()
+                        .HasForeignKey("document_type_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Morpho.Domain.Entities.Vehicles.Vehicles", "mainVehicles")
+                        .WithMany()
+                        .HasForeignKey("vehicle_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("mainVehicleDocumentType");
+
+                    b.Navigation("mainVehicles");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.Vehicles.Vehicles", b =>

@@ -10,25 +10,27 @@ namespace Morpho.Domain.Entities.Telemetry
     {
         public int TenantId { get; set; }
 
-        // Device relationship (internal IoTDevice GUID)
+        // Internal IoT Device GUID (FK to IoTDevice)
         public Guid DeviceId { get; protected set; }
 
-        // Shipment relationship
+        // Shipment linking
         public Guid? ShipmentId { get; protected set; }
+
+        // Container is NOT an entity → stored as GUID only
         public Guid? ContainerId { get; protected set; }
 
-        // Timestamps (sent by device)
-        public long TimestampRaw { get; protected set; }          // UNIX seconds from device
-        public DateTime TimestampUtc { get; protected set; }      // Converted to UTC
+        // Device timestamps
+        public long TimestampRaw { get; protected set; }
+        public DateTime TimestampUtc { get; protected set; }
 
-        // Firmware / network
+        // Device metadata
         public string FirmwareVersion { get; protected set; }
         public string IpAddress { get; protected set; }
 
-        // GPS (owned value object)
+        // Owned Value Object
         public GpsLocation Gps { get; protected set; }
 
-        // Sensor data (Morpho)
+        // Sensors
         public double Rssi { get; protected set; }
         public double BatteryLevel { get; protected set; }
         public double Temperature { get; protected set; }
@@ -36,25 +38,21 @@ namespace Morpho.Domain.Entities.Telemetry
         public double MeanVibration { get; protected set; }
         public double Light { get; protected set; }
 
-        // Device state
         public string Status { get; protected set; }
-
-        // RFID count
         public int Nbrfid { get; protected set; }
 
-        // NEW — required fields from client API
-        public string DeviceState { get; protected set; }     // ex: "moving", "stopped"
-        public string DeviceMode { get; protected set; }      // ex: "auto", "manual"
-        public string ConnectionType { get; protected set; }  // "LTE", "WIFI", etc.
-        public string SignalQuality { get; protected set; }   // ex: "excellent", "weak"
+        // Extended telemetry
+        public string DeviceState { get; protected set; }
+        public string DeviceMode { get; protected set; }
+        public string ConnectionType { get; protected set; }
+        public string SignalQuality { get; protected set; }
 
-        // NEW — additional telemetry fields seen in payload
         public double? Pressure { get; protected set; }
         public double? Co2 { get; protected set; }
         public double? Voc { get; protected set; }
         public double? Speed { get; protected set; }
-        public double? Altitude { get; protected set; }       // if GPS provides it
-        public double? Accuracy { get; protected set; }       // if GPS provides it
+        public double? Altitude { get; protected set; }
+        public double? Accuracy { get; protected set; }
 
         protected TelemetryRecord() { }
 
@@ -82,8 +80,7 @@ namespace Morpho.Domain.Entities.Telemetry
             double? voc = null,
             double? speed = null,
             double? altitude = null,
-            double? accuracy = null
-        )
+            double? accuracy = null)
         {
             TenantId = tenantId;
             DeviceId = deviceId;
