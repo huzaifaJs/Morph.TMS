@@ -9,11 +9,15 @@ using Morpho.Authorization;
 using Morpho.Controllers;
 using Morpho.Dto;
 using Morpho.FuelType;
+using Morpho.VehicleContainer;
+using Morpho.VehicleContainer.Dto;
 using Morpho.VehicleDocs.VechicleDocsType.Dto;
 using Morpho.VehicleDocsType;
 using Morpho.VehicleType;
 using Morpho.VehicleType.Dto;
+using Morpho.Web.Models;
 using Morpho.Web.Models.Common.Modals;
+using Morpho.Web.Models.Device;
 using Morpho.Web.Models.Roles;
 using Morpho.Web.Models.Shipment;
 using Morpho.Web.Models.Vehichle;
@@ -37,9 +41,11 @@ namespace Morpho.Web.Controllers
         private readonly IVehicleTypeAppService _vehicleTypeService;
         private readonly IVehicleDocsTypeAppService _vehicleDocsTypeService;
         private readonly IFuelTypeAppService _fuelTypeAppService;
+        private readonly IVehicleContainerTypeAppService _vehicleContainerTypeApp;
 
         //   public MasterController(IVehicleDocsTypeAppService vehicleDocsTypeService, IHttpClientFactory httpClientFactory, IOptions<ModalApiBaseUrl> apiOptions)
-        public MasterController(IVehicleTypeAppService vehicleTypeService, IVehicleDocsTypeAppService vehicleDocsTypeService, IFuelTypeAppService fuelTypeAppService)
+        public MasterController(IVehicleTypeAppService vehicleTypeService, IVehicleDocsTypeAppService vehicleDocsTypeService, IFuelTypeAppService fuelTypeAppService,
+            IVehicleContainerTypeAppService vehicleContainerTypeApp)
         {
             //_apiUrl = apiOptions.Value.BaseUrl;
             //_vehicleDocsTypeService = vehicleDocsTypeService;
@@ -48,7 +54,7 @@ namespace Morpho.Web.Controllers
             _vehicleTypeService = vehicleTypeService;
             _vehicleDocsTypeService = vehicleDocsTypeService;
             _fuelTypeAppService = fuelTypeAppService;
-
+            _vehicleContainerTypeApp = vehicleContainerTypeApp;
         }
 
         #region ########################  Document type managment master #####################
@@ -354,5 +360,162 @@ namespace Morpho.Web.Controllers
 
         }
         #endregion  ########################  Fuel  type managment master #####################
+
+        #region ########################  Container type managment master #####################
+
+
+        public IActionResult VehicleContainerTypeIndex()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> EditVehicleContainerTypeModal(long id)
+        {
+            try
+            {
+                var dto = await _vehicleContainerTypeApp.GetVehicleContainerTypeDetailsAsync(id);
+                if (dto == null)
+                {
+                    return Content("Vehicle Container type not found.");
+                }
+                return PartialView("Partials/_EditVehicleContainerTypeModal", dto);
+            }
+            catch (Exception ex)
+            {
+                return Content("Error: " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> getAllVehicleContainerTypeList()
+        {
+            try
+            {
+                var dtoList = await _vehicleContainerTypeApp.GetVehicleContainerTypeListAsync();
+                if (dtoList == null || !dtoList.Any())
+                {
+                    return Json(new
+                    {
+                        ERROR = true,
+                        MESSAGE = "Vehicle Container type list not found!",
+                        data = new object[0]
+                    });
+                }
+                return Json(new { ERROR = false, MESSAGE = "", data = dtoList });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message, data = new object[0] });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateVehicleContainerType(CreateContainerTypeDto input)
+        {
+            try
+            {
+
+                input.container_type = input.container_type?.Trim();
+                input.remark = input.remark?.Trim();
+                if (string.IsNullOrWhiteSpace(input.container_type))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle Container type is required!" });
+                }
+
+                if (string.IsNullOrWhiteSpace(input.remark))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+
+                var result = await _vehicleContainerTypeApp.AddVehicleContainerTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Created Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+        public async Task<PartialViewResult> CreateModal()
+        {
+
+            return PartialView("Partials/_CreateVehicleContainerTypeModal", new VehicleContainerTypeViewModel());
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateVehicleContainerType(UpdateContainerTypeDto input)
+        {
+            try
+            {
+                input.container_type = input.container_type?.Trim();
+                input.remark = input.remark?.Trim();
+                if (string.IsNullOrWhiteSpace(input.container_type))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Vehicle Container type name is required!" });
+                }
+
+                if (string.IsNullOrWhiteSpace(input.remark))
+                {
+                    return Json(new { ERROR = true, MESSAGE = "Remark is required!" });
+                }
+
+                var result = await _vehicleContainerTypeApp.UpdateVehicleContainerTypeAsync(input);
+
+                return Json(new { ERROR = false, MESSAGE = "Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteVehicleContainerType(UpdateStatusContainerTypeDto input)
+        {
+            try
+            {
+                var result = await _vehicleContainerTypeApp.DeleteVehicleContainerTypeAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Deleted Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateStatusVehicleContainerType(UpdateStatusContainerTypeDto input)
+        {
+            try
+            {
+                var result = await _vehicleContainerTypeApp.UpdateVehicleContainerTypeStatusAsync(input);
+                return Json(new { ERROR = false, MESSAGE = "Status Updated Successfully!" });
+            }
+            catch (UserFriendlyException ufEx)
+            {
+                return Json(new { ERROR = true, MESSAGE = ufEx.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ERROR = true, MESSAGE = ex.Message });
+            }
+
+        }
+        #endregion  ########################  Container  type managment master #####################
     }
 }

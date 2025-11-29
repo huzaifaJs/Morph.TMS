@@ -3060,10 +3060,12 @@ namespace Morpho.Migrations
                     b.Property<long?>("updated_by")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal?>("weight_capacity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("weight_capacity")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("container_type_id");
 
                     b.ToTable("vehicle_containers");
                 });
@@ -4047,6 +4049,17 @@ namespace Morpho.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("Morpho.Domain.Entities.VehicleContainer.VehicleContainer", b =>
+                {
+                    b.HasOne("Morpho.Domain.Entities.VehicleDocumentType.VehicleDocumentType", "VehicleDocumentType")
+                        .WithMany()
+                        .HasForeignKey("container_type_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VehicleDocumentType");
                 });
 
             modelBuilder.Entity("Morpho.Domain.Entities.VehicleDocument.VehicleDocument", b =>

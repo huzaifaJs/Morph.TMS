@@ -14,5 +14,7 @@
         public const string DeviceIndex = "IOT Device Management";
         public const string Vehicle = "Vehicle Management";
         public const string VehicleDocs  = "Vehicle Document Management";
+        public const string VehicleContainerType = "Vehicle Container Type";
+        public const string VehicleContainer = "Vehicle Container";
     }
 }

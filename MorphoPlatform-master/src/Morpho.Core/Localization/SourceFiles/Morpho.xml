@@ -220,6 +220,7 @@
 	  <text name="imeinumber" value="IMEI Number" />
 	  <text name="minvalue" value="Min Value" />
 	  <text name="maxvalue" value="Max Value" />
+	  <text name="iotdevicestatus" value="IOT Device Status" />
 
 
 	  <text name="Vehicle" value="Vehicle" />
@@ -267,6 +268,40 @@
 	  <text name="issue_date" value="Issue Date" />
 	  <text name="expiry_date" value="Expiry Date" />
 	  <text name="documentdescription" value="Remark" />
+
+
+	  <text name="VehicleContainerTypes" value="Vehicle Container Type" />
+
+
+
+	  <text name="VehicleContainerTypeName" value="Vehicle Container Type Name" />
+	  <text name="VehicleContainerTypesRemark" value="Remark" />
+	  <text name="VehicleContainerTypesIsActive" value="Is Active" />
+	  <text name="VehicleContainerTypesActions" value="Actions" />
+	  <text name="VehicleContainerTypesCreate" value="Create Vehicle Container Type" />
+	  <text name="VehicleContainerTypesEdit" value="Edit Vehicle Container Type" />
+	  <text name="VehicleContainerTypesDelete" value="Delete Vehicle Container Type" />
+	  <text name="VehicleContainerTypesSave" value="Save" />
+	  <text name="VehicleContainerTypesCancel" value="Cancel" />
+	  <text name="VehicleContainerTypesAreYouSureDeleteVehicleType" value="Are you sure you want to delete this vehicle Container type?" />
+
+	  
+
+	  <text name="VehicleContainer" value="Vehicle Container" />
+	  <text name="VehicleContainerName" value="Container Number" />
+	  <text name="ContainerUnqiueNo" value="Container Unqiue No" />
+	  <text name="ContainerWeightCapacity" value="Weight Capacity" />
+	  <text name="ContainerOwnership" value="Ownership" />
+	  <text name="ContainerloadStatus" value=" Load Status" />
+	  <text name="VehicleContainerNRemark" value="Remark" />
+	  <text name="VehicleContainerNIsActive" value="Is Active" />
+	  <text name="VehicleContainerNActions" value="Actions" />
+	  <text name="VehicleContainerNCreate" value="Create Vehicle Container " />
+	  <text name="VehicleContainerNEdit" value="Edit Vehicle Container " />
+	  <text name="VehicleContainerNDelete" value="Delete Vehicle Container" />
+	  <text name="VehicleContainerNSave" value="Save" />
+	  <text name="VehicleContainerNCancel" value="Cancel" />
+	  <text name="VehicleContainerNAreYouSureDelete" value="Are you sure you want to delete this vehicle Container?" />
 	
   </texts>
 </localizationDictionary>

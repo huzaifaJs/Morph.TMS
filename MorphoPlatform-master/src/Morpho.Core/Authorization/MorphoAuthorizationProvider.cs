@@ -57,7 +57,10 @@ L("Masters")
               PermissionNames.Pages_Master_VehicleFuelType,
               L("VehicleFuelTypes")
           );
-
+            masters.CreateChildPermission(
+            PermissionNames.Pages_Master_VehicleContainerType,
+            L("VehicleContainerTypes")
+        );
             var iotDevice = pages.CreateChildPermission(
             PermissionNames.Pages_IOTDevice_DeviceManagement,
             L("IOTDeviceManagement")
@@ -78,7 +81,10 @@ L("Masters")
              PermissionNames.Pages_Vehicle_VehicleDocs,
              L("VehicleDocs")
          );
-
+            vehicleIndex.CreateChildPermission(
+         PermissionNames.Pages_Vehicle_VehicleContainer,
+         L("VehicleContainer")
+     );
         }
 
         private static ILocalizableString L(string name)

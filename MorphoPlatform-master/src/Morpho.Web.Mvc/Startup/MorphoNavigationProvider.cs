@@ -137,8 +137,26 @@ namespace Morpho.Web.Startup
                          "VehicleFuelTypes",
                          L("VehicleFuelTypes"),
                          url: "/Master/VehicleFuelTypeIndex",
-                         order: 2,
+                         order: 3,
                          permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master_VehicleFuelType)
+                     )
+                 )
+                    .AddItem(
+                     new MenuItemDefinition(
+                         "VehicleContainerTypes",
+                         L("VehicleContainerTypes"),
+                         url: "/Master/VehicleContainerTypeIndex",
+                         order: 4,
+                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Master_VehicleContainerType)
+                     )
+                 )
+                     .AddItem(
+                     new MenuItemDefinition(
+                         "VehicleContainer",
+                         L("VehicleContainer"),
+                         url: "/Vehicle/VehicleContainerIndex",
+                         order: 4,
+                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Vehicle_VehicleContainer)
                      )
                  )
              );

@@ -69,9 +69,22 @@ $(function () {
                 `;
                 }
             },
-
             {
                 targets: 9,
+                data: null,
+                sortable: false,
+                render: function (value, type, row) {
+                    let url = row.device_unique_no ? `
+        <a  href="javascript:void(0)" data-id="${row.device_unique_no}"  class="view-Status-details" title="View File">
+            <i class="fas fa-eye"></i>
+        </a>
+    `: "";
+
+                    return url;
+                }
+            },
+            {
+                targets: 10,
                 data: null,
                 sortable: false,
                 render: (data, type, row) => `
@@ -143,6 +156,69 @@ $(function () {
 
 
 
+    $(document).on('click', '.view-Status-details', function () {
+        
+        var id = $(this).attr("data-id");
+
+        let _data = {
+            Id: id
+        };
+        abp.ajax({
+            url: '/Device/getDeviceStatus',
+            type: 'GET',
+            data: _data,
+            success: function (response) {
+                
+                if (response.error) {
+                    $('#dvshowDetails').html("<div class='text-danger'>" + response.message + "</div>");
+                    $('#DeviceStatusModal').modal('hide');
+                    return;
+                }
+
+                var d = response.data;
+                if (d != null) {
+
+
+                    var html = `
+                <ul>
+                  <li><strong>Device ID:</strong> ${d.device_id}</li>
+                  <li><strong>Client ID:</strong> ${d.client_id}</li>
+                  <li><strong>Firmware Version:</strong> ${d.firmware_version}</li>
+                  <li><strong>IP Address:</strong> ${d.ip_address}</li>
+                  <li><strong>Timestamp:</strong> ${d.timestamp}</li>
+
+                  <li><strong>GPS:</strong>
+                    <ul>
+                      <li><strong>Latitude:</strong> ${d.gps.latitude}</li>
+                      <li><strong>Longitude:</strong> ${d.gps.longitude}</li>
+                      <li><strong>Altitude:</strong> ${d.gps.altitude}</li>
+                      <li><strong>Accuracy:</strong> ${d.gps.accuracy}</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>RSSI:</strong> ${d.rssi}</li>
+                  <li><strong>Battery Level:</strong> ${d.batterie_level}</li>
+                  <li><strong>Temperature:</strong> ${d.temperature}</li>
+                  <li><strong>Humidity:</strong> ${d.humidity}</li>
+                  <li><strong>Mean Vibration:</strong> ${d.mean_vibration}</li>
+                  <li><strong>Light:</strong> ${d.light}</li>
+                  <li><strong>Status:</strong> ${d.status}</li>
+                </ul>
+            `;
+                    $('#dvshowDetails').html(html);
+                    $('#DeviceStatusModal').modal('show');
+                }
+                else {
+                    $('#dvshowDetails').html("<div class='text-danger'>" + response.MESSAGE + "</div>");
+                    $('#DeviceStatusModal').modal('show');
+                    return;
+                }
+            }
+        });
+
+    });
+
+
     $(document).on('click', '.edit-vehicle', function () {
 
         var id = $(this).attr("data-id");
@@ -157,7 +233,6 @@ $(function () {
             }
         });
     });
-
 
 
 

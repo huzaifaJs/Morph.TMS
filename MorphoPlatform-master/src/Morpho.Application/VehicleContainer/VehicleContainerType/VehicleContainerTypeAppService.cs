@@ -44,7 +44,7 @@ namespace Morpho.VehicleContainer
             var exists = await _vehicleContainerTypeRepository.FirstOrDefaultAsync(x =>
                 x.TenantId == AbpSession.TenantId.Value &&
                 x.container_type.ToLower() == input.container_type.ToLower() &&
-                !x.IsDeleted
+                x.IsDeleted==false
             );
 
             if (exists != null)
@@ -67,7 +67,7 @@ namespace Morpho.VehicleContainer
         {
             var list = await _vehicleContainerTypeRepository
                 .GetAll()
-                .Where(x => x.TenantId == AbpSession.TenantId.Value && !x.IsDeleted)
+                .Where(x => x.TenantId == AbpSession.TenantId.Value && x.IsDeleted==false)
                 .OrderByDescending(x => x.created_at)
                 .ToListAsync();
             return ObjectMapper.Map<List<ContainerTypeDto>>(list);
@@ -102,7 +102,7 @@ namespace Morpho.VehicleContainer
                 throw new UserFriendlyException("Vehicle container type not found");
             }
 
-            entity.isactive = entity.isactive == true?false:true;
+            entity.isactive = !entity.isactive;
             entity.active_by = AbpSession.UserId;
             entity.active_at = DateTime.Now;
             await _vehicleContainerTypeRepository.UpdateAsync(entity);

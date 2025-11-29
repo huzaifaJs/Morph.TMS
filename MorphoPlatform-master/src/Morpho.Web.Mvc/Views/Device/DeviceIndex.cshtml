@@ -48,6 +48,7 @@
                                 <th>@L("minvalue")</th>
                                 <th>@L("maxvalue")</th>
                                 <th>@L("IOTDeviceIsActive")</th>
+                                <th>@L("iotdevicestatus")</th>
                                 <th>@L("IOTDeviceActions")</th>
                             </tr>
                         </thead>
@@ -61,6 +62,7 @@
 </section>
 
 @await Html.PartialAsync("~/Views/Device/Partials/_CreateDeviceModal.cshtml")
+@await Html.PartialAsync("~/Views/Device/Partials/_DeviceStatusModal.cshtml")
 <div id="EditDeviceModal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content"></div>

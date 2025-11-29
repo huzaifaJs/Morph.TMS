@@ -23,7 +23,9 @@ namespace Morpho.Authorization
         public const string Pages_Master_VehicleType = "Pages.Master.VehicleType";
         public const string Pages_Master_VehicleDocsType = "Pages.Master.VehicleDocsType";
         public const string Pages_Master_VehicleFuelType = "Pages.Master.VehicleFuelType";
+        public const string Pages_Master_VehicleContainerType = "Pages.Master.VehicleContainerType";
         public const string Pages_Vehicle_VehicleDocs = "Pages.Vehicle.VehicleDocumnet";
+        public const string Pages_Vehicle_VehicleContainer = "Pages.Vehicle.VehicleContainer";
     }
 }
 
